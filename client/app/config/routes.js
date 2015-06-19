@@ -11,11 +11,10 @@ angular.module('app.routes', ['ui.router'])
         url: '/signup',
         templateUrl: 'app/user/signup.html',
         controller: 'userController'
-      }) 
+      })
       .state('login', {
         url: '/login',
         templateUrl: 'app/user/login.html',
         controller: 'userController'
       });
   });
-

@@ -1,91 +1,4 @@
-<html>
-<head>
-  <title>The Web Scraper</title>
-  <link href='http://fonts.googleapis.com/css?family=Archivo+Narrow' rel='stylesheet' type='text/css'>
-  <style>
-  body {
-    background-image: url('subtle_white_feathers.png');
-    text-align: center;
-    font-family: 'Archivo Narrow'
-  }
-  #container {
-    text-align: center;
-    width: 700px;
-    margin: 10% auto 0;
-    border: 0px solid black;
-  }
-  h2 {
-    font-size: 250%;
-    margin: 0;
-    text-align: left;
-    margin-left: 155px;
-  }
-  h2:hover {
-    color: #a73f2d;
-  }
-  input {
-    line-height: 1.5;
-    font-size: 30px;
-    text-align: center;
-    display: block;
-    margin: 10px auto;
-    color: #696969;
-    font-family: 'Archivo Narrow';
-    border: 1px solid #696969;
-    width: 400px;
-    border-radius: 13px;
-    -moz-border-radius: 13px;
-    -webkit-border-radius: 13px;
-    padding: 10px;
-  }
-  button {
-    font-size: 25px;
-
-    	-moz-box-shadow:inset 0px 34px 0px -15px #b54b3a;
-    	-webkit-box-shadow:inset 0px 34px 0px -15px #b54b3a;
-    	box-shadow:inset 0px 34px 0px -15px #b54b3a;
-    	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #a73f2d), color-stop(1, #b34332));
-    	background:-moz-linear-gradient(top, #a73f2d 5%, #b34332 100%);
-    	background:-webkit-linear-gradient(top, #a73f2d 5%, #b34332 100%);
-    	background:-o-linear-gradient(top, #a73f2d 5%, #b34332 100%);
-    	background:-ms-linear-gradient(top, #a73f2d 5%, #b34332 100%);
-    	background:linear-gradient(to bottom, #a73f2d 5%, #b34332 100%);
-    	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#a73f2d', endColorstr='#b34332',GradientType=0);
-    	background-color:#a73f2d;
-    	border:1px solid #241d13;
-    	display:inline-block;
-    	cursor:pointer;
-    	color:#ffffff;
-    	font-family:Arial;
-    	font-size:15px;
-    	font-weight:bold;
-    	padding:9px 23px;
-    	text-decoration:none;
-    	text-shadow:0px -1px 0px #54170e;
-    }
-    button:hover {
-    	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #b34332), color-stop(1, #a73f2d));
-    	background:-moz-linear-gradient(top, #b34332 5%, #a73f2d 100%);
-    	background:-webkit-linear-gradient(top, #b34332 5%, #a73f2d 100%);
-    	background:-o-linear-gradient(top, #b34332 5%, #a73f2d 100%);
-    	background:-ms-linear-gradient(top, #b34332 5%, #a73f2d 100%);
-    	background:linear-gradient(to bottom, #b34332 5%, #a73f2d 100%);
-    	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#b34332', endColorstr='#a73f2d',GradientType=0);
-    	background-color:#b34332;
-    }
-    button:active {
-    	position:relative;
-    	top:1px;
-    }
-    p {
-      margin: 0;
-      text-align: left;
-      margin-left: 10em;
-    }
-
-  </style>
-</head>
-<body>
+  <!--
   <div id="container">
     <form id="theform" action='results.html'>
       <h2>The Web Scraper</h2>
@@ -97,5 +10,27 @@
       <button type="submit">SUBMIT</button>
     </form>
   </div>
-</body>
-</html>
+-->
+
+  <div id="container">
+
+    <h1>The Web Scraper</h1>
+
+    <p>Welcome to The Web Scraper.  For all your scraping needs.</p>
+    <p>All you need is a valid email address so sign up today and receive free scapes for life!</p>
+
+    <div class="form-style-8">
+
+      <h2>Login to your account</h2>
+
+      <form>
+        <input type="text" name="email" id="email" value="email address" onfocus="this.value=''">
+        <input type="text" name="pass" id="pass" value="password" onfocus="this.type='password';this.value=''">
+        <input type="button" value="Login" />
+      </form>
+
+    </div>
+
+  </div>
+
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
