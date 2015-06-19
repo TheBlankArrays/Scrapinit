@@ -9,7 +9,7 @@ var schemas = dbConfig.createSchemas(sequelize, true);
 **/
 exports.User = schemas.User;
 
-
+lll
 
 ;var Sequelize = require("sequelize");
 
