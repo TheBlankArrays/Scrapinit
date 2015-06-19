@@ -5,7 +5,7 @@ var validProtocols = {
   'https': 'true'
 }
 
-var obj = {
+module.exports = {
   get: function(url, cb){
   var protocolIdentifier = url.split('://');
   if(validProtocols[protocolIdentifier[0]]){
@@ -13,10 +13,9 @@ var obj = {
       cb(error, response, html);
     })
   } else {
-      cb('invalid url', null, null);
+      cb(true, {statusCode: null}, null);
     }
   }
 };
 
-module.exports = obj;
 
