@@ -20,14 +20,3 @@ var obj = {
 
 module.exports = obj;
 
-
-// obj.get(url, function(error, response, html){
-//     if (!error && response.statusCode == 200) {
-//       console.log('success');
-//       // console.log(html);        
-//     } else {
-//       console.log('failure')
-//       console.log('error -' + error);
-//     }
-//   }
-// );
