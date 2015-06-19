@@ -2,13 +2,11 @@ var db = require('../db');
 
 module.exports = {
   login: function (req, res, next) {
-    console.log('ENTER');
     var user = req.body;
     db.User.findOne({
       where: user
     })
     .then(function (user) {
-      console.log('USER FIND ONE ', user);
       if (user) {
         req.session.email = user.email;
         res.status(200).json(user);
@@ -20,7 +18,6 @@ module.exports = {
 
   signup: function (req, res, next) {
     var user = req.body;
-    console.log('user ', user);
     db.User.findOne({
       where: user
     })
@@ -30,7 +27,6 @@ module.exports = {
       } else {
         db.User.create(user)
         .then(function (newUser){
-          console.log('user created ', newUser);
           res.status(201).json(newUser);
         });
       }
