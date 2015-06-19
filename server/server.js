@@ -32,7 +32,7 @@ app.use(express.static(__dirname + '/../client/'));
 app.use(cors());
 
 //start server functions and export
-var start = function() {
+var initServer = function() {
 	//attachs all the routes to the server
 	routes.setup(app);
 	//if deployed to heroku will use heroku port, otherwise on local machine will use port 3000
@@ -42,5 +42,5 @@ var start = function() {
 	console.log("Express server listening on %d in %s mode", port, app.settings.env)
 }
 
-start();
+initServer();
 exports.app = app;
