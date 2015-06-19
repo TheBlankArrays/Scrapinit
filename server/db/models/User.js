@@ -6,3 +6,4 @@ module.exports = function(sequelize, tableConfig) {
     password: Sequelize.STRING
   }, tableConfig); 
 }
+
