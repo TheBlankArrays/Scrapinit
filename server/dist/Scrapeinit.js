@@ -1,4 +1,74 @@
-var express = require('express');
+var Sequelize = require("sequelize");
+var dbConfig = require("./dbConfig");
+
+var sequelize = dbConfig.connect('./db/db.sqlite');
+var schemas = dbConfig.createSchemas(sequelize, true);
+
+/**
+  * Export the differents models
+**/
+exports.User = schemas.User;
+
+lll
+
+;var Sequelize = require("sequelize");
+
+//no password
+var connect = function(dbPath) {
+	var sequelize = new Sequelize('database', 'root', '', {
+		host:'localhost',
+		dialect: 'sqlite',
+
+		//not sure exactly what this does, copying config documentation
+		pool: {
+			max: 5,
+			min: 0,
+			idle: 10000
+		},
+
+		logging: false,
+
+		storage: dbPath
+	});
+
+	return sequelize;
+};
+
+//construct is just a boolean input - allows same function to be used for testing and the actual server
+var createSchemas = function(dbConnection, construct) {
+	var tableConfig = {
+		underscored: true,
+		timestamps: true,
+		freezeTableName: false
+	}
+
+	//Models
+	var User = require('./db/models/User')(dbConnection, tableConfig);
+
+
+	//Basically check if tables exists, if not, creates it
+	if (construct) {
+		User.sync();
+	}
+
+	return {
+		User: User
+	}
+}
+
+exports.connect = connect;
+exports.createSchemas = createSchemas;
+
+
+;var authController = require('./controllers/authController');
+
+function setup(app) {
+	app.route('/api/users/login')
+    .get(authController.login);
+}
+
+exports.setup = setup;
+;var express = require('express');
 var app = express();
 //run the sqlite
 var db = require('./db');

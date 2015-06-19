@@ -3,14 +3,22 @@
 <head>
   <meta charset="utf8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SCRAPE</title>
+  <title>The Web Scraper</title>
+  <link href='http://fonts.googleapis.com/css?family=Archivo+Narrow' rel='stylesheet' type='text/css'>
+  <link href='/app/styles/main.css' rel='stylesheet' type='text/css'>
 </head>
 <body ng-app='app' ng-controller='appController'>
-  <div ui-view></div>
-  
+  <div class="background-image"></div>
+  <div class="background-image" id="second"></div>
+
+  <div id="container"><div ui-view></div>
+
   <script src='lib/angular/angular.js'></script>
   <script src='lib/angular-ui-router/release/angular-ui-router.js'></script>
 
+  <script src='app/home/resultsController.js'></script>
+  <script src='app/home/addUrlController.js'></script>
+  <script src='app/home/homeController.js'></script>
   <script src='app/user/userController.js'></script>
   <script src='app/config/routes.js'></script>
   <script src='app/main.js'></script>
