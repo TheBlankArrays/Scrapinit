@@ -5,5 +5,5 @@ node_modules/
 client/node_modules
 client/lib
 server/node_modules
-server/dist
+server/dist/Scrapeinit.js
 npm-debug.log
