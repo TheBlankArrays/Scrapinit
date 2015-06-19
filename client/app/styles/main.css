@@ -14,7 +14,7 @@ body {
   padding: 50px;
   background-color: rgba(255,255,255,0.4);
   background-image: url('/app/images/crossword.png');
-  z-index: 100;
+  z-index: 200;
 
 }
 h1 {
@@ -127,6 +127,22 @@ button {
     z-index: 1;
 
   }
+
+  #color {
+
+    opacity: 0.6;
+    background-color: rgba(120,255,120,0.3);
+
+    position: fixed;
+    top: -20;
+    bottom: 0;
+    left: -20;
+    right: 0;
+
+    z-index: 2;
+
+  }
+
 
   @keyframes changeBlur {
       from {
