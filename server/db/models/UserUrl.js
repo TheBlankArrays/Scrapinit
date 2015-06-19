@@ -2,6 +2,7 @@ var Sequelize = require("sequelize");
 
 module.exports = function(sequelize, tableConfig) {
   return sequelize.define('UserUrl', {
-    url: Sequelize.STRING
+    url: Sequelize.STRING,
+    frequency: Sequelize.INTIGER
   }, tableConfig)
 }
