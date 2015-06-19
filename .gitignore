@@ -5,3 +5,4 @@ node_modules/
 client/node_modules
 client/lib
 server/node_modules
+npm-debug.log
