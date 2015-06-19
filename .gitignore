@@ -3,3 +3,6 @@
 # see https://npmjs.org/doc/faq.html#Should-I-check-my-node_modules-folder-into-git
 node_modules/
 bower_components/
+client/node_modules
+client/lib
+server/node_modules
