@@ -1,3 +1,18 @@
-<div>
-  Signup
-</div>
+<h1>The Web Scraper</h1>
+
+    <p>Welcome to The Web Scraper.  For all your scraping needs.</p>
+    <p>All you need is a valid email address so sign up today and receive free scapes for life!</p>
+
+    <div class="form-style-8">
+
+      <h2>Signup to your account</h2>
+      <div>{{error}}</div>
+      <form ng-submit="signup()">
+        <input type="text" placeholder="Email" ng-model="user.email">
+        <input type="password" placeholder="Password" ng-model="user.password">
+        <button>Signup</button>
+      </form>
+      <span ui-sref='login'>Login</span>
+    </div>
+    
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
