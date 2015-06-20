@@ -1,13 +1,62 @@
-var CronJob = require('cron').CronJob;
+module.exports = {
+  mandrill : {
+   client_id : 'xc1gIFhvZCYJfiAQXFqppg'
+ }
+};var CronJob = require('cron').CronJob;
+var secret = require('./config.js');
+var db = require('../db.js');
+var mandrill = require('mandrill-api');
+mandrill_client = new mandrill.Mandrill(secret.mandrill.client_id);
 
-var job = new CronJob({
-  cronTime: '00 00 00 * * *',
-  onTick: function() {
-    start: false,
-    timeZone: 'America/Los_Angeles'
-});
+var schedule = '0 */5 * * * *';
+//To run every 3 seconds do */3; every 5 min do * */5 *
 
-job.start();;var Sequelize = require("sequelize");
+var cronjob = new CronJob(schedule, function() {
+  console.log('You will see this message every 5 min');
+  // check database for jobs assigned for cronjob
+
+  // get urls 
+
+  // render the page and compare if it changed 
+  // if change occured changed=true;
+  // if change  occured then send an email
+  var changed = false;
+  if (changed) {
+    sendEmail('', '');
+    changed = false;
+  }
+
+
+}, null, true, 'America/Los_Angeles');
+
+var sendEmail = function (email, name){
+  var message = {
+    "html": "<span>The Scrapinit found a change in the webpage you are following</span>",
+    "subject": "We scraped some tubular stuff for you!!",
+    "from_email": email,
+    "from_name": "The Blank Arrays",
+    "to": [{
+      "email": email,
+      "name":  name,
+      "type": "to"
+    },
+    ],
+    "headers": {
+      "Reply-To": ""
+    },
+    "important": true,
+  };
+
+var async = false;
+//send email // uncomment to send an email
+mandrill_client.messages.send({"message": message, "async": async}, function(result) {
+  console.log('Sent a message to '+ email+'  '+ result);
+}, function(e) {
+            // Mandrill returns the error as an object with name and message keys
+            console.log('A mandrill error occurred: ' + e.name + ' - ' + e.message);
+            // A mandrill error occurred: Unknown_Subaccount - No subaccount exists with the id 'customer-123'
+  });
+};var Sequelize = require("sequelize");
 var dbConfig = require("./dbConfig");
 
 var sequelize = dbConfig.connect('./db/db.sqlite');
@@ -86,25 +135,21 @@ var authController = require('./controllers/authController');
 var urlController = require('./controllers/urlController');
 
 var setup = function(app) {
-
-	app.route('/api/users/login')
-
+  app.route('/api/users/login')
     .post(authController.login);
 
   app.route('/api/users/signup')
     .post(authController.signup)
     .get(authController.login);
 
-
   app.route('/api/users/urls')
     .get(urlController.getUrls)
     .post(urlController.postUrl); 
 
-  app.route('/api/users/url')
+  app.route('/api/users/retrieveUrl')
     .post(urlController.getExternalUrl);
 
 };
-
 module.exports.setup = setup;
 ;var express = require('express');
 var app = express();
