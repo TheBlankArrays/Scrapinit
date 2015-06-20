@@ -3,6 +3,7 @@ var basicScraper = require('./basicScraperController');
 module.exports = {
   getUrls: function (req, res, next) {
     console.log('get Urls');
+    res.send('you are checking out ' + req.body.url);
   },
   postUrl: function (req, res, next) {
     console.log('post Urls');
