@@ -29,7 +29,7 @@ var createSchemas = function(dbConnection, construct) {
 		underscored: true,
 		timestamps: true,
 		freezeTableName: false
-	}
+	};
 
 	//Models
 	var User = require('./db/models/User')(dbConnection, tableConfig);
