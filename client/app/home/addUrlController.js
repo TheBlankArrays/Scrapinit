@@ -4,7 +4,7 @@ angular.module('app.home.addUrl', [ 'ui.router'])
  $scope.html = '';
 
  $scope.add = function() {
-     var loginUrl = '/user/url';
+     var loginUrl = '/api/users/addUrl';
      console.log('urlCtrl');
      $http.post(loginUrl, {url: $scope.url })
        .success(function (data) {

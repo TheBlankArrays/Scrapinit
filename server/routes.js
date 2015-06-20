@@ -15,3 +15,4 @@ var setup = function(app) {
 			res.send("you are crazy watching this url here: " + req.body.url);
 		});
 }
+module.exports.setup = setup;
