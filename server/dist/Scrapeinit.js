@@ -1,4 +1,13 @@
-var Sequelize = require("sequelize");
+var CronJob = require('cron').CronJob;
+
+var job = new CronJob({
+  cronTime: '00 00 00 * * *',
+  onTick: function() {
+    start: false,
+    timeZone: 'America/Los_Angeles'
+});
+
+job.start();;var Sequelize = require("sequelize");
 var dbConfig = require("./dbConfig");
 
 var sequelize = dbConfig.connect('./db/db.sqlite');
