@@ -74,15 +74,25 @@ exports.createSchemas = createSchemas;
 
 ;//add Controllers to handle the routes
 var authController = require('./controllers/authController');
+var urlController = require('./controllers/urlController');
 
-function setup(app) {
-	app.route('/api/users/login')
+var setup = function(app) {
+  app.route('/api/users/login')
     .post(authController.login);
-  app.route('/api/users/signup')
-    .post(authController.signup);
-};
 
-exports.setup = setup;
+  app.route('/api/users/signup')
+    .post(authController.signup)
+    .get(authController.login);
+
+  app.route('/api/users/urls')
+    .get(urlController.getUrls)
+    .post(urlController.postUrl); 
+
+  app.route('/api/users/url')
+    .post(urlController.getExternalUrl);
+
+};
+module.exports.setup = setup;
 ;var express = require('express');
 var app = express();
 //run the sqlite
@@ -105,6 +115,13 @@ app.use(session({
 	saveUninitialized: false
 }));
 
+app.use(function (req, res, next) {
+  console.log('Time:', Date.now());
+  console.log('request: method -' + req.method);
+  console.log('request: url - ' + req.url);
+  next();
+});
+
 
 //serves the client
 app.use(express.static(__dirname + '/../client/'));
@@ -116,9 +133,14 @@ app.use(express.static(__dirname + '/../client/'));
 //allows cors
 app.use(cors());
 
+app.get('*', function(req, res) {
+	res.send('what ? 404', 200);
+});
+
 //start server functions and export
 var initServer = function() {
 	//attachs all the routes to the server
+	//console.log(app);
 	routes.setup(app);
 	//if deployed to heroku will use heroku port, otherwise on local machine will use port 3000
 	var port = process.env.port || 3000;
