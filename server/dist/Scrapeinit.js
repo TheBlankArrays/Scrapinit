@@ -1,8 +1,4 @@
-module.exports = {
-  mandrill : {
-   client_id : 'xc1gIFhvZCYJfiAQXFqppg'
- }
-};var CronJob = require('cron').CronJob;
+var CronJob = require('cron').CronJob;
 var secret = require('./config.js');
 var db = require('../db.js');
 var mandrill = require('mandrill-api');
@@ -14,7 +10,7 @@ var schedule = '0 */5 * * * *';
 var cronjob = new CronJob(schedule, function() {
   console.log('You will see this message every 5 min');
   // check database for jobs assigned for cronjob
-
+  // db
   // get urls 
 
   // render the page and compare if it changed 
