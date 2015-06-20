@@ -34,7 +34,8 @@
     "should": "^7.0.1",
     "sqlite3": "^3.0.8",
     "supertest": "^1.0.1",
-    "validator": "^3.40.1"
+    "validator": "^3.40.1",
+    "webshot": "^0.16.0"
   },
   "devDependencies": {
     "jasmine-core": "^2.3.4",
