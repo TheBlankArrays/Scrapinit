@@ -17,7 +17,8 @@ DROP TABLE IF EXISTS `scrapes`;
 
 CREATE TABLE `scrapes` (
     `urlID` INT NOT NULL AUTO_INCREMENT,
-    `url` VARCHAR(255) NOT NULL,
+    `html` VARCHAR(255) NOT NULL,
+    'frequency' INT NOT NULL DEFAULT 5,
     PRIMARY KEY (`urlID`)
 );
 

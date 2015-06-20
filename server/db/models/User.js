@@ -5,4 +5,4 @@ module.exports = function(sequelize, tableConfig) {
     email: Sequelize.STRING,
     password: Sequelize.STRING
   }, tableConfig); 
-}
+};
