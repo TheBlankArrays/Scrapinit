@@ -29,6 +29,7 @@
     "passport-local": "^1.0.0",
     "request": "^2.58.0",
     "sequelize": "^3.1.1",
+    "should": "^7.0.1",
     "sqlite3": "^3.0.8",
     "supertest": "^1.0.1",
     "validator": "^3.40.1"
