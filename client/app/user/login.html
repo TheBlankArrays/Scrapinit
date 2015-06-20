@@ -20,13 +20,13 @@
     <div class="form-style-8">
 
       <h2>Login to your account</h2>
-
-      <form action="/home">
-        <input type="text" name="email" id="email" value="email address" onfocus="this.value=''">
-        <input type="text" name="pass" id="pass" value="password" onfocus="this.type='password';this.value=''">
-        <input type="button" value="Login" />
+      <div>{{error}}</div>
+      <form ng-submit="login()">
+        <input type="text" placeholder="Email" ng-model="user.email">
+        <input type="password" placeholder="Password" ng-model="user.password">
+        <button>Login</button>
       </form>
-
+      <span ui-sref='signup'>Sign Up</span>
     </div>
     
   <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
