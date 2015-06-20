@@ -15,5 +15,5 @@ var setup = function(app) {
     .post(urlController.getExternalUrl);
 };
 
-exports.module.setup = setup;
+module.exports.setup = setup;
 
