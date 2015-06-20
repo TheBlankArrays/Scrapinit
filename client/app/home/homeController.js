@@ -1,8 +1,9 @@
 angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router'])
 .controller('homeController', function ($scope, $state) {
-  $scope.html= '';
+  $state.go('home.addUrl');
   $scope.add = function() {
-    $scope.html = 'newValues';
-    $state.go('home.addUrl');
+    console.log('home');
+    $scope.html = $scope.url;
+    $scope.url = ''; 
   }
 });

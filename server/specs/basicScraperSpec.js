@@ -23,7 +23,7 @@ describe('Basic Scraper', function() {
       error = !!error;
       expect(error).to.equal(true);
       expect(html).to.equal(null);              
-      expect(response).to.equal(null);
+      expect(response.statusCode).to.equal(null);
       done();
     });
   });

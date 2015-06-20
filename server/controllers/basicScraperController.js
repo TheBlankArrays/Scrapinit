@@ -5,18 +5,19 @@ var validProtocols = {
   'https': 'true'
 }
 
-var obj = {
+module.exports = {
   get: function(url, cb){
   var protocolIdentifier = url.split('://');
   if(validProtocols[protocolIdentifier[0]]){
+    console.log('passed valid protocol');
     request(url, function (error, response, html) {
       cb(error, response, html);
     })
   } else {
-      cb('invalid url', null, null);
+      console.log('failed protocol');
+      cb(true, {statusCode: null}, null);
     }
   }
 };
 
-module.exports = obj;
 
