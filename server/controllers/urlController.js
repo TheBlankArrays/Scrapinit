@@ -13,7 +13,7 @@ module.exports = {
       if(!error & response.statusCode === 200){
         res.send(html);
       } else {
-        res.send('error');
+        res.send(html);
       }
     });
   }

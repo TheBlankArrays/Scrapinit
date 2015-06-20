@@ -20,6 +20,13 @@ app.use(session({
 	saveUninitialized: false
 }));
 
+app.use(function (req, res, next) {
+  console.log('Time:', Date.now());
+  console.log('request: method -' + req.method);
+  console.log('request: url - ' + req.url);
+  next();
+});
+
 
 //serves the client
 app.use(express.static(__dirname + '/../client/'));
