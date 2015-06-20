@@ -45,6 +45,7 @@ app.get('*', function(req, res) {
 //start server functions and export
 var initServer = function() {
 	//attachs all the routes to the server
+	//console.log(app);
 	routes.setup(app);
 	//if deployed to heroku will use heroku port, otherwise on local machine will use port 3000
 	var port = process.env.port || 3000;
