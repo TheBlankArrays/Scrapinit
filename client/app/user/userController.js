@@ -52,7 +52,7 @@ angular.module('app.user', [])
       callback(false);
     })
     .error(function (err) {
-      callback(true, err);
+      callback(true, err.message);
     });
   };
 

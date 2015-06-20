@@ -27,18 +27,13 @@ module.exports = {
 
   signup: function (req, res, next) {
     var user = req.body;
-    db.User.findOne({
-      where: user
+    db.User.create(user)
+    .then(function (newUser){
+      res.status(201).json(newUser);
     })
-    .then(function (userFound) {
-      if (userFound) {
-        res.status(401).json({error: 'User is already taken'});
-      } else {
-        db.User.create(user)
-        .then(function (newUser){
-          res.status(201).json(newUser);
-        });
-      }
+    .catch(function (err) {
+      console.log(err);
+      res.status(401).json({message: err.message});
     });
   }
 };

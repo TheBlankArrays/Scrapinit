@@ -16,13 +16,28 @@ module.exports = function(sequelize, tableConfig) {
     }
   };
   return sequelize.define('user', {
-    email: Sequelize.STRING,
+    email: {
+      type: Sequelize.STRING,
+      unique: { 
+        msg: 'Email already exists' 
+      },
+      validate: {
+        isEmail: {
+          msg: 'Email is not valid'
+        },
+        notNull: true
+      }
+    },
     password: {
       type: Sequelize.STRING,
+      allowNull: false,
       set:  function(pass) {
           var salt = bcrypt.genSaltSync(10);
           var hash = bcrypt.hashSync(pass, salt);
           this.setDataValue('password', hash);
+      },
+      validate: {
+        notNull: true
       }
     }
   }, tableConfig); 
