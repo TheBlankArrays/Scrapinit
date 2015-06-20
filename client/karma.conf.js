@@ -21,7 +21,7 @@ module.exports = function(config) {
         //App
         'app/**/*.js',
         //spec files
-        'node_modules/expect.js/index.js',
+        '../node_modules/expect.js/index.js',
         'specs/**/*.js'
     ],
 

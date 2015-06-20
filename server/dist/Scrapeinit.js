@@ -9,7 +9,7 @@ var schemas = dbConfig.createSchemas(sequelize, true);
 **/
 exports.User = schemas.User;
 
-lll
+
 
 ;var Sequelize = require("sequelize");
 
@@ -19,12 +19,14 @@ var connect = function(dbPath) {
 		host:'localhost',
 		dialect: 'sqlite',
 
+		// use pooling in order to reduce db connection overload and to increase speed
+		// currently only for mysql and postgresql (since v1.5.0)
 		//not sure exactly what this does, copying config documentation
-		pool: {
-			max: 5,
-			min: 0,
-			idle: 10000
-		},
+		// pool: {
+		// 	max: 5,
+		// 	min: 0,
+		// 	idle: 10000
+		// },
 
 		logging: false,
 
@@ -40,32 +42,45 @@ var createSchemas = function(dbConnection, construct) {
 		underscored: true,
 		timestamps: true,
 		freezeTableName: false
-	}
+	};
 
 	//Models
 	var User = require('./db/models/User')(dbConnection, tableConfig);
+	var Url = require('./db/models/Url')(dbConnection, tableConfig);
+	var UserUrl = require('./db/models/UserUrl')(dbConnection, tableConfig);
+
+      // relationship 
+      User.belongsToMany(Url, { through: UserUrl});
+      Url.belongsToMany(User, { through: UserUrl});
 
 
 	//Basically check if tables exists, if not, creates it
 	if (construct) {
 		User.sync();
+            Url.sync();
+            UserUrl.sync();
 	}
 
 	return {
-		User: User
+		User: User,
+		Url: Url,
+		UserUrl: UserUrl
 	}
-}
+};
 
 exports.connect = connect;
 exports.createSchemas = createSchemas;
 
 
-;var authController = require('./controllers/authController');
+;//add Controllers to handle the routes
+var authController = require('./controllers/authController');
 
 function setup(app) {
 	app.route('/api/users/login')
-    .get(authController.login);
-}
+    .post(authController.login);
+  app.route('/api/users/signup')
+    .post(authController.signup);
+};
 
 exports.setup = setup;
 ;var express = require('express');
