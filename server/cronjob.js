@@ -1,9 +1,10 @@
 var CronJob = require('cron').CronJob;
-var secret = require('./config.js');
+var secret = require('../config.js');
 var db = require('./db.js');
 var mandrill = require('mandrill-api');
 mandrill_client = new mandrill.Mandrill(secret.mandrill.client_id);
 
+// To run the cronjob as it is now: navigate to server dir and type node cronjob
 var schedule = '0 */5 * * * *';
 //To run every 3 seconds do */3; every 5 min do * */5 *
 
