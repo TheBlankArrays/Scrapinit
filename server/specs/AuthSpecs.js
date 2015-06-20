@@ -7,6 +7,7 @@ var supertest = require('supertest');
 var request = supertest(serverHost);
 var Sequelize = require('sequelize');
 var db = require('../dbConfig');
+var bcrypt = require('bcrypt');
 var utils = {
   testUser: {
     email: "testemail@gmail.com",
@@ -84,6 +85,25 @@ describe('API AUTH USER', function() {
         })
       });
 
+      it('Signup should encrypt the password into the database', function (done) {
+        request.post('/api/users/signup')
+        .send(utils.testUser)
+        .expect(201)
+        .end(function (err, res) {
+          User.findOne({
+            where: {email: utils.testUser.email}
+          }).then(function (userFound) {
+            if (userFound){
+              var password = userFound.password;
+              bcrypt.compare(utils.testUser.password, password, function(err, res) {
+                res.should.equal(true);
+                done();
+              });
+            }
+          });
+        });
+      });
+
       it('login should respond with status code 200 if username/password is correct', function (done) {
         request.post('/api/user/signup')
         .send(utils.testUser)
@@ -102,7 +122,7 @@ describe('API AUTH USER', function() {
         var wrongTestUser = {
           username: "doesntexist",
           password: "wrongpassword"
-        }
+        };
         request.post('/api/user/login')
         .send(wrongTestUser)
         .expect(401)
@@ -110,6 +130,7 @@ describe('API AUTH USER', function() {
           done();
         });
       });
+
     });
 
   });
