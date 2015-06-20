@@ -9,9 +9,6 @@ Navigate to Scrapinit folder on your computer
 ### Install all the required dependencies from the package.json:
 ```sh
 $ npm install
-$ cd client
-$ npm install
-$ cd ..
 ```
 
 ### Install all the required bower dependencies from the bower.json:

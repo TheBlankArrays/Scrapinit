@@ -40,7 +40,7 @@ module.exports = function(grunt) {
 
     shell: {
       npmInstall: {
-      command: 'npm install; cd client; npm install; bower install; cd .. ',
+      command: 'npm install; cd client; bower install; cd .. ',
 
       options: {
             stdout: true,
