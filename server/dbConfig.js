@@ -51,9 +51,9 @@ var createSchemas = function(dbConnection, construct) {
 	return {
 		User: User,
 		Url: Url,
-		UserUrl: UserUrls
+		UserUrl: UserUrl
 	}
-}
+};
 
 exports.connect = connect;
 exports.createSchemas = createSchemas;
