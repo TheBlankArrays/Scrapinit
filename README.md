@@ -2,6 +2,7 @@
 Clone repo to your computer:
 ```sh
 $ git clone https://github.com/TheBlankArrays/Scrapinit.git
+```
 
 Navigate to Scrapinit folder on your computer
 

@@ -7,3 +7,5 @@ client/lib
 npm-debug.log
 server/test.js
 server/dist/*
+server/db/db.sqlite
+config.js
