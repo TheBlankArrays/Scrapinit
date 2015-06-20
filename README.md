@@ -14,6 +14,7 @@ $ npm install
 ```sh
 $ cd client
 $ bower install
+$ cd ..
 ```
 
 ### Update dependencies by typing: 
