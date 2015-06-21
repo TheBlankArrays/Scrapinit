@@ -32,7 +32,6 @@ module.exports = {
       res.status(201).json(newUser);
     })
     .catch(function (err) {
-      console.log(err);
       res.status(403).json({message: err.message});
     });
   }
