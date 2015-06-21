@@ -1,7 +1,7 @@
 module.exports = function(grunt) {
 
   grunt.initConfig({
-    pkg: grunt.file.readJSON('./server/package.json'),
+    pkg: grunt.file.readJSON('./package.json'),
     concat: {
         options: {
           separator: ';'
@@ -40,7 +40,7 @@ module.exports = function(grunt) {
 
     shell: {
       npmInstall: {
-      command: 'cd server; npm install; cd ..; cd client; npm install; bower install; cd .. ',
+      command: 'npm install; cd client; bower install; cd .. ',
 
       options: {
             stdout: true,

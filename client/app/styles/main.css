@@ -101,16 +101,7 @@ button {
     width: 9000px;
     height: 8000px;
 
-    -webkit-filter: blur(5px);
-    -moz-filter: blur(5px);
-    -o-filter: blur(5px);
-    -ms-filter: blur(5px);
-    filter: blur(5px);
 
-    opacity: 0.7;
-
-    -webkit-animation: changeBlur 15s linear 15s infinite alternate;
-    animation: changeBlur 15s linear 15s infinite alternate;
   }
 
   #second-bg-image {
@@ -124,14 +115,14 @@ button {
     right: 0;
 
     animation: changeBlur 7s linear 7s infinite alternate;
-    z-index: 1;
+    z-index: -50;
 
   }
 
   #color {
 
     opacity: 0.6;
-    background-color: rgba(120,255,120,0.3);
+    background-color: rgba(120,255,120,0.2);
 
     position: fixed;
     top: -20;
@@ -151,13 +142,15 @@ button {
         -o-filter: blur(2px);
         -ms-filter: blur(2px);
         filter: blur(2px);
+        top: 0px;
       }
       to {
-        -webkit-filter: blur(7px);
-        -moz-filter: blur(7px);
-        -o-filter: blur(7px);
-        -ms-filter: blur(7px);
-        filter: blur(7px);
+        -webkit-filter: blur(9px);
+        -moz-filter: blur(9px);
+        -o-filter: blur(9px);
+        -ms-filter: blur(9px);
+        filter: blur(9px);
+        top: 200px;
       }
   }
 
