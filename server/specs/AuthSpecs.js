@@ -60,7 +60,7 @@ describe('API AUTH USER', function() {
 
   describe('user management', function () {
 
-    describe('signup and login/logout', function () {
+    describe('Route ', function () {
 
       it('signup should return 201 when the user is created successfully', function (done) {
         request.post('/api/user/signup')
@@ -93,13 +93,10 @@ describe('API AUTH USER', function() {
           User.findOne({
             where: {email: utils.testUser.email}
           }).then(function (userFound) {
-            if (userFound){
-              var password = userFound.password;
-              bcrypt.compare(utils.testUser.password, password, function(err, res) {
-                res.should.equal(true);
-                done();
-              });
-            }
+            var password = userFound.password;
+            var compared = bcrypt.compareSync(utils.testUser.password, password);
+            compared.should.equal(true);
+            done();
           });
         });
       });
@@ -133,5 +130,50 @@ describe('API AUTH USER', function() {
 
     });
 
+  });
+
+  describe('user validations', function () {
+
+    describe('signup and login/logout', function () {
+
+      it('Return 403 if email is empty', function (done) {
+        request.post('/api/user/login')
+        .send({
+          email: null,
+          password: '123qwe'
+        })
+        .expect(403)
+        .end(function (err, res) {
+          done();
+        });
+      });
+
+      it('Return 403 if password is empty', function (done) {
+        request.post('/api/user/login')
+        .send({
+          email: 'Pepe',
+          password: null,
+        })
+        .expect(403)
+        .end(function (err, res) {
+          done();
+        });
+      });
+
+      it('Return 403 if email is already exist', function (done) {
+        request.post('/api/user/login')
+        .send(utils.testUser)
+        .expect(201)
+        .end(function (err, res) {
+          request.post('/api/user/login')
+          .send(utils.testUser)
+          .expect(403)
+          .end(function (err, res) {
+            done();
+          });
+        });
+      });
+
+    });
   });
 });

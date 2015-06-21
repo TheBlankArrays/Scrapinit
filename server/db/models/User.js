@@ -21,11 +21,11 @@ module.exports = function(sequelize, tableConfig) {
       unique: { 
         msg: 'Email already exists' 
       },
+      allowNull: false,
       validate: {
         isEmail: {
           msg: 'Email is not valid'
-        },
-        notNull: true
+        }
       }
     },
     password: {
@@ -35,9 +35,6 @@ module.exports = function(sequelize, tableConfig) {
           var salt = bcrypt.genSaltSync(10);
           var hash = bcrypt.hashSync(pass, salt);
           this.setDataValue('password', hash);
-      },
-      validate: {
-        notNull: true
       }
     }
   }, tableConfig); 
