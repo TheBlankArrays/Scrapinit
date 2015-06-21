@@ -21,7 +21,6 @@ CREATE TABLE `Url` (
 DROP TABLE IF EXISTS UserUrl;
 
 CREATE TABLE `UserUrl` (
-    `UserUrlID` INT NOT NULL AUTO_INCREMENT,
     `userID` INT NOT NULL,
     `urlID` INT NOT NULL,
     `frequency` INT NOT NULL DEFAULT '5',
