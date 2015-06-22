@@ -5,6 +5,8 @@ angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router'])
    $scope.urls = [];
    console.log($scope.urls);
 
+   $http.get('/api/users/addUrl', {url: $scope.url })
+
    $scope.logout = function() {
      $http.get("/api/users/logout")
        .success(function (data) {
