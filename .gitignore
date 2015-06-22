@@ -9,3 +9,4 @@ server/test.js
 server/dist/*
 server/db/db.sqlite
 config.js
+client/assets

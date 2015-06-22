@@ -37,8 +37,8 @@ var createSchemas = function(dbConnection, construct) {
 	var UserUrl = require('./db/models/UserUrl')(dbConnection, tableConfig);
 
       // relationship 
-      User.belongsToMany(Url, { through: UserUrl});
-      Url.belongsToMany(User, { through: UserUrl});
+      User.belongsToMany(Url, { through: UserUrl, foreignKey: 'urlID'});
+      Url.belongsToMany(User, { through: UserUrl, foreignKey: 'userID'});
 
 
 	//Basically check if tables exists, if not, creates it
