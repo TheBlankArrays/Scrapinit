@@ -13,11 +13,16 @@ var setup = function(app) {
   app.route('/api/users/urls')
     .get(urlController.getUrls)
     .post(urlController.postUrl);
-
-  app.route('/api/users/retrieveUrl')
+/**
+  * Feature return the html from the page
+  app.route('/api/users/retrieve_url')
     .post(urlController.getExternalUrl);
+**/
 
-	app.route('/api/users/addUrl')
+	
+/**
+  * Feature screenshot to webpage to select area
+  app.route('/api/users/addUrl')
     .post(function(req, res, next) {
 			console.log(req.body.url);
 			var webshot = require('webshot');
@@ -29,5 +34,6 @@ var setup = function(app) {
 
 			});
 		});
+**/
 };
 module.exports.setup = setup;
