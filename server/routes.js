@@ -15,7 +15,7 @@ var setup = function(app) {
 
   app.route('/api/users/geturls')
     .get(urlController.getUrls)
-    .post(urlController.postUrl);
+    .post(urlController.addUrl);
 
   // Feature return the html from the page
   app.route('/api/users/retrieve_url')
@@ -23,6 +23,7 @@ var setup = function(app) {
 
   app.route('/api/users/checkUser')
     .get(authController.checkUser);
+
 
 	app.route('/api/users/addUrl')
     .post(function(req, res, next) {

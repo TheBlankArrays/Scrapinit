@@ -32,11 +32,11 @@ User.select = function(userEmail) {
   return User.find({where: {email: userEmail}});
 };
 
-User.getUrls = function(user) {
+User.getUrls = function(user, cb) {
   // user will be an email string
-  User.select({where: {email: user}})
+  User.find({where: {email: user}})
     .then(function(userObj) {
-      return userObj.getUrls();
+      cb(userObj.getUrls());
     })
 };
 
@@ -72,7 +72,6 @@ Url.destroy = function() {
 // UserUrl.destroy = function() {
 
 // }
-
 
 exports.User = schemas.User;
 exports.Url = schemas.Url;
