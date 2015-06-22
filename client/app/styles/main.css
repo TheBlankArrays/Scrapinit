@@ -236,10 +236,29 @@ button {
       background:linear-gradient(to bottom, #34CACA 5%, #30C9C9 100%);
       background-color:#34CACA;
   }
-#signout{
+#signout-button{
     top: 3px;
     right: 8px;
     float: right;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    border-radius: 7px; 
+    -khtml-border-radius: 7px; /* for old Konqueror browsers */
+
+}
+
+#submit-button {
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    border-radius: 7px; 
+    -khtml-border-radius: 7px; /* for old Konqueror browsers */
+}
+
+#login-button {
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    border-radius: 7px; 
+    -khtml-border-radius: 7px; /* for old Konqueror browsers */
 }
 
 
