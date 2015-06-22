@@ -4,7 +4,6 @@ angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router'])
    $scope.html = '';
    $scope.urls = [];
    console.log($scope.urls);
-<<<<<<< HEAD
 
    $http.get('/api/users/addUrl', {url: $scope.url })
 
@@ -14,9 +13,7 @@ angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router'])
          $state.go('login');
        });
    }
-=======
    
->>>>>>> [Feature] added the ability to add urls to the db & getUrls route correctly routes to the getURls function
    $scope.add = function() {
 
       $scope.theframe = $scope.url;
