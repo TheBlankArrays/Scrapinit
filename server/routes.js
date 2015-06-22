@@ -10,7 +10,10 @@ var setup = function(app) {
     .post(authController.signup)
     .get(authController.login);
 
-  app.route('/api/users/urls')
+  app.route("/api/users/logout")
+    .get(authController.logout);
+
+  app.route('/api/users/geturls')
     .get(urlController.getUrls)
     .post(urlController.postUrl);
 
@@ -18,8 +21,8 @@ var setup = function(app) {
   app.route('/api/users/retrieve_url')
     .post(urlController.getExternalUrl);
 
-  app.route('/api/users/getUrls')
-    .post(urlController.getUrls);
+  app.route('/api/users/checkUser')
+    .get(authController.checkUser);
 
 	app.route('/api/users/addUrl')
     .post(function(req, res, next) {
@@ -33,6 +36,10 @@ var setup = function(app) {
 
 			});
 		});
+
+  app.get('*', function(req, res) {
+		res.send('what ? 404', 200);
+	});
 
 };
 module.exports.setup = setup;

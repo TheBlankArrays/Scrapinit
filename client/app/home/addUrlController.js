@@ -10,7 +10,7 @@ angular.module('app.home.addUrl', [ 'ui.router'])
        .success(function (data) {
          console.log(data);
          $scope.html = 'newValues';
-         $state.go('home.addUrl');
+         $state.go('login');
        });
  };
 });
