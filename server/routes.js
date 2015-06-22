@@ -17,6 +17,9 @@ var setup = function(app) {
   app.route('/api/users/retrieveUrl')
     .post(urlController.getExternalUrl);
 
+  app.route('/api/users/getUrls')
+      .post(urlController.getUrls);
+
 	app.route('/api/users/addUrl')
     .post(function(req, res, next) {
 			console.log(req.body.url);
