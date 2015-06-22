@@ -88,11 +88,15 @@ User.select = function(userEmail) {
 };
 
 User.getUrls = function(user) {
+<<<<<<< HEAD
   // user will be an email string
   User.select(where: email: user)
     .then(function(userObj) {
       return userObj.getUrls();
     })
+=======
+  user.getUrls
+>>>>>>> [Feature] added morgan logger to server, working on addUrl route
 };
 
 // should select with an email. Object or string?
@@ -128,11 +132,12 @@ Url.destroy = function() {
 
 // }
 
-
 exports.User = schemas.User;
 exports.Url = schemas.Url;
 exports.UserUrl = schemas.UserUsrl;
-;var Sequelize = require("sequelize");
+var Sequelize = require("sequelize");
+
+
 
 //no password
 var connect = function(dbPath) {
@@ -215,6 +220,7 @@ var setup = function(app) {
 
   app.route('/api/users/getUrls')
     .post(urlController.getUrls);
+
 
 	app.route('/api/users/addUrl')
     .post(function(req, res, next) {
