@@ -10,16 +10,10 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>http://www.google.com</td>
+    <tr ng-repeat="url in urls track by $index">
+      <td>{{url.url}}</td>
       <td>PAGE</td>
-      <td>15 min</td>
-      <td>true</td>
-    </tr>
-    <tr>
-      <td>http://www.mysupercoolblog.com</td>
-      <td>PAGE</td>
-      <td>5 min</td>
+      <td>min</td>
       <td>true</td>
     </tr>
   </tbody>
