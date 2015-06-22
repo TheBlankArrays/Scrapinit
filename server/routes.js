@@ -15,14 +15,18 @@ var setup = function(app) {
 
   app.route('/api/users/geturls')
     .get(urlController.getUrls)
-    .post(urlController.postUrl);
+    .post(urlController.addUrl);
 
   // Feature return the html from the page
   app.route('/api/users/retrieve_url')
     .post(urlController.getExternalUrl);
 
+<<<<<<< HEAD
   app.route('/api/users/checkUser')
     .get(authController.checkUser);
+=======
+
+>>>>>>> [Feature] added the ability to add urls to the db & getUrls route correctly routes to the getURls function
 
 	app.route('/api/users/addUrl')
     .post(function(req, res, next) {
