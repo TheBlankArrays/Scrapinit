@@ -156,7 +156,12 @@ button {
 
 
 
-
+  #siteimg {
+    display: none;
+  }
+  #theframe {
+    display: none;
+  }
 
   .form-style-8{
       font-family: 'Open Sans Condensed', arial, sans;

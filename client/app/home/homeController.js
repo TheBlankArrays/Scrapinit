@@ -1,8 +1,8 @@
 angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router'])
 .controller('homeController', function ($scope, $state, $http) {
 
-   $scope.html = 'dsad';
-   $scope.urls = ['http://www.yahoo.com', 'http://adsense.com'];
+   $scope.html = '';
+   $scope.urls = [];
    console.log($scope.urls);
    $scope.add = function() {
 
@@ -15,10 +15,11 @@ angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router'])
          .success(function (data) {
            //console.log(data);
 
-           $('#siteimg').css("background-image",'url(' + data + ')');
 
-           	$('#siteimg').Jcrop({
-           	});
+
+          //  $('#siteimg').css("background-image",'url(' + data + ')');
+         // 	 $('#siteimg').Jcrop({
+          //  });
 
 
          });
@@ -26,7 +27,7 @@ angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router'])
          $http.post('/api/users/retrieveUrl', {url: $scope.url })
            .success(function (data) {
              //console.log(data);
-
+$scope.html = data;
              var ifrm = document.getElementById('theframe');
              ifrm = (ifrm.contentWindow) ? ifrm.contentWindow : (ifrm.contentDocument.document) ? ifrm.contentDocument.document : ifrm.contentDocument;
              ifrm.document.open();

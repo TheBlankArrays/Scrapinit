@@ -1,16 +1,17 @@
 var CronJob = require('cron').CronJob;
-var secret = require('./config.js');
-var db = require('../db.js');
+var secret = require('../config.js');
+var db = require('./db.js');
 var mandrill = require('mandrill-api');
 mandrill_client = new mandrill.Mandrill(secret.mandrill.client_id);
 
+// To run the cronjob as it is now: navigate to server dir and type node cronjob
 var schedule = '0 */5 * * * *';
 //To run every 3 seconds do */3; every 5 min do * */5 *
 
 var cronjob = new CronJob(schedule, function() {
   console.log('You will see this message every 5 min');
   // check database for jobs assigned for cronjob
-  // db
+
   // get urls 
 
   // render the page and compare if it changed 
@@ -61,11 +62,72 @@ var schemas = dbConfig.createSchemas(sequelize, true);
 /**
   * Export the differents models
 **/
+
+
+
+
+
+var User = schemas.User;
+var Url = schemas.Url;
+var UserUrl = schemas.UserUsrl;
+
+User.insert = function(user) {
+  User.create(user);
+};
+
+// updates a user which is accessed with userName, with newVal object
+User.update = function(userName, newVal) {
+  User.update(
+    newVal,
+    {where: userName})
+};
+
+// will I get a string or an object?
+User.select = function(userEmail) {
+  return User.find({where: {email: userEmail}});
+};
+
+User.getUrls = function(user) {
+  user.getUrls
+};
+
+// should select with an email. Object or string?
+User.destroy = function(user) {
+  User.find({where: {email: user.email}})
+    .then(function(foundUser) {
+      foundUser.destroy()
+    })
+};
+
+// need to make a connection to a user??
+Url.insert = function(user, url) {
+  user.addUrl(url);
+};
+
+Url.select = function(url) {
+  Url.find({where: {url: url}})
+};
+
+Url.destroy = function() {
+
+};
+
+// UserUrl.insert = function() {
+
+// }
+
+// UserUrl.select = function() {
+
+// }
+
+// UserUrl.destroy = function() {
+
+// }
+
+
 exports.User = schemas.User;
-
-
-
-;var Sequelize = require("sequelize");
+exports.Url = schemas.Url;
+exports.UserUrl = schemas.UserUsrl;;var Sequelize = require("sequelize");
 
 //no password
 var connect = function(dbPath) {
@@ -104,8 +166,8 @@ var createSchemas = function(dbConnection, construct) {
 	var UserUrl = require('./db/models/UserUrl')(dbConnection, tableConfig);
 
       // relationship 
-      User.belongsToMany(Url, { through: UserUrl});
-      Url.belongsToMany(User, { through: UserUrl});
+      User.belongsToMany(Url, { through: UserUrl, foreignKey: 'urlID'});
+      Url.belongsToMany(User, { through: UserUrl, foreignKey: 'userID'});
 
 
 	//Basically check if tables exists, if not, creates it
@@ -140,11 +202,23 @@ var setup = function(app) {
 
   app.route('/api/users/urls')
     .get(urlController.getUrls)
-    .post(urlController.postUrl); 
+    .post(urlController.postUrl);
 
   app.route('/api/users/retrieveUrl')
     .post(urlController.getExternalUrl);
 
+	app.route('/api/users/addUrl')
+    .post(function(req, res, next) {
+			console.log(req.body.url);
+			var webshot = require('webshot');
+			var urlWithoutHTTP = req.body.url.substr(7);
+
+			webshot(req.body.url, '../client/assets/' + urlWithoutHTTP + '.jpg', function(err) {
+				// screenshot now saved to google.png// screenshot now saved to hello_world.png
+				res.send('assets/' + urlWithoutHTTP + '.jpg');
+
+			});
+		});
 };
 module.exports.setup = setup;
 ;var express = require('express');
