@@ -1,6 +1,6 @@
 angular.module('app.user', [])
 .controller('userController', function ($scope, $state, User) {
-  
+
   $scope.user = {};
   $scope.currentUser = {};
 
@@ -32,7 +32,7 @@ angular.module('app.user', [])
         if (err) {
           $scope.error = message;
         } else {
-          $state.go('login');
+          $state.go('home');
         }
       });
     }

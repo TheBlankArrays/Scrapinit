@@ -31,6 +31,7 @@ module.exports = {
     var user = req.body;
     db.User.create(user)
     .then(function (newUser){
+      req.session.email = newUser.email;
       res.status(201).json(newUser);
     })
     .catch(function (err) {
@@ -40,7 +41,7 @@ module.exports = {
 
   checkUser: function(req, res, next) {
     var isLoggedIn = !!req.session.email;
-    console.log('checking user');
+    //console.log('checking user');
     res.send(isLoggedIn);
   },
 
