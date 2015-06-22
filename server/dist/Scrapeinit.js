@@ -88,7 +88,11 @@ User.select = function(userEmail) {
 };
 
 User.getUrls = function(user) {
-  user.getUrls
+  // user will be an email string
+  User.select(where: email: user)
+    .then(function(userObj) {
+      return userObj.getUrls();
+    })
 };
 
 // should select with an email. Object or string?
@@ -127,7 +131,8 @@ Url.destroy = function() {
 
 exports.User = schemas.User;
 exports.Url = schemas.Url;
-exports.UserUrl = schemas.UserUsrl;;var Sequelize = require("sequelize");
+exports.UserUrl = schemas.UserUsrl;
+;var Sequelize = require("sequelize");
 
 //no password
 var connect = function(dbPath) {
@@ -204,8 +209,12 @@ var setup = function(app) {
     .get(urlController.getUrls)
     .post(urlController.postUrl);
 
-  app.route('/api/users/retrieveUrl')
+  // Feature return the html from the page
+  app.route('/api/users/retrieve_url')
     .post(urlController.getExternalUrl);
+
+  app.route('/api/users/getUrls')
+    .post(urlController.getUrls);
 
 	app.route('/api/users/addUrl')
     .post(function(req, res, next) {
@@ -219,6 +228,7 @@ var setup = function(app) {
 
 			});
 		});
+
 };
 module.exports.setup = setup;
 ;var express = require('express');

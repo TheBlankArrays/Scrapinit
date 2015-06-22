@@ -1,15 +1,15 @@
 var basicScraper = require('./basicScraperController');
+var db = require("../db");
 
 module.exports = {
   getUrls: function (req, res, next) {
     console.log('get Urls');
-    res.send('you are checking out ' + req.body.url);
+    res.send( db.User.getUrls(req.session.email) );
   },
   postUrl: function (req, res, next) {
     console.log('post Urls');
-  }
-  /**
-    * Feature: return the html from the page
+  },
+
   getExternalUrl: function(req,res, next){
     var url = req.body.url;
     console.log(req.body.url);
@@ -23,5 +23,4 @@ module.exports = {
       }
     });
   }
-  **/
 };
