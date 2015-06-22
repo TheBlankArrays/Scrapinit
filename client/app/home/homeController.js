@@ -4,6 +4,13 @@ angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router'])
    $scope.html = '';
    $scope.urls = [];
    console.log($scope.urls);
+
+   $scope.logout = function() {
+     $http.get("/api/users/logout")
+       .success(function (data) {
+         $state.go('login');
+       });
+   }
    $scope.add = function() {
 
       $scope.theframe = $scope.url;

@@ -38,10 +38,6 @@ app.use(express.static(__dirname + '/../client/'));
 //allows cors
 app.use(cors());
 
-app.get('*', function(req, res) {
-	res.send('what ? 404', 200);
-});
-
 //start server functions and export
 var initServer = function() {
 	//attachs all the routes to the server
