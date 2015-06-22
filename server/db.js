@@ -73,7 +73,6 @@ Url.destroy = function() {
 
 // }
 
-
 exports.User = schemas.User;
 exports.Url = schemas.Url;
 exports.UserUrl = schemas.UserUsrl;
