@@ -34,7 +34,7 @@ User.select = function(userEmail) {
 
 User.getUrls = function(user) {
   // user will be an email string
-  User.select(where: email: user)
+  User.select({where: {email: user}})
     .then(function(userObj) {
       return userObj.getUrls();
     })
