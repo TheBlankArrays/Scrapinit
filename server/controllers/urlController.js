@@ -68,14 +68,14 @@ module.exports = {
         })
         .then(function(urlFound) {
           if(urlFound){
+            // need to add in paramaters for html, and selector
             userFound.addUrl(urlFound, {html: html, selector: selector});
-            // db.associate(userFound.email, urlFound.url, {html: html, selector: selector})//need to store and send the html & selector
             cb('url found');
           } else {
             db.Url.create(url)
             .then(function (newUrl){
+            // need to add in paramaters for html, and selector
             userFound.addUrl(newUrl, {html: html, selector: selector});
-                // db.associate(userFound.email, newUrl.url, {html: html, selector: selector})//need to store and send the html & selector
               cb('url created');
             })
             .catch(function (err) {
