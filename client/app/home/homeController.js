@@ -25,7 +25,9 @@ angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router'])
        $http.post('/api/users/retrieve_url', {url: $scope.url })
          .success(function (data) {
 
-            $scope.urls.push($scope.url);
+            if (data !== 'error') {
+              $scope.urls.push($scope.url);
+            }
             $scope.loading = false;
             console.log(data);
 

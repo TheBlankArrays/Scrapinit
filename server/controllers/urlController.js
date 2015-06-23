@@ -67,41 +67,50 @@ module.exports = {
           where: url
         })
         .then(function(urlFound) {
-          if(urlFound){
-            // need to add in paramaters for html, and selector
-            userFound.addUrl(urlFound, {html: html, selector: selector});
 
-            // db.associate(userFound.email, urlFound.url, {html: html, selector: selector})//need to store and send the html & selector
-            res.status(201);
+          this.getExternalUrl(url, function(html) {
 
-            cb('url found');
-          } else {
-            db.Url.create(url)
-            .then(function (newUrl){
-            // need to add in paramaters for html, and selector
-            userFound.addUrl(newUrl, {html: html, selector: selector});
-              cb('url created');
+            if (html === 'error') {
+              res.send('error');
+            }
+
+            if(urlFound){
+              // need to add in paramaters for html, and selector
+              userFound.addUrl(urlFound, {html: html, selector: selector});
+
+              // db.associate(userFound.email, urlFound.url, {html: html, selector: selector})//need to store and send the html & selector
               res.status(201);
-            })
-            .catch(function (err) {
-              res.status(403).json({message: err.message});
-            });
-          }
+
+              cb('url found');
+            } else {
+              db.Url.create(url)
+              .then(function (newUrl){
+              // need to add in paramaters for html, and selector
+              userFound.addUrl(newUrl, {html: html, selector: selector});
+                cb('url created');
+                res.status(201);
+              })
+              .catch(function (err) {
+                res.status(403).json({message: err.message});
+              });
+            }
+
+          });
+
+
         });
       }
     });
 
 },
-getExternalUrl: function(req,res, next){
-  var url = req.body.url;
-  console.log(req.body.url);
+getExternalUrl: function(url, cb){
+
   basicScraper.get(url, function(error, response, html){
     if(!error && response.statusCode === 200){
-      console.log('success');
-      res.send(html);
+      cb(html);
     } else {
-      console.log('failure');
-      res.send("error no response");
+      console.log('failure getting external url');
+      cb('error');
     }
   });
 }
