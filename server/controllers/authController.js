@@ -44,6 +44,14 @@ module.exports = {
     res.send(isLoggedIn);
   },
 
+  isAuth: function (req, res, next) {
+    if (req.session.email) {
+      next();
+    }else {
+      res.status(401).json({error: 'Not allowed'});
+    }
+  },
+
   logout: function(req, res, next) {
     req.session.email = null;
     res.send('Logout successful');
