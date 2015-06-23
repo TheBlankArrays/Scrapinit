@@ -6,51 +6,24 @@ var db = require("../db");
 
 module.exports = {
   getList: function (req, res, next) {
-    console.log('get Urls');
     var email = req.session.email;
-    var url = req.body;
-
-//Testing response
-      // res.status(201).json({
-      //   urls : [{
-      //     url : 'joedaddy.com',
-      //       whatToWatch : 'thePrize',
-      //       pingRate : '5 min',
-      //       active : 'yes'
-      //     }]
-      // });
-      var urlArr = [];
-
-      db.User.findOne({where: {email: email}})
-        .then(function(foundUser) {
-          console.log('the foundUser is', foundUser);
-          foundUser.getUrls()
-            .then(function(urls) {
-              for (var i = 0; i < foundUser.length; i++) {
-                var urlObj = {};
-                urlObj.selector = foundUser[i].selector;
-                urlObj.html = foundUser[i].html;
-                urlObj.frequency = foundUser[i].frequency;
-                urlArr.push(urlObj);
-                console.log('the urlArr is now', urlArr);
-              }
-              console.log('final urlArr is', urlArr);
-            })
-        })
-
-      // db.User.getUrls(user, function(urls){
-      //   res.status(201).json({
-      //     urls : [{
-      //       url : 'joedaddy.com',
-      //       whatToWatch : 'thePrize',
-      //       pingRate : '5 min',
-      //       active : 'yes'
-      //     }]
-      //   });
-      // })
-      // .catch(function (err) {
-      //   res.status(403).json({message: err.message});
-      // });
+    db.User.findOne({
+      where: {
+        email: email
+      },
+      attributes: ['email'],
+      include: [
+        { model: db.UserUrl },
+        { model: db.Url }
+      ]
+    })
+    .then(function(urls) {
+      if (urls) {
+        res.status(200).json(urls);
+      }else{
+        res.status(500).json({error:'Server error'});
+      }
+    });
   },
   addUrl: function (req, res, next, cb) {
     console.log('in addurl');
