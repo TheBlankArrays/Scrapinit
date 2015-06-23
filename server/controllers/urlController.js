@@ -70,6 +70,10 @@ module.exports = {
 
           this.getExternalUrl(url, function(html) {
 
+            if (html === 'error') {
+              res.send('error');
+            }
+
             if(urlFound){
               // need to add in paramaters for html, and selector
               userFound.addUrl(urlFound, {html: html, selector: selector});
@@ -106,6 +110,7 @@ getExternalUrl: function(url, cb){
       cb(html);
     } else {
       console.log('failure getting external url');
+      cb('error');
     }
   });
 }
