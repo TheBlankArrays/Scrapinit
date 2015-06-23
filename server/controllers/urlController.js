@@ -5,7 +5,7 @@ var db = require("../db");
 
 
 module.exports = {
-  getUrls: function (req, res, next) {
+  getList: function (req, res, next) {
     console.log('get Urls');
 
 //Testing response
