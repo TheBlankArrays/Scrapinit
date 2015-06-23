@@ -1,29 +1,44 @@
 angular.module('app.user', [])
 .controller('userController', function ($scope, $state, User) {
-  
+
   $scope.user = {};
   $scope.currentUser = {};
 
+  var isNotNull = function(){
+    if (!$scope.user.email || !$scope.user.password){
+      $scope.error = 'Email and password are required';
+      return false;
+    }else{
+      return true;
+    }
+  };
+
   $scope.login = function () {
-    User.login($scope.user, function (err, user) {
-      if (err) {
-        $scope.error = 'Email or password is invalid';
-      } else {
-        $scope.currentUser = user;
-        $state.go('home');
-      }
-    });
+    if (isNotNull()) {
+      User.login($scope.user, function (err, user) {
+        if (err) {
+          $scope.error = 'Email or password is invalid';
+        } else {
+          $scope.currentUser = user;
+          $state.go('home');
+        }
+      });
+    }
   };
 
   $scope.signup = function () {
-    User.signup($scope.user, function (err, message) {
-      if (err) {
-        $scope.error = message;
-      } else {
-        $state.go('login');
-      }
-    });
+    if (isNotNull()) {
+      User.signup($scope.user, function (err, message) {
+        if (err) {
+          $scope.error = message;
+        } else {
+          $state.go('home');
+        }
+      });
+    }
   };
+
+
 
 })
 .factory('User', function($http) {
@@ -52,7 +67,7 @@ angular.module('app.user', [])
       callback(false);
     })
     .error(function (err) {
-      callback(true, err);
+      callback(true, err.message);
     });
   };
 
