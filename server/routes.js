@@ -18,7 +18,7 @@ var setup = function(app) {
     .post(urlController.addUrl);
 
   app.route('/api/users/list_urls')
-    .get(urlController.getList);
+    .get(authController.isAuth, urlController.getList);
 
   // // Feature return the html from the page
   app.route('/api/users/retrieve_url')
