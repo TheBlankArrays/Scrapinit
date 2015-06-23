@@ -6,6 +6,7 @@ var db = require("../db");
 
 module.exports = {
   getList: function (req, res, next) {
+    console.log('we are here')
     var email = req.session.email;
     db.User.findOne({
       where: {
@@ -25,10 +26,13 @@ module.exports = {
       }
     });
   },
-  addUrl: function (req, res, next, cb) {
+  addUrl: function (req, res, next) {
     console.log('in addurl');
     var email = req.session.email;
     var url = req.body;
+    var that = this;
+    var selector = 'body';
+
 
     db.User.findOne({
       where: {
@@ -36,13 +40,15 @@ module.exports = {
       }
     })
     .then(function (userFound) {
+      console.log(userFound);
       if (userFound) {
         db.Url.findOne({
           where: url
         })
         .then(function(urlFound) {
 
-          this.getExternalUrl(req.body.url, function(html) {
+          that.getExternalUrl(req.body.url, function(html) {
+            html = html.substring(0,200);
             console.log(html);
             if (html === 'error') {
               res.send('error');
@@ -50,19 +56,29 @@ module.exports = {
 
             if(urlFound){
               // need to add in paramaters for html, and selector
-              userFound.addUrl(urlFound, {html: html, selector: selector});
+               console.log('urlFound',urlFound)
+           userFound.addUrl(urlFound, {html: html, selector: selector})
+                .then(function(associate){
+                  console.log('associate'+ JSON.stringify(associate));
+                   res.status(201).json({});
+                })
+                .catch(function(err) {
+                  console.log('we found an error', err);
+                })
 
               // db.associate(userFound.email, urlFound.url, {html: html, selector: selector})//need to store and send the html & selector
-              res.status(201);
+             
 
-              cb('url found');
+              console.log('url found');
+
             } else {
               db.Url.create(url)
               .then(function (newUrl){
+                console.log('inside of db.Url.create')
               // need to add in paramaters for html, and selector
               userFound.addUrl(newUrl, {html: html, selector: selector});
-                cb('url created');
-                res.status(201);
+                console.log('url created');
+                res.status(201).json({});
               })
               .catch(function (err) {
                 res.status(403).json({message: err.message});
@@ -78,7 +94,7 @@ module.exports = {
 
 },
 getExternalUrl: function(url, cb){
-
+  console.log('url inside of getExternalUrl', url)
   basicScraper.get(url, function(error, response, html){
     if(!error && response.statusCode === 200){
       cb(html);
