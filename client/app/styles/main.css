@@ -248,6 +248,7 @@ button {
 }
 
 #submit-button {
+    margin-left: 5px;
     -moz-border-radius: 7px;
     -webkit-border-radius: 7px;
     border-radius: 7px; 
@@ -259,6 +260,15 @@ button {
     -webkit-border-radius: 7px;
     border-radius: 7px; 
     -khtml-border-radius: 7px; /* for old Konqueror browsers */
+}
+
+#url{
+  width: 300px;
+  height: 33px;
+  -moz-border-radius: 7px;
+  -webkit-border-radius: 7px;
+  border-radius: 7px; 
+  -khtml-border-radius: 7px; /* for old Konqueror browsers */
 }
 
 
