@@ -11,7 +11,7 @@ var cors = require('cors');
 
 /*allows the server to automatically process urlencoded stuff into a javscript object
 if we decided to pass JSON to the server instead we'll need to change this to parser.JSON()*/
-app.use(logger('combined'));
+// app.use(logger('combined'));
 app.use(parser.json());
 app.use(parser.urlencoded({extended: true}));
 //set up sessions
@@ -22,9 +22,9 @@ app.use(session({
 }));
 
 app.use(function (req, res, next) {
-  console.log('Time:', Date.now());
-  console.log('request: method -' + req.method);
-  console.log('request: url - ' + req.url);
+  // console.log('Time:', Date.now());
+  // console.log('request: method -' + req.method);
+  // console.log('request: url - ' + req.url);
   next();
 });
 

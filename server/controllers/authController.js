@@ -41,7 +41,6 @@ module.exports = {
 
   checkUser: function(req, res, next) {
     var isLoggedIn = !!req.session.email;
-    //console.log('checking user');
     res.send(isLoggedIn);
   },
 
