@@ -28,7 +28,7 @@ var setup = function(app) {
 
 	app.route('/api/users/addUrl')
     .post(function(req, res, next) {
-			console.log(req.body.url);
+			//console.log(req.body.url);
 		
 			var urlWithoutHTTP = req.body.url.substr(7);
 			webshot(req.body.url, '../client/assets/' + urlWithoutHTTP + '.jpg', function(err) {
