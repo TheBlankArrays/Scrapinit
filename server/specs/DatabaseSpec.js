@@ -89,8 +89,11 @@ describe('database', function() {
           Url.create(utils.url)
             .then(function(newUrl) {
               newUser.addUrl(newUrl, {html: '<div>hello</div>', selector: 'div'})
-                .then(function (result) {
-                  result.urlID.should.equal(result.userID);
+                .then(function (association) {
+                  newUser.hasUrls(newUrl)
+                    .then(function(result) {
+                      result.should.equal(true);
+                    })
                 })
             })
         });
