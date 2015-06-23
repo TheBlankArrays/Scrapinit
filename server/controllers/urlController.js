@@ -70,6 +70,10 @@ module.exports = {
           if(urlFound){
             // need to add in paramaters for html, and selector
             userFound.addUrl(urlFound, {html: html, selector: selector});
+
+            // db.associate(userFound.email, urlFound.url, {html: html, selector: selector})//need to store and send the html & selector
+            res.status(201);
+
             cb('url found');
           } else {
             db.Url.create(url)
@@ -77,6 +81,7 @@ module.exports = {
             // need to add in paramaters for html, and selector
             userFound.addUrl(newUrl, {html: html, selector: selector});
               cb('url created');
+              res.status(201);
             })
             .catch(function (err) {
               res.status(403).json({message: err.message});
