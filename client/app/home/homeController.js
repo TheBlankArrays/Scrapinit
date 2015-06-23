@@ -2,6 +2,7 @@ angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router'])
 .controller('homeController', function ($scope, $state, $http) {
 
    $scope.html = '';
+   $scope.url = 'http://';
    $scope.urls = [];
    console.log($scope.urls);
 
@@ -13,7 +14,7 @@ angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router'])
          $state.go('login');
        });
    }
-   
+
    $scope.add = function() {
 
       $scope.theframe = $scope.url;
