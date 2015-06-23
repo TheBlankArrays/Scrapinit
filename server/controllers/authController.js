@@ -5,7 +5,7 @@ module.exports = {
 
     var user = req.body;
 
-    console.log("logging in as " + user);
+    //console.log("logging in as " + user);
     db.User.findOne({
       where: {
         email: user.email
@@ -41,7 +41,6 @@ module.exports = {
 
   checkUser: function(req, res, next) {
     var isLoggedIn = !!req.session.email;
-    //console.log('checking user');
     res.send(isLoggedIn);
   },
 

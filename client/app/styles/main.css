@@ -236,11 +236,40 @@ button {
       background:linear-gradient(to bottom, #34CACA 5%, #30C9C9 100%);
       background-color:#34CACA;
   }
+#signout-button{
+    top: 3px;
+    right: 8px;
+    float: right;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    border-radius: 7px; 
+    -khtml-border-radius: 7px; /* for old Konqueror browsers */
 
+}
 
+#submit-button {
+    margin-left: 5px;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    border-radius: 7px; 
+    -khtml-border-radius: 7px; /* for old Konqueror browsers */
+}
 
+#login-button {
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    border-radius: 7px; 
+    -khtml-border-radius: 7px; /* for old Konqueror browsers */
+}
 
-
+#url{
+  width: 300px;
+  height: 33px;
+  -moz-border-radius: 7px;
+  -webkit-border-radius: 7px;
+  border-radius: 7px; 
+  -khtml-border-radius: 7px; /* for old Konqueror browsers */
+}
 
 
   table.gradienttable {
@@ -292,3 +321,4 @@ button {
   	border-left: 1px solid #fcfdec;;
   	border-right:0px;
   }
+
