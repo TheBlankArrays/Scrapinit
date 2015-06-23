@@ -15,7 +15,9 @@ var setup = function(app) {
     .get(authController.logout);
 
   app.route('/api/users/url')
-    .post(urlController.addUrl);
+    .post(function(req, res, next) {
+      urlController.addUrl(req, res, next);
+    });
 
   app.route('/api/users/list_urls')
     .get(authController.isAuth, urlController.getList);

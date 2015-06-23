@@ -20,7 +20,7 @@ var utils = {
   },
 
   signUpUser: function (credentials, callback) {
-    request.post('/signup')
+    request.post('/api/users/signup')
     .send(credentials)
     .end(function(err, res) {
       if (callback) {
@@ -88,8 +88,14 @@ describe('URL LIST', function () {
   var Url = schemas.Url;
   var UserUrl = schemas.UserUrl;
 
+  before(function (done) {
+    utils.signUpUser(utils.testUser, function (err) {
+      done();
+    });
+  });
+
   //deletes inserted user from database after all tests are complete
-  after(function(done) {
+  after(function (done) {
     utils.destroyUser(User, utils.testUser, function () {
       done();
     });
@@ -123,12 +129,15 @@ describe('URL LIST', function () {
       it('should return 200 when there are a user logged and try request', function (done) {
         var agent = utils.createAgent();
         utils.logInAgent(agent, utils.testUser, function (user) {
-          request.get('/api/users/list_urls')
+          agent.get('/api/users/list_urls')
           .expect(200)
           .end(function (err, res) {
             var result = res.body;
-            result.should.have.property('listUrls');
-            Array.isArray(result.listUrls).should.equal(true);
+            result.should.have.property('urls');
+            Array.isArray(result.urls).should.equal(true);
+            result.should.have.property('UserUrls');
+            Array.isArray(result.UserUrls).should.equal(true);
+            done();
           });
         });
       });
