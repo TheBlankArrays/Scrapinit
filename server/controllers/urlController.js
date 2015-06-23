@@ -7,18 +7,36 @@ var db = require("../db");
 module.exports = {
   getUrls: function (req, res, next) {
     console.log('get Urls');
+    var email = req.session.email;
+    var url = req.body;
 
 //Testing response
-      res.status(201).json({
-        urls : [{
-          url : 'joedaddy.com',
-            whatToWatch : 'thePrize',
-            pingRate : '5 min',
-            active : 'yes'
-          }]
-      });
+      // res.status(201).json({
+      //   urls : [{
+      //     url : 'joedaddy.com',
+      //       whatToWatch : 'thePrize',
+      //       pingRate : '5 min',
+      //       active : 'yes'
+      //     }]
+      // });
+      var urlArr = [];
 
-
+      db.User.findOne({where: {email: email}})
+        .then(function(foundUser) {
+          console.log('the foundUser is', foundUser);
+          foundUser.getUrls()
+            .then(function(urls) {
+              for (var i = 0; i < foundUser.length; i++) {
+                var urlObj = {};
+                urlObj.selector = foundUser[i].selector;
+                urlObj.html = foundUser[i].html;
+                urlObj.frequency = foundUser[i].frequency;
+                urlArr.push(urlObj);
+                console.log('the urlArr is now', urlArr);
+              }
+              console.log('final urlArr is', urlArr);
+            })
+        })
 
       // db.User.getUrls(user, function(urls){
       //   res.status(201).json({
@@ -50,11 +68,13 @@ module.exports = {
         })
         .then(function(urlFound) {
           if(urlFound){
+            userFound.addUrl(urlFound, {html: html, selector: selector});
             // db.associate(userFound.email, urlFound.url, {html: html, selector: selector})//need to store and send the html & selector
             cb('url found');
           } else {
             db.Url.create(url)
             .then(function (newUrl){
+            userFound.addUrl(newUrl, {html: html, selector: selector});
                 // db.associate(userFound.email, newUrl.url, {html: html, selector: selector})//need to store and send the html & selector
               cb('url created');
             })
