@@ -4,9 +4,10 @@ angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router'])
    $scope.html = '';
    $scope.url = 'http://';
    $scope.urls = [];
+   $scope.loading = false;
    console.log($scope.urls);
 
-   $http.get('/api/users/addUrl', {url: $scope.url })
+   // request current users' urls from server right now on init
 
    $scope.logout = function() {
      $http.get("/api/users/logout")
@@ -18,13 +19,15 @@ angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router'])
    $scope.add = function() {
 
       $scope.theframe = $scope.url;
+      $scope.loading = true;
 
-
-       $scope.urls.push($scope.url);
       //  console.log($scope.urls);
-       $http.post('/api/users/urls', {url: $scope.url })
+       $http.post('/api/users/retrieve_url', {url: $scope.url })
          .success(function (data) {
-           //console.log(data);
+
+            $scope.urls.push($scope.url);
+            $scope.loading = false;
+            console.log(data);
 
           //  $('#siteimg').css("background-image",'url(' + data + ')');
          // 	 $('#siteimg').Jcrop({

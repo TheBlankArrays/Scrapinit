@@ -30,6 +30,11 @@ Insert a new URL to watch... <input type="text" name="url" ng-model="url" id="ur
       <td>5 min</td>
       <td>true</td>
     </tr>
+    <tr ng-show="loading">
+      <td colspan="4" style="text-align: center; padding: 15px 0;">
+        <img src="/app/images/ajax-loader.gif">
+      </td>
+    </tr>
   </tbody>
 </table>
 

@@ -21,25 +21,25 @@ var setup = function(app) {
     .get(urlController.getList);
 
   // // Feature return the html from the page
-  // app.route('/api/users/retrieve_url')
-  //   .post(urlController.getExternalUrl);
+  app.route('/api/users/retrieve_url')
+    .post(urlController.getExternalUrl);
 
   app.route('/api/users/checkUser')
     .get(authController.checkUser);
 
-
-	// app.route('/api/users/addUrl')
+  //
+  // app.route('/api/users/addUrl')
   //    .post(function(req, res, next) {
-	// 		console.log(req.body.url);
-	// 		var webshot = require('webshot');
-	// 		var urlWithoutHTTP = req.body.url.substr(7);
-
-	// 		webshot(req.body.url, '../client/assets/' + urlWithoutHTTP + '.jpg', function(err) {
-	// 			// screenshot now saved to google.png// screenshot now saved to hello_world.png
-	// 			res.send('assets/' + urlWithoutHTTP + '.jpg');
-
-	// 		});
-	// 	});
+  // 		console.log(req.body.url);
+  // 		var webshot = require('webshot');
+  // 		var urlWithoutHTTP = req.body.url.substr(7);
+  //
+  // 		webshot(req.body.url, '../client/assets/' + urlWithoutHTTP + '.jpg', function(err) {
+  // 			// screenshot now saved to google.png// screenshot now saved to hello_world.png
+  // 			res.send('assets/' + urlWithoutHTTP + '.jpg');
+  //
+  // 		});
+  // 	});
 
   app.get('*', function(req, res) {
 		res.send('what ? 404', 200);
