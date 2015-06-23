@@ -22,9 +22,9 @@ app.use(session({
 }));
 
 app.use(function (req, res, next) {
-  // console.log('Time:', Date.now());
-  // console.log('request: method -' + req.method);
-  // console.log('request: url - ' + req.url);
+  console.log('Time:', Date.now());
+  console.log('request: method -' + req.method);
+  console.log('request: url - ' + req.url);
   next();
 });
 
