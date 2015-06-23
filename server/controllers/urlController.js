@@ -53,6 +53,7 @@ module.exports = {
       // });
   },
   addUrl: function (req, res, next, cb) {
+    console.log('in addurl');
     var email = req.session.email;
     var url = req.body;
 
@@ -68,8 +69,8 @@ module.exports = {
         })
         .then(function(urlFound) {
 
-          this.getExternalUrl(url, function(html) {
-
+          this.getExternalUrl(req.body.url, function(html) {
+            console.log(html);
             if (html === 'error') {
               res.send('error');
             }
