@@ -1,11 +1,12 @@
 var CronJob = require('cron').CronJob;
 var secret = require('../config.js');
 var db = require('./db.js');
+var Sequelize = require('sequelize');
 var mandrill = require('mandrill-api');
 mandrill_client = new mandrill.Mandrill(secret.mandrill.client_id);
 
 // To run the cronjob as it is now: navigate to server dir and type node cronjob
-var schedule = '0 */5 * * * *';
+var schedule = '10 * * * * *';
 //To run every 3 seconds do */3; every 5 min do * */5 *
 
 var cronjob = new CronJob(schedule, function() {
@@ -13,6 +14,11 @@ var cronjob = new CronJob(schedule, function() {
   // check database for jobs assigned for cronjob
 
   // get urls 
+
+  db.User.findAll()
+    .then(function(allUsers) {
+      console.log('here are all our users', allUsers);
+    })
 
   // render the page and compare if it changed 
   // if change occured changed=true;
