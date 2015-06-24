@@ -1,6 +1,8 @@
 //add Controllers to handle the routes
 var authController = require('./controllers/authController');
 var urlController = require('./controllers/urlController');
+var basicScraper = require('./basicScraperController');
+
 var webshot = require('webshot');
 
 var setup = function(app) {
@@ -31,19 +33,13 @@ var setup = function(app) {
   app.route('/api/users/checkUser')
     .get(authController.checkUser);
 
-  //
-  // app.route('/api/users/addUrl')
-  //    .post(function(req, res, next) {
-  // 		console.log(req.body.url);
-  // 		var webshot = require('webshot');
-  // 		var urlWithoutHTTP = req.body.url.substr(7);
-  //
-  // 		webshot(req.body.url, '../client/assets/' + urlWithoutHTTP + '.jpg', function(err) {
-  // 			// screenshot now saved to google.png// screenshot now saved to hello_world.png
-  // 			res.send('assets/' + urlWithoutHTTP + '.jpg');
-  //
-  // 		});
-  // 	});
+
+  app.route('/api/getScreenshot')
+     .get(function(req, res, next) {
+          basicScraper.getScreenshot(req.body.url, req.session.id, function(imgpath) {
+            res.send();
+          });
+  	 });
 
   app.get('*', function(req, res) {
 		res.send('what ? 404', 200);
