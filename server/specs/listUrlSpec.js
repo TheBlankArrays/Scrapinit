@@ -103,10 +103,10 @@ describe('URL LIST', function () {
 
   describe('URLS', function () {
 
-    describe('Route /api/users/list_urls', function () {
+    describe('Route /api/users/list', function () {
 
       it('should return 401 when there are not a user logged and try request', function (done) {
-        request.get('/api/users/list_urls')
+        request.get('/api/users/list')
         .expect(401)
         .end(function (err, res) {
           done();
@@ -117,7 +117,7 @@ describe('URL LIST', function () {
         var agent = utils.createAgent();
         utils.logInAgent(agent, utils.testUser, function (user) {
           utils.logOutAgent(agent, function () {
-            request.get('/api/users/list_urls')
+            request.get('/api/users/list')
             .expect(401)
             .end(function (err, res) {
               done();
@@ -137,15 +137,14 @@ describe('URL LIST', function () {
               html: 'html string'
             })
             .then(function (ok) {
-              agent.get('/api/users/list_urls')
+              agent.get('/api/users/list')
               .expect(200)
               .end(function (err, res) {
                 var result = res.body;
                 result.should.have.property('urls');
                 Array.isArray(result.urls).should.equal(true);
                 result.urls[0].should.have.property('UserUrl');
-                result.urls[0].UserUrl.html.should.equal('html string');
-                result.urls[0].UserUrl.frequency.should.equal(5);
+                result.urls[0].url.should.be.a.String();
                 done();
               });
             });
