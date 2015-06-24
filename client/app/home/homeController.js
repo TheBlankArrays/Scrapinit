@@ -29,7 +29,7 @@ angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router'])
               $scope.urls.push($scope.url);
             }
             $scope.loading = false;
-            console.log('sending data to the server');
+            console.log('received response from server');
 
           //  $('#siteimg').css("background-image",'url(' + data + ')');
          // 	 $('#siteimg').Jcrop({
