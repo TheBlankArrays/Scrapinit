@@ -11,11 +11,12 @@ module.exports = {
     db.User.findOne({
       where: {
         email: email
-      },
+      }, 
       attributes: ['email'],
       include: [
-        { model: db.UserUrl },
-        { model: db.Url }
+        { 
+          model: db.Url
+        }
       ]
     })
     .then(function(urls) {
