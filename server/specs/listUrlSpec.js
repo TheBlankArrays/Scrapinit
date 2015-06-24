@@ -129,16 +129,27 @@ describe('URL LIST', function () {
       it('should return 200 when there are a user logged and try request', function (done) {
         var agent = utils.createAgent();
         utils.logInAgent(agent, utils.testUser, function (user) {
-          agent.get('/api/users/list_urls')
-          .expect(200)
-          .end(function (err, res) {
-            var result = res.body;
-            result.should.have.property('urls');
-            Array.isArray(result.urls).should.equal(true);
-            result.should.have.property('UserUrls');
-            Array.isArray(result.UserUrls).should.equal(true);
-            done();
-          });
+          Url.create({url: 'http://www.google.com'})
+          .then(function (newUrl){
+            UserUrl.create({
+              user_id: user.id,
+              url_id: newUrl.id,
+              html: 'html string'
+            })
+            .then(function (ok) {
+              agent.get('/api/users/list_urls')
+              .expect(200)
+              .end(function (err, res) {
+                var result = res.body;
+                result.should.have.property('urls');
+                Array.isArray(result.urls).should.equal(true);
+                result.urls[0].should.have.property('UserUrl');
+                result.urls[0].UserUrl.html.should.equal('html string');
+                result.urls[0].UserUrl.frequency.should.equal(5);
+                done();
+              });
+            });
+          })
         });
       });
 
