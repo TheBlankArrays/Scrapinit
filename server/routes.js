@@ -23,12 +23,10 @@ var setup = function(app) {
     .get(authController.isAuth, urlController.getList);
 
   // // Feature return the html from the page
-  app.route('/api/users/retrieve_url')
-    .post(function(req, res, next) {
-      urlController.getExternalUrl(req.body.url, function(html) {
-        res.send(html);
-      });
-    });
+  app.route('/api/users/getListsOfUrls')
+   .get(authController.isAuth, function(req, res, next) {
+     urlController.getListOfUrls(req, res, next);
+   });
 
   app.route('/api/users/checkUser')
     .get(authController.checkUser);
