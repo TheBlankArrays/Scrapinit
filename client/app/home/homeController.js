@@ -22,14 +22,14 @@ angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router'])
       $scope.loading = true;
 
       //  console.log($scope.urls);
-       $http.post('/api/users/retrieve_url', {url: $scope.url })
+       $http.post('/api/users/url', {url: $scope.url })
          .success(function (data) {
 
             if (data !== 'error') {
               $scope.urls.push($scope.url);
             }
             $scope.loading = false;
-            console.log(data);
+            console.log('received response from server');
 
           //  $('#siteimg').css("background-image",'url(' + data + ')');
          // 	 $('#siteimg').Jcrop({
