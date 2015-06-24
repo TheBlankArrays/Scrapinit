@@ -48,7 +48,7 @@ module.exports = {
         })
         .then(function(urlFound) {
 
-          that.getExternalUrl(req.body.url, function(html) {
+          that.getExternalUrl(req.body, function(html) {
             html = html.substring(0,200);
             console.log(html);
             if (html === 'error') {
@@ -120,12 +120,12 @@ getListOfUrls: function(req, res, next){
  },
 
 getExternalUrl: function(url, cb){
-  console.log('url inside of getExternalUrl', url)
-  basicScraper.get(url, function(error, response, html){
+  // console.log('url inside of getExternalUrl', url)
+  basicScraper.get(url.url, function(error, response, html){
     if(!error && response.statusCode === 200){
-      cb(html);
+      cb(html, url);
     } else {
-      console.log('failure getting external url');
+      console.log('failure getting external url', url);
       cb('error');
     }
   });
