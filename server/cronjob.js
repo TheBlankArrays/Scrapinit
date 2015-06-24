@@ -23,23 +23,8 @@ var cronjob = new CronJob(schedule, function() {
   // check database for jobs assigned for cronjob
 
   // get urls 
-  var users = [
-    /*{
-  email:
-  html:
-  url:
-  selector:
-    }
-    */
-  ];
-
   db.User.findAll()
     .then(function(allUsers) {
-      // allUsers[0].getUrls()
-      //   .then(function(urls) {
-          // need to push the html, selector, and user, url into users
-        //   console.log('hopefully the html', allUsers[0].email)
-        // })
       for (var i = 0; i < allUsers.length; i++){
         var currEmail = allUsers[i].email;
         allUsers[i].getUrls()
@@ -50,14 +35,12 @@ var cronjob = new CronJob(schedule, function() {
                 newHtml = newHtml.substring(3000, 4000);
                 if (url) {
                   var oldHtml = url.UserUrl.html;
-                  // console.log('the current email is', currEmail);
-                  // compare old html in database to the current html
-                  console.log('the oldhtml is the same as newhtml', oldHtml === newHtml)
                   if (!(oldHtml === newHtml)) {
                     console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
                     console.log('there is a change at', url.url,'!')
+
                     // send email
-                    sendEmail(currEmail, currEmail)
+                    // sendEmail(currEmail, currEmail);
 
 
                     // update html value in database
@@ -70,21 +53,7 @@ var cronjob = new CronJob(schedule, function() {
             }
           })
       }
-      // console.log('here are all our users', allUsers);
     })
-
-  // render the page and compare if it changed 
-  // if change occured changed=true;
-  // if change  occured then send an email
-  
-  var changed = false;
-  if (changed) {
-    // Users.getUrls(where url: f) 
-    // set html to value
-    sendEmail('', '');
-    changed = false;
-  }
-
 
 }, null, true, 'America/Los_Angeles');
 
