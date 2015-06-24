@@ -1,3 +1,5 @@
+var basicScraper = require('./controllers/basicScraperController');
+var getExternalUrl = require('./controllers/urlController').getExternalUrl;
 var CronJob = require('cron').CronJob;
 var secret = require('../config.js');
 var db = require('./db.js');
@@ -6,7 +8,14 @@ var mandrill = require('mandrill-api');
 mandrill_client = new mandrill.Mandrill(secret.mandrill.client_id);
 
 // To run the cronjob as it is now: navigate to server dir and type node cronjob
-var schedule = '10 * * * * *';
+// for every five minutes
+// var schedule = '* +' */5 * * * *';
+
+
+// for faster testing
+// var schedule = '*/30 * * * * *';
+var schedule = '*/5 * * * * *';
+
 //To run every 3 seconds do */3; every 5 min do * */5 *
 
 var cronjob = new CronJob(schedule, function() {
@@ -14,17 +23,64 @@ var cronjob = new CronJob(schedule, function() {
   // check database for jobs assigned for cronjob
 
   // get urls 
+  var users = [
+    /*{
+  email:
+  html:
+  url:
+  selector:
+    }
+    */
+  ];
 
   db.User.findAll()
     .then(function(allUsers) {
-      console.log('here are all our users', allUsers);
+      // allUsers[0].getUrls()
+      //   .then(function(urls) {
+          // need to push the html, selector, and user, url into users
+        //   console.log('hopefully the html', allUsers[0].email)
+        // })
+      for (var i = 0; i < allUsers.length; i++){
+        var currEmail = allUsers[i].email;
+        allUsers[i].getUrls()
+          .then(function(url) {
+            // display html that are changed
+            for (var i = 0; i < url.length; i++) {
+              getExternalUrl(url[i], function(newHtml, url) {
+                newHtml = newHtml.substring(3000, 4000);
+                if (url) {
+                  var oldHtml = url.UserUrl.html;
+                  // console.log('the current email is', currEmail);
+                  // compare old html in database to the current html
+                  console.log('the oldhtml is the same as newhtml', oldHtml === newHtml)
+                  if (!(oldHtml === newHtml)) {
+                    console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+                    console.log('there is a change at', url.url,'!')
+                    // send email
+                    sendEmail(currEmail, currEmail)
+
+
+                    // update html value in database
+
+
+                  }
+                }
+              });
+              
+            }
+          })
+      }
+      // console.log('here are all our users', allUsers);
     })
 
   // render the page and compare if it changed 
   // if change occured changed=true;
   // if change  occured then send an email
+  
   var changed = false;
   if (changed) {
+    // Users.getUrls(where url: f) 
+    // set html to value
     sendEmail('', '');
     changed = false;
   }
