@@ -22,18 +22,31 @@ angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router'])
       $scope.loading = true;
 
       //  console.log($scope.urls);
-       $http.post('/api/users/url', {url: $scope.url })
+       $http.get('/api/getScreenshot?url=' + $scope.url )
          .success(function (data) {
 
             if (data !== 'error') {
               $scope.urls.push($scope.url);
             }
             $scope.loading = false;
-            console.log('received response from server');
+            console.log('received response from server: ' + data);
 
-          //  $('#siteimg').css("background-image",'url(' + data + ')');
-         // 	 $('#siteimg').Jcrop({
-          //  });
+           var img = $("<img src='" + data + "' />");
+           $('#imgview').append(img);
+           $('#imgview').show();
+
+           var selectedCrop = function(c) {
+             $('#imgview').fadeOut(5000);
+             $http.post('/api/cropImg', {crop: c, urlImg: data})
+                .success(function (data) {
+
+                })
+             console.log(c.x, c.y, c.w, c.h);
+           };
+
+         	 img.Jcrop({
+              onSelect: selectedCrop
+           });
 
          });
 
