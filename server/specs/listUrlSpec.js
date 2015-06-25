@@ -134,7 +134,12 @@ describe('URL LIST', function () {
             UserUrl.create({
               user_id: user.id,
               url_id: newUrl.id,
-              html: 'html string'
+              selector: 'Selector',
+              webImage: 'path to image',
+              cropHeight: 10,
+              cropWidth: 10,
+              cropOriginX: 10,
+              cropOriginY: 10
             })
             .then(function (ok) {
               agent.get('/api/users/list')
@@ -145,6 +150,11 @@ describe('URL LIST', function () {
                 Array.isArray(result.urls).should.equal(true);
                 result.urls[0].should.have.property('UserUrl');
                 result.urls[0].url.should.be.a.String();
+                result.urls[0].UserUrl.webImage.should.be.a.String;
+                result.urls[0].UserUrl.cropHeight.should.be.a.Number;
+                result.urls[0].UserUrl.cropWidth.should.be.a.Number;
+                result.urls[0].UserUrl.cropOriginX.should.be.a.Number;
+                result.urls[0].UserUrl.cropOriginY.should.be.a.Number;
                 done();
               });
             });
