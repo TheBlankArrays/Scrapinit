@@ -17,13 +17,7 @@ var setup = function(app) {
 
 //Protected Routes
   app.route("/api/users/logout")
-    .get(authController.isAuth, function(req, res, next){
-      // if(successfullyLoggedOut){
-      //   res.status(200);
-      // } else if(UnsuccessfullyLoggedOut) {
-      //   res.status(500);
-      // }
-    });
+    .get(authController.isAuth, authController.logout);
     
   app.route("/api/users/url")
     .post(authController.isAuth, function(req, res, next){
