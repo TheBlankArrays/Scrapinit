@@ -114,8 +114,6 @@ module.exports = {
                   .catch(function (err) {
                     res.status(403).json({message: err.message});
                   }); // close catch of addurl db call
-
-
                 })  // close then of create url db call
                 .catch(function (err) {
                   res.status(403).json({message: err.message});
@@ -130,5 +128,68 @@ module.exports = {
       } // close if userFound
 
     });  // close userFound then
+  }
+},
+
+getUrl: function (req, res) {
+  var idUrl = req.params.idUrl;
+  db.Url.findOne({
+    where: {
+      id: idUrl
+    },
+    include: [
+      { model: db.UserUrl },
+      {
+        model: db.UserUrl,
+        where: {
+          email: req.session.email
+        }
+      }
+    ]
+  })
+  .then(function (urlFound) {
+    if(urlFound) {
+      res.status(200).json(urlFound);
+    }else {
+      res.status(403).json({error: 'You dont have permissions in this URL'});
+    }
+  });
+},
+
+getListOfUrls: function(req, res, next){
+  console.log('in getListOfUrls ', req.session.email)
+   var email = req.session.email;
+
+   db.User.findOne({
+     where: {
+       email: email
+     }
+   }).then(function(userFound) {
+
+     userFound.getUrls()
+       .then(function(urlArr) {
+
+         if (urlArr && urlArr[0]) {
+           console.log('our url array', urlArr[0].UserUrl);
+           res.status(200).json(urlArr);
+         } else {
+           res.status(200).json({});
+         }
+       });
+
+   });
+
+ },
+
+  getExternalUrl: function(url, cb){
+  // console.log('url inside of getExternalUrl', url)
+  basicScraper.get(url.url, function(error, response, html){
+      if(!error && response.statusCode === 200){
+        cb(html, url);
+      } else {
+        console.log('failure getting external url', url);
+        cb('error');
+      }
+    });
   }
 };
