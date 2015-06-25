@@ -31,7 +31,7 @@ var setup = function(app) {
       //   res.status(201);
       // } else if (ServerOrDatbaseError) {
       //   res.status(500);
-      }
+      // }
     });
 
   app.route("/api/users/url/:idUrl")
@@ -54,13 +54,7 @@ var setup = function(app) {
 
 
   app.route("/api/users/list")
-    .get(authController.isAuth, function(req, res, next){
-      // if(succesfullyUrlList){
-      //   res.status(200).json({list:list});
-      // } else if(urlListNotFound){
-      //   res.status(400);
-      // }
-    });
+    .get(authController.isAuth, urlController.getList);
 
 
   app.get('*', function(req, res) {
