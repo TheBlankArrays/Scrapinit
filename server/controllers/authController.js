@@ -19,11 +19,11 @@ module.exports = {
             req.session.id = userFound.id;
             res.status(200).json(userFound);
           }else{
-            res.status(401).json({error: 'User or Password invalid'});
+            res.status(400).json({error: 'User or Password invalid'});
           }
         });
       } else {
-        res.status(401).json({error: 'User or Password invalid'});
+        res.status(400).json({error: 'User or Password invalid'});
       }
     });
   },

@@ -97,7 +97,6 @@ module.exports = {
 
               console.log('url not found');
 
-
               db.Url.create(url)
                 .then(function (urlCreated) {
 

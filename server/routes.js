@@ -18,7 +18,6 @@ var setup = function(app) {
   app.route('/api/users/check_User')
     .get(authController.checkUser);
 
-
   // Protected Routes
   app.route("/api/users/logout")
     .get(authController.isAuth, authController.logout);
@@ -48,10 +47,10 @@ var setup = function(app) {
 
   app.route('/api/users/list')
       .get(authController.isAuth, urlController.getList);
-
+      
   // All other routes not found, return 404
   app.get('*', function(req, res) {
-		res.send('what ? 404', 200);
+		res.send('what ? 404', 404);
 	});
 
 };
