@@ -7,6 +7,9 @@ angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router'])
    $scope.loading = false;
    console.log($scope.urls);
 
+
+
+
    // request current users' urls from server right now on init
 
    $scope.logout = function() {
@@ -22,18 +25,30 @@ angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router'])
       $scope.loading = true;
 
       //  console.log($scope.urls);
-       $http.post('/api/users/url', {url: $scope.url })
+       $http.get('/api/screenshot?url=' + $scope.url )
          .success(function (data) {
 
-            if (data !== 'error') {
-              $scope.urls.push($scope.url);
-            }
-            $scope.loading = false;
-            console.log('received response from server');
+            console.log('received response from server: ' + data);
 
-          //  $('#siteimg').css("background-image",'url(' + data + ')');
-         // 	 $('#siteimg').Jcrop({
-          //  });
+           var img = $("<img src='" + data + "' />");
+           $('#imgview').html(img);
+           $('#imgview').fadeIn(100);
+
+           var selectedCrop = function(c) {
+             $('#imgview').fadeOut(800);
+             $http.post('/api/users/url', {crop: c, urlImg: data, url: $scope.url})
+                .success(function (data) {
+                  console.log('url response: ' + JSON.stringify(data));
+                  if (data !== 'error') {
+                    $scope.urls.push($scope.url);
+                  }
+                  $scope.loading = false;
+                })
+           };
+
+         	 img.Jcrop({
+              onSelect: selectedCrop
+           });
 
          });
 
