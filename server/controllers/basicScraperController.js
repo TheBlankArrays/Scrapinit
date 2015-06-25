@@ -13,9 +13,9 @@ module.exports = {
   getScreenshot: function(url, userId, cb) {
 
     var urlWithoutHTTP = url.substr(7);
-    webshot(url, '../client/assets/' + userId + '/' + urlWithoutHTTP + '.jpg', function(err) {
+    webshot(url, '../client/assets/' + userId + '/' + urlWithoutHTTP + '-preview.jpg', function(err) {
       // screenshot now saved to google.png// screenshot now saved to hello_world.png
-      cb('assets/' + userId + '/' + urlWithoutHTTP + '.jpg');
+      cb('assets/' + userId + '/' + urlWithoutHTTP + '-preview.jpg');
     });
   },
   cropImg: function(url, crop, cb) {
@@ -24,9 +24,9 @@ module.exports = {
 
     gm('../client/' + url)
       .crop(crop.w, crop.h, crop.x, crop.y)
-      .write('../client/' + url, function(err){
+      .write('../client/' + url.substr(0, url.length - 12) + '.jpg' , function(err){
         if (err) return console.dir(arguments)
-        cb('../client/' + url, crop);
+        cb(url.substr(0, url.length - 12) + '.jpg', crop);
       }
     )
 

@@ -40,7 +40,7 @@ angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router'])
                 .success(function (data) {
                   console.log('url response: ' + JSON.stringify(data));
                   if (data !== 'error') {
-                    $scope.urls.push($scope.url);
+                    $scope.urls.push({url: $scope.url, img: data[0][0].cropImage});
                   }
                   $scope.loading = false;
                 })
