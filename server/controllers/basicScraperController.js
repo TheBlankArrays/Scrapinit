@@ -38,7 +38,7 @@ module.exports = {
       .crop(crop.w, crop.h, crop.x, crop.y)
       .write('../client/' + url, function(err){
         if (err) return console.dir(arguments)
-        cb('../client/' + url);
+        cb('../client/' + url, crop);
       }
     )
 
