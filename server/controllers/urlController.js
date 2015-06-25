@@ -4,7 +4,7 @@ var db = require("../db");
 
 
 
-module.exports = {
+thisThing = {
   getList: function (req, res, next) {
     console.log('we are here')
     var email = req.session.email;
@@ -28,7 +28,7 @@ module.exports = {
     });
   },
   addUrl: function (req, res, next) {
-    console.log('in addurl');
+
     var email = req.session.email;
     var url = req.body;
     var that = this;
@@ -48,7 +48,9 @@ module.exports = {
         })
         .then(function(urlFound) {
 
+
           that.getExternalUrl(req.body, function(html) {
+
             html = html.substring(0,200);
             console.log(html);
             if (html === 'error') {
@@ -88,9 +90,9 @@ module.exports = {
 
           });
 
-
         });
       }
+
     });
 
 },
@@ -131,3 +133,6 @@ getExternalUrl: function(url, cb){
   });
 }
 };
+
+
+module.exports = thisThing;
