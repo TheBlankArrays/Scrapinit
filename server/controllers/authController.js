@@ -18,11 +18,11 @@ module.exports = {
             req.session.email = userFound.email;
             res.status(200).json(userFound);
           }else{
-            res.status(401).json({error: 'User or Password invalid'});
+            res.status(400).json({error: 'User or Password invalid'});
           }
         });
       } else {
-        res.status(401).json({error: 'User or Password invalid'});
+        res.status(400).json({error: 'User or Password invalid'});
       }
     });
   },
@@ -35,7 +35,7 @@ module.exports = {
       res.status(201).json(newUser);
     })
     .catch(function (err) {
-      res.status(403).json({message: err.message});
+      res.status(400).json({message: err.message});
     });
   },
 
