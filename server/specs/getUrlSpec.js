@@ -125,15 +125,15 @@ describe('API', function () {
 
     describe('Route /api/users/url/:idUrl', function () {
       
-      it('Should return 401 when request to url', function (done) {
+      it('Should return 403 when request to url', function (done) {
         request.get('/api/users/url/1')
-        .expect(401)
+        .expect(403)
         .end(function (err, res) {
           done();
         });
       });
 
-      it('Should return 401 when the user is logged and the url is not assocciated', function (done) {
+      it('Should return 403 when the user is logged and the url is not assocciated', function (done) {
         var agent = utils.createAgent();
         var agent2 = utils.createAgent();
         utils.logInAgent(agent, utils.testUser, function (user) {
@@ -144,7 +144,7 @@ describe('API', function () {
             .end(function (err, res) {
               var newUrl = res.body;
               agent.get('/api/users/url/' + newUrl.id)
-              .expect(401)
+              .expect(403)
               .end(function (err, res) {
                 done();
               });
