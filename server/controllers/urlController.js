@@ -131,41 +131,5 @@ module.exports = {
       } // close if userFound
 
     });  // close userFound then
-  },
-  getListOfUrls: function(req, res, next){
-    console.log('in getListOfUrls ', req.session.email)
-     var email = req.session.email;
-
-     db.User.findOne({
-       where: {
-         email: email
-       }
-     }).then(function(userFound) {
-
-       userFound.getUrls()
-         .then(function(urlArr) {
-
-           if (urlArr && urlArr[0]) {
-             console.log('our url array', urlArr[0].UserUrl);
-             res.status(200).json(urlArr);
-           } else {
-             res.status(200).json({});
-           }
-         });
-
-     });
-
-   },
-
-  getExternalUrl: function(url, cb){
-    // console.log('url inside of getExternalUrl', url)
-    basicScraper.get(url.url, function(error, response, html){
-      if(!error && response.statusCode === 200){
-        cb(html, url);
-      } else {
-        console.log('failure getting external url', url);
-        cb('error');
-      }
-    });
   }
 };

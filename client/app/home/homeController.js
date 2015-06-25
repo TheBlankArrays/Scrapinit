@@ -25,7 +25,7 @@ angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router'])
       $scope.loading = true;
 
       //  console.log($scope.urls);
-       $http.get('/api/getScreenshot?url=' + $scope.url )
+       $http.get('/api/screenshot?url=' + $scope.url )
          .success(function (data) {
 
             console.log('received response from server: ' + data);

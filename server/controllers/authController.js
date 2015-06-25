@@ -36,7 +36,7 @@ module.exports = {
       res.status(201).json(newUser);
     })
     .catch(function (err) {
-      res.status(403).json({message: err.message});
+      res.status(400).json({message: err.message});
     });
   },
 
