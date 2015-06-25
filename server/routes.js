@@ -22,11 +22,8 @@ var setup = function(app) {
   app.route("/api/users/logout")
     .get(authController.isAuth, authController.logout);
 
-  app.route('/api/users/url')
-    .post(authController.isAuth, function(req, res, next) {
-      console.log('url route');
-      urlController.addUrl(req, res, next);
-    });
+  app.route("/api/users/url/:idUrl")
+    .get(authController.isAuth, urlController.getUrl);
 
   app.route("/api/users/url/:idUrl")
     .get(authController.isAuth, function(req, res, next) {
