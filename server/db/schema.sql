@@ -24,8 +24,12 @@ CREATE TABLE `UserUrl` (
     `userID` INT NOT NULL,
     `urlID` INT NOT NULL,
     `frequency` INT NOT NULL DEFAULT '5',
-    `html` varchar NOT NULL,
-    `selector` varchar NOT NULL,
+    `webImage` varchar NOT NULL,
+    `cropImage` varchar NOT NULL,
+    `cropHeight` INT NOT NULL,
+    `cropWidth` INT NOT NULL,
+    `cropOriginX` INT NOT NULL,
+    `cropOriginY` INT NOT NULL,
     PRIMARY KEY (`UserUrlID`)
 );
 
