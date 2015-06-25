@@ -30,6 +30,6 @@ angular.module('app.routes', ['ui.router'])
       .state('home.results', {
         url: 'results',
         templateUrl: 'app/home/results.html',
-        controller: 'addUrlController'
+        controller: 'resultsController'
       });
   });
