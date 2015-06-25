@@ -4,7 +4,7 @@ var db = require("../db");
 
 
 
-thisThing = {
+module.exports = {
   getList: function (req, res, next) {
     console.log('we are here')
     var email = req.session.email;
@@ -135,4 +135,4 @@ getExternalUrl: function(url, cb){
 };
 
 
-module.exports = thisThing;
+
