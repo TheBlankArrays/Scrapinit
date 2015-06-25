@@ -36,10 +36,10 @@ angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router'])
            $('#imgview').show();
 
            var selectedCrop = function(c) {
-             $('#imgview').fadeOut(5000);
-             $http.post('/api/cropImg', {crop: c, urlImg: data})
+             $('#imgview').fadeOut(800);
+             $http.post('/api/users/url', {crop: c, urlImg: data})
                 .success(function (data) {
-
+                  console.log('response: ' + data);
                 })
              console.log(c.x, c.y, c.w, c.h);
            };

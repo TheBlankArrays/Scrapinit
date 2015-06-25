@@ -19,6 +19,7 @@ var setup = function(app) {
 
   app.route('/api/users/url')
     .post(function(req, res, next) {
+      console.log('url route');
       urlController.addUrl(req, res, next);
     });
 
