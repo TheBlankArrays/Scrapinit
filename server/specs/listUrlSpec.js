@@ -103,10 +103,10 @@ describe('URL LIST', function () {
 
   describe('URLS', function () {
 
-    describe('Route /api/users/list_urls', function () {
+    describe('Route /api/users/list', function () {
 
       it('should return 401 when there are not a user logged and try request', function (done) {
-        request.get('/api/users/list_urls')
+        request.get('/api/users/list')
         .expect(401)
         .end(function (err, res) {
           done();
@@ -117,7 +117,7 @@ describe('URL LIST', function () {
         var agent = utils.createAgent();
         utils.logInAgent(agent, utils.testUser, function (user) {
           utils.logOutAgent(agent, function () {
-            request.get('/api/users/list_urls')
+            request.get('/api/users/list')
             .expect(401)
             .end(function (err, res) {
               done();
@@ -134,18 +134,27 @@ describe('URL LIST', function () {
             UserUrl.create({
               user_id: user.id,
               url_id: newUrl.id,
-              html: 'html string'
+              selector: 'Selector',
+              webImage: 'path to image',
+              cropHeight: 10,
+              cropWidth: 10,
+              cropOriginX: 10,
+              cropOriginY: 10
             })
             .then(function (ok) {
-              agent.get('/api/users/list_urls')
+              agent.get('/api/users/list')
               .expect(200)
               .end(function (err, res) {
                 var result = res.body;
                 result.should.have.property('urls');
                 Array.isArray(result.urls).should.equal(true);
                 result.urls[0].should.have.property('UserUrl');
-                result.urls[0].UserUrl.html.should.equal('html string');
-                result.urls[0].UserUrl.frequency.should.equal(5);
+                result.urls[0].url.should.be.a.String();
+                result.urls[0].UserUrl.webImage.should.be.a.String;
+                result.urls[0].UserUrl.cropHeight.should.be.a.Number;
+                result.urls[0].UserUrl.cropWidth.should.be.a.Number;
+                result.urls[0].UserUrl.cropOriginX.should.be.a.Number;
+                result.urls[0].UserUrl.cropOriginY.should.be.a.Number;
                 done();
               });
             });
