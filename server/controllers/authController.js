@@ -17,8 +17,6 @@ module.exports = {
           if (result) {
             req.session.email = result.email;
             req.session.user_id = result.id;
-
-                console.log('userId in login screenshot ' + userId);
             res.status(200).json(userFound);
           }else{
             res.status(400).json({error: 'User or Password invalid'});
