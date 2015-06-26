@@ -1,6 +1,7 @@
 <table class="gradienttable">
   <thead>
     <tr>
+      <th>Image</th>
       <th>URL</th>
       <th>pingRate</th>
       <th>active</th>
@@ -9,7 +10,7 @@
   
   <tbody>
     <tr ng-repeat="url in urls">
-      <td>{{url.cropImage}}</td>
+      <td><img src="{{url.img}}" width="175px"></td>
       <td>{{url.url}}</td>
       <td>5 minutes</td>
       <td>true</td>
