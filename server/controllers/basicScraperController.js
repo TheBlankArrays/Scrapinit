@@ -12,6 +12,8 @@ var validProtocols = {
 module.exports = {
   getScreenshot: function(url, userId, cb) {
 
+    console.log('userId in getscreenshot ' + userId);
+
     var urlWithoutHTTP = url.substring(url.indexOf("://") + 3)  // handle http AND https protocols
     urlWithoutHTTP = urlWithoutHTTP.replace(/[?/.=]/g, '_');    // change weird characters to underscore
 

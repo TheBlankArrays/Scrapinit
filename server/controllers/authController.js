@@ -15,8 +15,10 @@ module.exports = {
       if (userFound) {
         userFound.comparePasswords(user.password, function (result) {
           if (result) {
-            req.session.email = userFound.email;
-            req.session.user_id = userFound.id;
+            req.session.email = result.email;
+            req.session.user_id = result.id;
+
+                console.log('userId in login screenshot ' + userId);
             res.status(200).json(userFound);
           }else{
             res.status(400).json({error: 'User or Password invalid'});
@@ -33,7 +35,7 @@ module.exports = {
     db.User.create(user)
     .then(function (newUser){
       req.session.email = newUser.email;
-      req.session.user_id
+      req.session.user_id = newUser.id;
       res.status(201).json(newUser);
     })
     .catch(function (err) {
