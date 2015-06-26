@@ -41,9 +41,9 @@ angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router', 
                 .success(function (data) {
                   console.log('url response: ' + JSON.stringify(data));
                   if (data !== 'error') {
+                    console.log(JSON.stringify(data));
                     // $scope.urls.push({url: $scope.url, img: data[0][0].cropImage});
                     $scope.urls.push({url: $scope.url, img: data.cropImage});
-
                   }
                   $scope.loading = false;
                 })
@@ -104,4 +104,3 @@ angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router', 
   }
 
 });
-
