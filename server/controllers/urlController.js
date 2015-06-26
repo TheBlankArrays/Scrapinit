@@ -180,17 +180,5 @@ module.exports = {
 
      });
 
- },
-
-  getExternalUrl: function(url, cb){
-  // console.log('url inside of getExternalUrl', url)
-  basicScraper.get(url.url, function(error, response, html){
-      if(!error && response.statusCode === 200){
-        cb(html, url);
-      } else {
-        console.log('failure getting external url', url);
-        cb('error');
-      }
-    });
-  }
+ }
 };
