@@ -84,8 +84,6 @@ button {
     font-size: 100%;
   }
 
-
-
   .background-image {
     position: fixed;
     top: 0;
@@ -310,6 +308,7 @@ button {
   	background: -ms-linear-gradient(top,  #ebecda 0%,#e0e0c6 40%,#ceceb7 100%);
   	background: linear-gradient(to bottom,  #ebecda 0%,#e0e0c6 40%,#ceceb7 100%);
   	border: 1px solid #999999;
+    width : 1%;
   }
   table.gradienttable th td{
   	margin:0px;

@@ -41,7 +41,9 @@ angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router', 
                 .success(function (data) {
                   console.log('url response: ' + JSON.stringify(data));
                   if (data !== 'error') {
-                    $scope.urls.push({url: $scope.url, img: data[0][0].cropImage});
+                    // $scope.urls.push({url: $scope.url, img: data[0][0].cropImage});
+                    $scope.urls.push({url: $scope.url, img: data.cropImage});
+
                   }
                   $scope.loading = false;
                 })
@@ -84,7 +86,13 @@ angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router', 
       url: '/api/users/list'
     })
     .success(function(data) {
-      callback(false, data.urls);
+      var urls = [];
+      var urlArray = data.urls;
+      console.log('data - ', data);
+      for (var i = 0; i < urlArray.length; i++) {
+        urls.push({url: urlArray[i].url, img: urlArray[i].UserUrl.cropImage});
+      }
+      callback(false, urls);
     })
     .error(function(err) {
       callback(true);
