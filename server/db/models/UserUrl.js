@@ -8,6 +8,7 @@ module.exports = function(sequelize, tableConfig) {
     cropWidth: Sequelize.INTEGER,
     cropOriginX: Sequelize.INTEGER,
     cropOriginY: Sequelize.INTEGER,
+    status: Sequelize.BOOLEAN,
     frequency: {
       type: Sequelize.INTEGER,
       defaultValue: 5
