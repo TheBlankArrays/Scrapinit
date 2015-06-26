@@ -28,6 +28,7 @@
     "grunt-mocha-test": "^0.10.2",
     "grunt-nodemon": "^0.2.1",
     "grunt-shell": "^1.1.2",
+    "image-diff": "^1.1.0",
     "mandrill-api": "^1.0.45",
     "mocha": "^2.2.5",
     "morgan": "^1.5.3",
