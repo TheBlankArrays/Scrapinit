@@ -5,6 +5,7 @@ var secret = require('../config.js');
 var db = require('./db.js');
 var Sequelize = require('sequelize');
 var mandrill = require('mandrill-api');
+var resemble = require('resemblejs')
 mandrill_client = new mandrill.Mandrill(secret.mandrill.client_id);
 
 // To run the cronjob as it is now: navigate to server dir and type node cronjob
@@ -27,9 +28,32 @@ var cronjob = new CronJob(schedule, function() {
   .then(function(allUsers) {
     for (var i = 0; i < allUsers.length; i++){
       var currEmail = allUsers[i].email;
+      console.log('email', currEmail)
       allUsers[i].getUrls()
       .then(function(url) {
+        console.log('in the for loop')
+        for (var j=0; j<url.length; j++){
+           console.log('url', url[j].UserUrl.cropImage)
+           // console.log('url', url[j].id)
+           
+           var img1 = url[j].UserUrl.cropImage;
+           var params = {
+            h: url[j].UserUrl.cropHeight,
+            w: url[j].UserUrl.cropWidth,
+            x: url[j].UserUrl.cropOriginX,
+            y: url[j].UserUrl.cropOriginY
+           }
+        // get the server to render the page with params coordinates
+        basicScraper.getScreenshot(url[j].url, url[j].id, function(urlToThePage) {
+          console.log('url to the page', urlToThePage)
+          basicScraper.cropImg(urlToThePage, params, function() {console.log()}, true);
+        })
+        //
+
+        }
+       
             // display html that are changed
+
             for (var i = 0; i < url.length; i++) {
               getExternalUrl(url[i], function(newImage, url) {
                 if (url) {
@@ -56,6 +80,24 @@ var cronjob = new CronJob(schedule, function() {
           })
 }
 })
+
+
+               var compare = function (img1, img2){
+               //  var diff = resemble(img1).compareTo(img2).ignoreColors().onComplete(function(data){
+               //  console.log(data);
+               //  });
+              }
+
+              var img1 = '../client/assets/qvNot4g0dBZNio45GtwpXfopy8poLxm8/google.com.jpg';
+              var img2 = '../client/assets/qvNot4g0dBZNio45GtwpXfopy8poLxm8/google.com.jpg';
+              compare(img1,img2);
+
+                    // send email
+                    // sendEmail(currEmail, currEmail);
+                    // update html value in database                    } 
+            });
+        };
+      });
 
 }, null, true, 'America/Los_Angeles');
 
