@@ -12,14 +12,14 @@ module.exports = {
     var newDirName = __dirname + '../';
     var newDir = __dirname.slice(0,-6);
     console.log('newDir',newDir)
-    var a1 = path.join(newDir, image1);
-    var a2 = path.join(newDir, image2);
+    var a1 = path.join(newDir,'client', image1);
+    var a2 = path.join(newDir,'client', image2);
     console.log('a1', a1)
     console.log('a2', a2)
 
 
-a1= '/Users/dominikabienkowska/Desktop/Scrapinit/client/assets/-0cvRcQCJRzYSJPBvytR5y4zVIPjTPRl/google.com.jpg';
-a2 ='/Users/dominikabienkowska/Desktop/Scrapinit/client/assets/1/google.comcompare.jpg';
+// a1= '/Users/dominikabienkowska/Desktop/Scrapinit/client/assets/-0cvRcQCJRzYSJPBvytR5y4zVIPjTPRl/google.com.jpg';
+// a2 ='/Users/dominikabienkowska/Desktop/Scrapinit/client/assets/1/google.comcompare.jpg';
     imageDiff({
       actualImage: a1,
       expectedImage: a2,
