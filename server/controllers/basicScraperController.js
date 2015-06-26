@@ -22,11 +22,11 @@ module.exports = {
     console.log(url);
     console.log(JSON.stringify(crop));
     if (compare) {
-      .crop(crop.w, crop.h, crop.x, crop.y)
+     gm('../client/' + url).crop(crop.w, crop.h, crop.x, crop.y)
       .write('../client/' + url.substr(0, url.length - 12) + 'compare.jpg' , function(err){
         if (err) return console.dir(arguments)
         cb(url.substr(0, url.length - 12) + 'compare.jpg', crop);
-      }
+      })
     } else {
 
     gm('../client/' + url)
@@ -36,6 +36,6 @@ module.exports = {
         cb(url.substr(0, url.length - 12) + '.jpg', crop);
       }
     )
-
+    }
   }
 };

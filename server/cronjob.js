@@ -47,58 +47,14 @@ var cronjob = new CronJob(schedule, function() {
         basicScraper.getScreenshot(url[j].url, url[j].id, function(urlToThePage) {
           console.log('url to the page', urlToThePage)
           basicScraper.cropImg(urlToThePage, params, function() {console.log()}, true);
-        })
-        //
-
-        }
-       
-            // display html that are changed
-
-            for (var i = 0; i < url.length; i++) {
-              getExternalUrl(url[i], function(newImage, url) {
-                if (url) {
-                  // the old image value that is stored
-                  var oldImage = url.UserUrl.cropImage;
-
-                  // Compare images here
-                  // if (!(oldHtml === newHtml)) {
-                  //   console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
-                  //   console.log('there is a change at', url.url,'!')
-
-                  //   // send email
-                  //   // sendEmail(currEmail, currEmail);
-
-
-                  //   // update html value in database
-
-
-                  // }
-                }
-              });
-              
-            }
-          })
-}
-})
-
-
-               var compare = function (img1, img2){
-               //  var diff = resemble(img1).compareTo(img2).ignoreColors().onComplete(function(data){
-               //  console.log(data);
-               //  });
-              }
-
-              var img1 = '../client/assets/qvNot4g0dBZNio45GtwpXfopy8poLxm8/google.com.jpg';
-              var img2 = '../client/assets/qvNot4g0dBZNio45GtwpXfopy8poLxm8/google.com.jpg';
-              compare(img1,img2);
-
+        });
+      }
                     // send email
                     // sendEmail(currEmail, currEmail);
                     // update html value in database                    } 
             });
         };
       });
-
 }, null, true, 'America/Los_Angeles');
 
 var sendEmail = function (email, name){
