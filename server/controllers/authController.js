@@ -15,8 +15,8 @@ module.exports = {
       if (userFound) {
         userFound.comparePasswords(user.password, function (result) {
           if (result) {
-            req.session.email = result.email;
-            req.session.user_id = result.id;
+            req.session.email = userFound.email;
+            req.session.user_id = userFound.id;
             res.status(200).json(userFound);
           }else{
             res.status(400).json({error: 'User or Password invalid'});
