@@ -23,7 +23,7 @@ module.exports = {
 
   cropImg: function(url, crop, compare, cb) {
 
-    var filepath = url.substr(0, url.length - 12) + ((compare) ? '-compare.jpg' : '');
+    var filepath = url.substr(0, url.length - 12) + ((compare) ? '-compare.jpg' : '.jpg');
 
      gm('../client/' + url).crop(crop.w, crop.h, crop.x, crop.y)
       .write('../client/' + filepath, function(err){
