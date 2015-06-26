@@ -57,7 +57,7 @@ module.exports = {
           console.log('req.body.urlImg' + req.body.urlImg);
           console.log('req.body.crop' + JSON.stringify(req.body.crop));
 
-          basicScraper.cropImg(req.body.urlImg, req.body.crop, function(cropImg, crop) {
+          basicScraper.cropImg(req.body.urlImg, req.body.crop, false, function(cropImg, crop) {
             // crop image whether or not the url has already been submitted
             console.log('***** urlImg',req.body.urlImg )
             if (urlFound) {

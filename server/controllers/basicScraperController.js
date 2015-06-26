@@ -11,30 +11,25 @@ var validProtocols = {
 
 module.exports = {
   getScreenshot: function(url, userId, cb) {
-    var urlWithoutHTTP = url.substr(7);
+
+    var urlWithoutHTTP = url.substring(url.indexOf("://") + 3)  // handle http AND https protocols
+    urlWithoutHTTP = urlWithoutHTTP.replace(/[?/.=]/g, '_');    // change weird characters to underscore
+
     webshot(url, '../client/assets/' + userId + '/' + urlWithoutHTTP + '-preview.jpg', function(err) {
       // screenshot now saved to google.png// screenshot now saved to hello_world.png
       cb('assets/' + userId + '/' + urlWithoutHTTP + '-preview.jpg');
     });
   },
 
-  cropImg: function(url, crop, cb, compare) {
-    console.log(url);
-    console.log(JSON.stringify(crop));
-    if (compare) {
+  cropImg: function(url, crop, compare, cb) {
+
+    var filepath = url.substr(0, url.length - 12) + ((compare) ? '-compare.jpg' : '');
+
      gm('../client/' + url).crop(crop.w, crop.h, crop.x, crop.y)
-      .write('../client/' + url.substr(0, url.length - 12) + 'compare.jpg' , function(err){
+      .write('../client/' + filepath, function(err){
         if (err) return console.dir(arguments)
-        cb(url.substr(0, url.length - 12) + 'compare.jpg', crop);
-      })
-    } else {
-     gm('../client/' + url)
-      .crop(crop.w, crop.h, crop.x, crop.y)
-      .write('../client/' + url.substr(0, url.length - 12) + '.jpg' , function(err){
-        if (err) return console.dir(arguments)
-        cb(url.substr(0, url.length - 12) + '.jpg', crop);
-      }
-    )
-    }
+        cb(filepath, crop);
+      });
+
   }
 };

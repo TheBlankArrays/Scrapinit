@@ -22,7 +22,7 @@ var cronjob = new CronJob(schedule, function() {
   console.log('You will see this message every 5 min');
   // check database for jobs assigned for cronjob
 
-  // get urls 
+  // get urls
   db.User.findAll()
   .then(function(allUsers) {
     for (var i = 0; i < allUsers.length; i++){
@@ -34,7 +34,7 @@ var cronjob = new CronJob(schedule, function() {
         for (var j=0; j<url.length; j++){
            console.log('url', url[j].UserUrl.cropImage)
            // console.log('url', url[j].id)
-           
+
            var img1 = url[j].UserUrl.cropImage;
            var params = {
             h: url[j].UserUrl.cropHeight,
@@ -45,12 +45,12 @@ var cronjob = new CronJob(schedule, function() {
         // get the server to render the page with params coordinates
         basicScraper.getScreenshot(url[j].url, url[j].id, function(urlToThePage) {
           console.log('url to the page', urlToThePage)
-          basicScraper.cropImg(urlToThePage, params, function() {console.log()}, true);
+          basicScraper.cropImg(urlToThePage, params, true, function() {console.log()});
         });
       }
                     // send email
                     // sendEmail(currEmail, currEmail);
-                    // update html value in database                    } 
+                    // update html value in database                    }
             });
         };
       });
