@@ -31,5 +31,13 @@ module.exports = {
         cb(filepath, crop);
       });
 
+    gm('../client/' + url)
+      .crop(crop.w, crop.h, crop.x, crop.y)
+      .write('../client/' + url.substr(0, url.length - 12) + '.jpg' , function(err){
+        if (err) return console.dir(arguments)
+        cb(url.substr(0, url.length - 12) + '.jpg', crop);
+      }
+    )
+    }
   }
 };

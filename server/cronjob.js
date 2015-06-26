@@ -6,16 +6,14 @@ var db = require('./db.js');
 var Sequelize = require('sequelize');
 var mandrill = require('mandrill-api');
 mandrill_client = new mandrill.Mandrill(secret.mandrill.client_id);
+var compare = require('./imgCompare.js').compare;
 
 // To run the cronjob as it is now: navigate to server dir and type node cronjob
 // for every five minutes
 // var schedule = '* +' */5 * * * *';
 
-
 // for faster testing
-// var schedule = '*/30 * * * * *';
-var schedule = '*/5 * * * * *';
-
+var schedule = '*/30 * * * * *';
 //To run every 3 seconds do */3; every 5 min do * */5 *
 
 var cronjob = new CronJob(schedule, function() {
@@ -36,6 +34,7 @@ var cronjob = new CronJob(schedule, function() {
            // console.log('url', url[j].id)
 
            var img1 = url[j].UserUrl.cropImage;
+           console.log('img1', img1)
            var params = {
             h: url[j].UserUrl.cropHeight,
             w: url[j].UserUrl.cropWidth,
@@ -45,9 +44,15 @@ var cronjob = new CronJob(schedule, function() {
         // get the server to render the page with params coordinates
         basicScraper.getScreenshot(url[j].url, url[j].id, function(urlToThePage) {
           console.log('url to the page', urlToThePage)
-          basicScraper.cropImg(urlToThePage, params, true, function() {console.log()});
+          
+          basicScraper.cropImg(urlToThePage, params, true,  function(img2) {
+            console.log('image path', img2);
+            compare(img1, img2);
+        });
+
         });
       }
+      //compare(image1, image2);
                     // send email
                     // sendEmail(currEmail, currEmail);
                     // update html value in database                    }
