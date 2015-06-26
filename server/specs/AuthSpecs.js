@@ -14,21 +14,6 @@ var utils = {
     password: '123qwe'
   },
 
-  signUpUser: function(credentials, callback) {
-    request.post('/signup')
-    .send(credentials)
-    .end(function(err, res) {
-      if (callback) {
-        if (err) {
-          callback(err);
-        }
-        else {
-          callback();
-        }
-      }
-    });
-  },
-
   destroyUser: function(schema, credentials, callback) {
     schema.find({where: {email: this.testUser.email}})
     .then(function(foundUser) {

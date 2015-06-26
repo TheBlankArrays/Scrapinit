@@ -16,13 +16,14 @@ module.exports = {
         userFound.comparePasswords(user.password, function (result) {
           if (result) {
             req.session.email = userFound.email;
+            req.session.user_id = userFound.id;
             res.status(200).json(userFound);
           }else{
-            res.status(401).json({error: 'User or Password invalid'});
+            res.status(400).json({error: 'User or Password invalid'});
           }
         });
       } else {
-        res.status(401).json({error: 'User or Password invalid'});
+        res.status(400).json({error: 'User or Password invalid'});
       }
     });
   },
@@ -32,16 +33,25 @@ module.exports = {
     db.User.create(user)
     .then(function (newUser){
       req.session.email = newUser.email;
+      req.session.user_id
       res.status(201).json(newUser);
     })
     .catch(function (err) {
-      res.status(403).json({message: err.message});
+      res.status(400).json({message: err.message});
     });
   },
 
   checkUser: function(req, res, next) {
     var isLoggedIn = !!req.session.email;
     res.send(isLoggedIn);
+  },
+
+  isAuth: function (req, res, next) {
+    if (req.session.email) {
+      next();
+    }else {
+      res.status(401).json({error: 'Not allowed'});
+    }
   },
 
   logout: function(req, res, next) {

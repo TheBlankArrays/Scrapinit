@@ -1,45 +1,50 @@
 //add Controllers to handle the routes
 var authController = require('./controllers/authController');
 var urlController = require('./controllers/urlController');
+var basicScraper = require('./controllers/basicScraperController');
+
 var webshot = require('webshot');
+var url = require('url');
 
 var setup = function(app) {
+
+  // Unprotected Routes
   app.route('/api/users/login')
     .post(authController.login);
 
   app.route('/api/users/signup')
-    .post(authController.signup)
-    .get(authController.login);
+    .post(authController.signup);
 
-  app.route("/api/users/logout")
-    .get(authController.logout);
-
-  app.route('/api/users/geturls')
-    .get(urlController.getUrls)
-    .post(urlController.addUrl);
-
-  // Feature return the html from the page
-  app.route('/api/users/retrieve_url')
-    .post(urlController.getExternalUrl);
-
-  app.route('/api/users/checkUser')
+  app.route('/api/users/check_User')
     .get(authController.checkUser);
 
+  // Protected Routes
+  app.route("/api/users/logout")
+    .get(authController.isAuth, authController.logout);
 
-	app.route('/api/users/addUrl')
-    .post(function(req, res, next) {
-			//console.log(req.body.url);
-		
-			var urlWithoutHTTP = req.body.url.substr(7);
-			webshot(req.body.url, '../client/assets/' + urlWithoutHTTP + '.jpg', function(err) {
-				// screenshot now saved to google.png// screenshot now saved to hello_world.png
-				res.send('assets/' + urlWithoutHTTP + '.jpg');
+  app.route('/api/users/url')
+    .post(authController.isAuth, function(req, res, next) {
+      console.log('url route');
+      urlController.addUrl(req, res, next);
+    });
 
-			});
-		});
+  app.route("/api/users/url/:idUrl")
+    .get(authController.isAuth, urlController.getUrl);
 
+  app.get('/api/screenshot', authController.isAuth, function(req, res, next) {
+        var url_parts = url.parse(req.url, true);
+        var query = url_parts.query;
+        basicScraper.getScreenshot(query.url, req.session.user_id, function(imgpath) {
+          res.send(imgpath);
+        });
+  });
+
+  app.route('/api/users/list')
+      .get(authController.isAuth, urlController.getList);
+
+  // All other routes not found, return 404
   app.get('*', function(req, res) {
-		res.send('what ? 404', 200);
+		res.send('what ? 404', 404);
 	});
 
 };

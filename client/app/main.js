@@ -19,7 +19,7 @@ angular.module('app', [
         user = aUser;
     },
     isLoggedIn : function(callback){
-      $http.get('/api/users/checkUser')
+      $http.get('/api/users/check_User')
         .success(function (data) {
           console.log('checkuser ' + data);
           callback(data);
