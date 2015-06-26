@@ -12,6 +12,22 @@ var utils = {
     password: '123qwe'
   },
 
+  testUser2: {
+    email: "testemail2@gmail.com",
+    password: "123qwe"
+  },
+
+  newUrl: {
+    url: 'http://www.google.com', 
+    urlImg: '../client/assets/test/www.google.com.jpg',
+    crop: {
+      x: 2,
+      y: 2,
+      w: 1,
+      h: 1
+    }
+  },
+
   createAgent: function(server) {
     var server = server || serverHost
     return supertest.agent(server);
@@ -77,7 +93,7 @@ var utils = {
   }
 };
 
-describe('URL LIST', function () {
+describe('API', function () {
   var sequelize = db.connect('../db/db.sqlite');
   //pass the the second parameter as false so that the function does not execute sync()
   var schemas = db.createSchemas(sequelize,false);
@@ -88,79 +104,79 @@ describe('URL LIST', function () {
 
   before(function (done) {
     utils.signUpUser(utils.testUser, function (err) {
-      done();
+      utils.signUpUser(utils.testUser2, function (err) {
+        done();
+      });
     });
   });
 
   //deletes inserted user from database after all tests are complete
   after(function (done) {
     utils.destroyUser(User, utils.testUser, function () {
-      done();
+      utils.destroyUser(User, utils.testUser2, function () {
+        done();
+      });
     });
   });
 
-  describe('URLS', function () {
+  describe('GET URL', function () {
 
-    describe('Route /api/users/list', function () {
-
-      it('should return 401 when there are not a user logged and try request', function (done) {
-        request.get('/api/users/list')
-        .expect(401)
+    describe('Route /api/users/url/:idUrl', function () {
+      
+      it('Should return 403 when request to url', function (done) {
+        request.get('/api/users/url/1')
+        .expect(403)
         .end(function (err, res) {
           done();
         });
       });
 
-      it('should return 401 when user just logged out and try request', function (done) {
+      it('Should return 403 when the user is logged and the url is not assocciated', function (done) {
+        var agent = utils.createAgent();
+        var agent2 = utils.createAgent();
+        utils.logInAgent(agent, utils.testUser, function (user) {
+          utils.logInAgent(agent2, utils.testUser2, function (user2) {
+            agent2.post('/api/users/url')
+            .send(utils.newUrl)
+            .expect(201)
+            .end(function (err, res) {
+              var newUrl = res.body;
+              agent.get('/api/users/url/' + newUrl.url_id)
+              .expect(403)
+              .end(function (err, res) {
+                done();
+              });
+            });
+          });
+        });
+      });
+
+      it('Should return 200 with url object when the user is logged and the url is associated', function (done) {
         var agent = utils.createAgent();
         utils.logInAgent(agent, utils.testUser, function (user) {
-          utils.logOutAgent(agent, function () {
-            request.get('/api/users/list')
-            .expect(401)
+          agent.post('/api/users/url')
+          .send(utils.newUrl)
+          .expect(201)
+          .end(function (err, res) {
+            var newUrl = res.body;
+            agent.get('/api/users/url/' + newUrl.url_id)
+            .expect(200)
             .end(function (err, res) {
+              var url = res.body;
+              url.should.have.property('url').and.be.a.String;
+              url.should.have.property('UserUrl').and.be.an.Object;
+              url.UserUrl.should.have.property('frequency').and.be.a.Number;
+              url.UserUrl.should.have.property('cropImage').and.be.a.String;
+              url.UserUrl.should.have.property('cropHeight').and.be.a.Number;
+              url.UserUrl.should.have.property('cropWidth').and.be.a.Number;
+              url.UserUrl.should.have.property('cropOriginX').and.be.a.Number;
+              url.UserUrl.should.have.property('cropOriginY').and.be.a.Number;
               done();
             });
           });
         });
       });
 
-      it('should return 200 when there are a user logged and try request', function (done) {
-        var agent = utils.createAgent();
-        utils.logInAgent(agent, utils.testUser, function (user) {
-          Url.create({url: 'http://www.google.com'})
-          .then(function (newUrl){
-            UserUrl.create({
-              user_id: user.id,
-              url_id: newUrl.id,
-              selector: 'Selector',
-              webImage: 'path to image',
-              cropHeight: 10,
-              cropWidth: 10,
-              cropOriginX: 10,
-              cropOriginY: 10
-            })
-            .then(function (ok) {
-              agent.get('/api/users/list')
-              .expect(200)
-              .end(function (err, res) {
-                var result = res.body;
-                result.should.have.property('urls');
-                Array.isArray(result.urls).should.equal(true);
-                result.urls[0].should.have.property('UserUrl');
-                result.urls[0].url.should.be.a.String();
-                result.urls[0].UserUrl.webImage.should.be.a.String;
-                result.urls[0].UserUrl.cropHeight.should.be.a.Number;
-                result.urls[0].UserUrl.cropWidth.should.be.a.Number;
-                result.urls[0].UserUrl.cropOriginX.should.be.a.Number;
-                result.urls[0].UserUrl.cropOriginY.should.be.a.Number;
-                done();
-              });
-            });
-          })
-        });
-      });
-
-      
     });
 
   });

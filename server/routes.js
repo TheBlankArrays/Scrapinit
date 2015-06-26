@@ -29,13 +29,7 @@ var setup = function(app) {
     });
 
   app.route("/api/users/url/:idUrl")
-    .get(authController.isAuth, function(req, res, next) {
-      // if (UserUrlFound) {
-      //  res.status(200).json(UserUrl)
-      // } else if (UserUrlNotFound) {
-      // res.status(400);
-      // }
-    });
+    .get(authController.isAuth, urlController.getUrl);
 
   app.get('/api/screenshot', authController.isAuth, function(req, res, next) {
         var url_parts = url.parse(req.url, true);
