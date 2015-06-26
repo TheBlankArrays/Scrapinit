@@ -1,5 +1,5 @@
 angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router', ])
-.controller('homeController', function ($scope, $state, $http) {
+.controller('homeController', function ($scope, $state, $http, Url) {
 
 
    $scope.url = 'http://';
@@ -18,7 +18,6 @@ angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router', 
 
   $scope.setUrls = function(urlsObject){
     $scope.urls = urlsObject;
-  
   };
 
    $scope.add = function() {
@@ -65,7 +64,36 @@ angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router', 
          //    //  ifrm.document.close();
 
          //   });
-   };
+
+  Url.getUrls(function(err, urls){
+    if (err) {
+      $scope.error = 'We can´t retrieve the URLS';
+    }else {
+      $scope.setUrls(urls);
+    }
+  });
+};
    console.log('going to results');
   $state.go('home.results');
+})
+.factory('Url', function ($http) {
+
+  var getUrls = function (callback) {
+    $http({
+      method: 'GET',
+      url: '/api/users/list'
+    })
+    .success(function(data) {
+      callback(false, data.urls);
+    })
+    .error(function(err) {
+      callback(true);
+    });
+  };
+
+  return {
+    getUrls: getUrls
+  }
+
 });
+

@@ -2,7 +2,6 @@ angular.module('app.home.results', [])
 .controller('resultsController', function ($scope, Url) {
   console.log('app home results');
 
-
   $scope.getUrls = function () {
     console.log('in home results');
     Url.getUrls(function (err, urls) {
@@ -15,6 +14,7 @@ angular.module('app.home.results', [])
   };
 
   $scope.getUrls();
+
 })
 .factory('Url', function ($http) {
 
