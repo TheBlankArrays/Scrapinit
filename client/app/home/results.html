@@ -1,20 +1,27 @@
-<h1>Results</h1>
-
 <table class="gradienttable">
   <thead>
     <tr>
+      <th>Image</th>
       <th>URL</th>
-      <th>whatToWatch</th>
       <th>pingRate</th>
       <th>active</th>
     </tr>
   </thead>
+  
   <tbody>
-    <tr ng-repeat="url in urls track by $index">
+    <tr ng-repeat="url in urls">
+      <td><img src="{{url.img}}" width="175px"></td>
       <td>{{url.url}}</td>
-      <td>PAGE</td>
-      <td>min</td>
+      <td>5 minutes</td>
       <td>true</td>
+      {{urls}}
     </tr>
   </tbody>
+
+  <tr ng-show="loading">
+    <td colspan="4" style="text-align: center; padding: 15px 0;">
+      <img src="/app/images/ajax-loader.gif">
+    </td>
+  </tr>
+
 </table>
