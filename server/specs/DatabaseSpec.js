@@ -18,7 +18,24 @@ var utils = {
     cropHeight: 100,
     cropWidth: 200,
     cropOriginX: 50,
-    cropOriginY: 60,
+    cropOriginY: 60
+  },
+
+  parameters2: {
+    webImage: 'imageLocation12',
+    cropImage: 'imageLocation22',
+    cropWidth: 2002,
+    cropOriginX: 502,
+    cropOriginY: 602
+  },
+
+  joinParameters: {
+    webImage: 'imageLocation12',
+    cropImage: 'imageLocation22',
+    cropHeight: 100,
+    cropWidth: 2002,
+    cropOriginX: 502,
+    cropOriginY: 602
   },
 
   url: {
@@ -26,7 +43,7 @@ var utils = {
   },
 
   destroyUrl: function (schema, credentials, callback) {
-    schema.find({where: {url: this.url}})
+    schema.find({where: {url: this.url.url}})
       .then(function (foundUrl) {
         if (foundUrl) {
           foundUrl.destroy().then(function() {
@@ -77,6 +94,17 @@ describe('database', function () {
           done();
         });
     });
+
+    it('should not find a user that doesn\'t exist', function(done) {
+      User.find(utils.user)
+        .then(function(notAUser) {
+          if (notAUser) {
+            notAUser.should.equal(null);
+          }
+          done()
+        });
+    });
+
   });
 
   describe ('database url', function () {
@@ -88,6 +116,18 @@ describe('database', function () {
           done(); 
         });
     });
+
+
+    it('should not find a url that doesn\'t exist', function(done) {
+      Url.find(utils.url)
+        .then(function(notAUrl) {
+          if (notAUrl) {
+            notAUrl.should.equal(null);
+          }
+          done();
+        });
+    });
+
   });
 
   describe ('associations', function () {
@@ -99,18 +139,13 @@ describe('database', function () {
             .then(function (newUrl) {
               newUser.addUrl(newUrl)
                 .then(function (association) {
-                  newUser.getUrls()
-                    .then(function(urlArr) {
-                      urlArr[0].url.should.equal(utils.url.url);
+                  newUser.hasUrls(newUrl)
+                    .then(function (result) {
+                      result.should.equal(true);
                       done();
                     })
-                //   newUser.hasUrls(newUrl)
-                //     .then(function (result) {
-                //       result.should.equal(true);
-                //       done();
-                //     })
-                })
-            })
+                });
+            });
         });
     });
 
@@ -125,11 +160,11 @@ describe('database', function () {
                     .then(function(urlArr) {
                       urlArr[0].UserUrl.frequency.should.equal(5);
                       done();
-                    })
-                })
-            })
-        })
-    })
+                    });
+                });
+            });
+        });
+    });
 
     it('should create an association with given parameters', function (done) {
       User.create(utils.user)
@@ -142,11 +177,35 @@ describe('database', function () {
                     .then(function(urlArr) {
                       urlArr[0].UserUrl.cropImage.should.equal(utils.parameters.cropImage);
                       done();
-                    })
-                })
-            })
-        })
-    })
+                    });
+                });
+            });
+        });
+    });
+
+    it('should update association parameters', function (done) {
+      User.create(utils.user)
+        .then(function(newUser) {
+          Url.create(utils.url)
+            .then(function(newUrl) {
+              newUser.addUrl(newUrl, utils.parameters)
+                .then(function(association) {
+                  newUser.getUrls()
+                    .then(function(urlArr) {
+                      newUser.addUrl(newUrl, utils.parameters2)
+                        .then(function(newAssociation) {
+                          newUser.getUrls()
+                            .then(function(newUrlArr) {
+                              newUrlArr[0].UserUrl.cropImage.should.equal(utils.joinParameters.cropImage);
+                              newUrlArr[0].UserUrl.cropHeight.should.equal(utils.joinParameters.cropHeight);
+                              done()
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    });
 
   });
 });
