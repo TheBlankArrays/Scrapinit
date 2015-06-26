@@ -24,36 +24,43 @@ var cronjob = new CronJob(schedule, function() {
 
   // get urls 
   db.User.findAll()
-    .then(function(allUsers) {
-      for (var i = 0; i < allUsers.length; i++){
-        var currEmail = allUsers[i].email;
-        allUsers[i].getUrls()
-          .then(function(url) {
+  .then(function(allUsers) {
+    for (var i = 0; i < allUsers.length; i++){
+      var currEmail = allUsers[i].email;
+      allUsers[i].getUrls()
+      .then(function(url) {
             // display html that are changed
             for (var i = 0; i < url.length; i++) {
               getExternalUrl(url[i], function(newHtml, url) {
                 newHtml = newHtml.substring(3000, 4000);
                 if (url) {
-                  var oldHtml = url.UserUrl.html;
-                  if (!(oldHtml === newHtml)) {
-                    console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
-                    console.log('there is a change at', url.url,'!')
+                 for (var i=0; i<url.length;i++){
+                        // get image out of the database
+                        var img1 = url[0].UserUrl.dataValues.cropImage;
+                        // access the url from which the picture was taken
+                        // call a function which takes url of the image and get a pic of the website
+                        var img2; 
+                        compare(img1,img2);
+                      }
+                    }
 
+                    var compare = function (img1, img2){
+              // using a library compare img1 to img2
+              if (!(img1===img2){
+               console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+               console.log('there is a change at', url.url,'!')
                     // send email
                     // sendEmail(currEmail, currEmail);
-
-
                     // update html value in database
-
-
                   }
-                }
-              });
-              
+                } 
+              }
+            });
+
             }
           })
-      }
-    })
+}
+})
 
 }, null, true, 'America/Los_Angeles');
 
@@ -75,7 +82,7 @@ var sendEmail = function (email, name){
     "important": true,
   };
 
-var async = false;
+  var async = false;
 //send email // uncomment to send an email
 mandrill_client.messages.send({"message": message, "async": async}, function(result) {
   console.log('Sent a message to '+ email+'  '+ result);
@@ -83,5 +90,5 @@ mandrill_client.messages.send({"message": message, "async": async}, function(res
             // Mandrill returns the error as an object with name and message keys
             console.log('A mandrill error occurred: ' + e.name + ' - ' + e.message);
             // A mandrill error occurred: Unknown_Subaccount - No subaccount exists with the id 'customer-123'
-  });
+          });
 }
