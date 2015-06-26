@@ -59,7 +59,7 @@ module.exports = {
 
           basicScraper.cropImg(req.body.urlImg, req.body.crop, function(cropImg, crop) {
             // crop image whether or not the url has already been submitted
-
+            console.log('***** urlImg',req.body.urlImg )
             if (urlFound) {
 
 

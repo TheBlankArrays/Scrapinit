@@ -35,6 +35,7 @@
     "passport": "^0.2.2",
     "passport-local": "^1.0.0",
     "request": "^2.58.0",
+    "resemblejs": "^1.2.1",
     "sequelize": "^3.1.1",
     "should": "^7.0.1",
     "sqlite3": "^3.0.8",

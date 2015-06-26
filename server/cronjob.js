@@ -27,36 +27,33 @@ var cronjob = new CronJob(schedule, function() {
   .then(function(allUsers) {
     for (var i = 0; i < allUsers.length; i++){
       var currEmail = allUsers[i].email;
+      console.log('email', currEmail)
       allUsers[i].getUrls()
       .then(function(url) {
-            // display html that are changed
-            for (var i = 0; i < url.length; i++) {
-              getExternalUrl(url[i], function(newImage, url) {
-                if (url) {
-                  // the old image value that is stored
-                  var oldImage = url.UserUrl.cropImage;
-
-                  // Compare images here
-                  // if (!(oldHtml === newHtml)) {
-                  //   console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
-                  //   console.log('there is a change at', url.url,'!')
-
-                  //   // send email
-                  //   // sendEmail(currEmail, currEmail);
-
-
-                  //   // update html value in database
-
-
-                  // }
-                }
-              });
-              
-            }
-          })
-}
-})
-
+        console.log('in the for loop')
+        for (var j=0; j<url.length; j++){
+           console.log('url', url[j].UserUrl.cropImage)
+           // console.log('url', url[j].id)
+           
+           var img1 = url[j].UserUrl.cropImage;
+           var params = {
+            h: url[j].UserUrl.cropHeight,
+            w: url[j].UserUrl.cropWidth,
+            x: url[j].UserUrl.cropOriginX,
+            y: url[j].UserUrl.cropOriginY
+           }
+        // get the server to render the page with params coordinates
+        basicScraper.getScreenshot(url[j].url, url[j].id, function(urlToThePage) {
+          console.log('url to the page', urlToThePage)
+          basicScraper.cropImg(urlToThePage, params, function() {console.log()}, true);
+        });
+      }
+                    // send email
+                    // sendEmail(currEmail, currEmail);
+                    // update html value in database                    } 
+            });
+        };
+      });
 }, null, true, 'America/Los_Angeles');
 
 var sendEmail = function (email, name){
