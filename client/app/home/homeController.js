@@ -29,6 +29,8 @@ angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router', 
        $http.get('/api/screenshot?url=' + $scope.url )
          .success(function (data) {
 
+           new Audio('/app/audio/scrapeit.mp3').play()
+
             console.log('received response from server: ' + data);
 
            var img = $("<img src='" + data + "' />");
@@ -42,8 +44,8 @@ angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router', 
                   console.log('url response: ' + JSON.stringify(data));
                   if (data !== 'error') {
                     console.log(JSON.stringify(data));
-                    // $scope.urls.push({url: $scope.url, img: data[0][0].cropImage});
-                    $scope.urls.push({url: $scope.url, img: data.cropImage});
+                    $scope.urls.push({url: $scope.url, img: data[0][0].cropImage});
+                    //$scope.urls.push({url: $scope.url, img: data.cropImage});
                   }
                   $scope.loading = false;
                 })
