@@ -34,14 +34,14 @@ var setup = function(app) {
   app.get('/api/screenshot', authController.isAuth, function(req, res, next) {
         var url_parts = url.parse(req.url, true);
         var query = url_parts.query;
-        basicScraper.getScreenshot(query.url, req.session.id, function(imgpath) {
+        basicScraper.getScreenshot(query.url, req.session.user_id, function(imgpath) {
           res.send(imgpath);
         });
   });
 
   app.route('/api/users/list')
       .get(authController.isAuth, urlController.getList);
-      
+
   // All other routes not found, return 404
   app.get('*', function(req, res) {
 		res.send('what ? 404', 404);

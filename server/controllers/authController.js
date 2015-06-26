@@ -16,7 +16,7 @@ module.exports = {
         userFound.comparePasswords(user.password, function (result) {
           if (result) {
             req.session.email = userFound.email;
-            req.session.id = userFound.id;
+            req.session.user_id = userFound.id;
             res.status(200).json(userFound);
           }else{
             res.status(400).json({error: 'User or Password invalid'});
@@ -33,6 +33,7 @@ module.exports = {
     db.User.create(user)
     .then(function (newUser){
       req.session.email = newUser.email;
+      req.session.user_id
       res.status(201).json(newUser);
     })
     .catch(function (err) {
