@@ -11,11 +11,8 @@ mandrill_client = new mandrill.Mandrill(secret.mandrill.client_id);
 // for every five minutes
 // var schedule = '* +' */5 * * * *';
 
-
 // for faster testing
-// var schedule = '*/30 * * * * *';
-var schedule = '*/5 * * * * *';
-
+var schedule = '*/30 * * * * *';
 //To run every 3 seconds do */3; every 5 min do * */5 *
 
 var cronjob = new CronJob(schedule, function() {
