@@ -103,21 +103,21 @@ describe('URL LIST', function () {
 
     describe('Route /api/users/list', function () {
 
-      it('should return 401 when there are not a user logged and try request', function (done) {
+      xit('should return 401 when there are not a user logged and try request', function (done) {
         request.get('/api/users/list')
-        .expect(401)
         .end(function (err, res) {
+          res.status.should.be.equal(401);
           done();
         });
       });
 
-      it('should return 401 when user just logged out and try request', function (done) {
+      xit('should return 401 when user just logged out and try request', function (done) {
         var agent = utils.createAgent();
         utils.logInAgent(agent, utils.testUser, function (user) {
           utils.logOutAgent(agent, function () {
             request.get('/api/users/list')
-            .expect(401)
             .end(function (err, res) {
+              res.status.should.be.equal(401);
               done();
             });
           });
@@ -141,8 +141,8 @@ describe('URL LIST', function () {
             })
             .then(function (ok) {
               agent.get('/api/users/list')
-              .expect(200)
               .end(function (err, res) {
+                res.status.should.be.equal(200);
                 var result = res.body;
                 result.should.have.property('urls');
                 Array.isArray(result.urls).should.equal(true);
