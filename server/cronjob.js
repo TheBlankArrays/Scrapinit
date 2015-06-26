@@ -6,6 +6,7 @@ var db = require('./db.js');
 var Sequelize = require('sequelize');
 var mandrill = require('mandrill-api');
 mandrill_client = new mandrill.Mandrill(secret.mandrill.client_id);
+var compare = require('./imgCompare.js').compare;
 
 // To run the cronjob as it is now: navigate to server dir and type node cronjob
 // for every five minutes
@@ -43,15 +44,16 @@ var cronjob = new CronJob(schedule, function() {
         // get the server to render the page with params coordinates
         basicScraper.getScreenshot(url[j].url, url[j].id, function(urlToThePage) {
           console.log('url to the page', urlToThePage)
-          basicScraper.cropImg(urlToThePage, params, true, function() {console.log()});
+          basicScraper.cropImg(urlToThePage, params, true,  function(img2) {
+            console.log('image path', img2);
+            compare(img1, img2);
+            // sendEmail(currEmail, currEmail);
+          });
         });
-      }
-                    // send email
-                    // sendEmail(currEmail, currEmail);
-                    // update html value in database                    }
-                  });
-};
-});
+        }
+      });
+    };
+  });
 }, null, true, 'America/Los_Angeles');
 
 var sendEmail = function (email, name){
