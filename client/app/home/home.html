@@ -19,16 +19,14 @@ Insert a new URL to watch... <input type="text" name="url" ng-model="url" id="ur
     <tr>
       <th>img</th>
       <th>URL</th>
-      <th>whatToWatch</th>
       <th>pingRate</th>
       <th>active</th>
     </tr>
   </thead>
   <tbody>
     <tr ng-repeat="watchurl in urls">
-      <td><img src="{{ watchurl.img }}" width='100px'></td>
+      <td><img src="{{ watchurl.img }}" width='200px'></td>
       <td>{{ watchurl.url }}</td>
-      <td>PAGE</td>
       <td>5 min</td>
       <td>true</td>
     </tr>
