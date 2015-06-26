@@ -22,17 +22,14 @@ var setup = function(app) {
   app.route("/api/users/logout")
     .get(authController.isAuth, authController.logout);
 
-  app.route("/api/users/url/:idUrl")
-    .get(authController.isAuth, urlController.getUrl);
+  app.route('/api/users/url')
+    .post(authController.isAuth, function(req, res, next) {
+      console.log('url route');
+      urlController.addUrl(req, res, next);
+    });
 
   app.route("/api/users/url/:idUrl")
-    .get(authController.isAuth, function(req, res, next) {
-      // if (UserUrlFound) {
-      //  res.status(200).json(UserUrl)
-      // } else if (UserUrlNotFound) {
-      // res.status(400);
-      // }
-    });
+    .get(authController.isAuth, urlController.getUrl);
 
   app.get('/api/screenshot', authController.isAuth, function(req, res, next) {
         var url_parts = url.parse(req.url, true);

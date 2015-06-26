@@ -128,56 +128,57 @@ module.exports = {
       } // close if userFound
 
     });  // close userFound then
-  }
-},
+  },
 
-getUrl: function (req, res) {
-  var idUrl = req.params.idUrl;
-  db.Url.findOne({
-    where: {
-      id: idUrl
-    },
-    include: [
-      { model: db.UserUrl },
-      {
-        model: db.UserUrl,
-        where: {
-          email: req.session.email
+  getUrl: function (req, res) {
+    var idUrl = req.params.idUrl;
+    db.User.findOne({
+      where: {
+        email: req.session.email
+      },
+      attributes: ['email'],
+      include: [
+        {
+          model: db.Url,
+          where: {
+            id: idUrl
+          }
         }
+      ]
+    })
+    .then(function (userFound) {
+      //object return {email: .., urls: []}
+      //return the first element in the userFound.urls
+      if(userFound) {
+        res.status(200).json(userFound.urls[0]);
+      }else {
+        res.status(403).json({error: 'You dont have permissions in this URL'});
       }
-    ]
-  })
-  .then(function (urlFound) {
-    if(urlFound) {
-      res.status(200).json(urlFound);
-    }else {
-      res.status(403).json({error: 'You dont have permissions in this URL'});
-    }
-  });
-},
+    });
+  },
 
-getListOfUrls: function(req, res, next){
-  console.log('in getListOfUrls ', req.session.email)
-   var email = req.session.email;
+  getListOfUrls: function(req, res, next){
+    console.log('in getListOfUrls ', req.session.email)
+     var email = req.session.email;
 
-   db.User.findOne({
-     where: {
-       email: email
-     }
-   }).then(function(userFound) {
+     db.User.findOne({
+       where: {
+         email: email
+       }
+     }).then(function(userFound) {
 
-     userFound.getUrls()
-       .then(function(urlArr) {
+       userFound.getUrls()
+         .then(function(urlArr) {
 
-         if (urlArr && urlArr[0]) {
-           console.log('our url array', urlArr[0].UserUrl);
-           res.status(200).json(urlArr);
-         } else {
-           res.status(200).json({});
-         }
-       });
+           if (urlArr && urlArr[0]) {
+             console.log('our url array', urlArr[0].UserUrl);
+             res.status(200).json(urlArr);
+           } else {
+             res.status(200).json({});
+           }
+         });
 
-   });
+     });
 
  },
 

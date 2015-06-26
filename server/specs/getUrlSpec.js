@@ -17,16 +17,14 @@ var utils = {
     password: "123qwe"
   },
 
-  newUrl = {
-    url: 'string', 
-    userUrl: {
-      frequency: 5, 
-      webImage: 'string', 
-      cropImage: 'string 2', 
-      cropHeight: 10, 
-      cropWidth: 10, 
-      cropOriginX: 10, 
-      cropOriginY: 10
+  newUrl: {
+    url: 'http://www.google.com', 
+    urlImg: '../client/assets/test/www.google.com.jpg',
+    crop: {
+      x: 2,
+      y: 2,
+      w: 1,
+      h: 1
     }
   },
 
@@ -143,7 +141,7 @@ describe('API', function () {
             .expect(201)
             .end(function (err, res) {
               var newUrl = res.body;
-              agent.get('/api/users/url/' + newUrl.id)
+              agent.get('/api/users/url/' + newUrl.url_id)
               .expect(403)
               .end(function (err, res) {
                 done();
@@ -161,15 +159,13 @@ describe('API', function () {
           .expect(201)
           .end(function (err, res) {
             var newUrl = res.body;
-            agent.get('/api/users/url/' + newUrl.id)
+            agent.get('/api/users/url/' + newUrl.url_id)
             .expect(200)
             .end(function (err, res) {
               var url = res.body;
-              url: 'string', 
               url.should.have.property('url').and.be.a.String;
               url.should.have.property('UserUrl').and.be.an.Object;
               url.UserUrl.should.have.property('frequency').and.be.a.Number;
-              url.UserUrl.should.have.property('webImage').and.be.a.String;
               url.UserUrl.should.have.property('cropImage').and.be.a.String;
               url.UserUrl.should.have.property('cropHeight').and.be.a.Number;
               url.UserUrl.should.have.property('cropWidth').and.be.a.Number;
