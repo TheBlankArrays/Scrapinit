@@ -11,3 +11,4 @@ server/db/db.sqlite
 config.js
 client/assets
 images/*
+server/difference.png
