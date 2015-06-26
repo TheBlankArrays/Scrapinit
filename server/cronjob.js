@@ -28,10 +28,8 @@ var cronjob = new CronJob(schedule, function() {
       console.log('email', currEmail)
       allUsers[i].getUrls()
       .then(function(url) {
-        console.log('in the for loop')
         for (var j=0; j<url.length; j++){
-         console.log('url', url[j].UserUrl.cropImage)
-           // console.log('url', url[j].id)
+          console.log('checking', url[j].url, 'for changes');
 
            var img1 = url[j].UserUrl.cropImage;
            var params = {
@@ -43,11 +41,9 @@ var cronjob = new CronJob(schedule, function() {
            //console.log('about to call basicScraper')
         // get the server to render the page with params coordinates
         basicScraper.getScreenshot(url[j].url, url[j].id, function(urlToThePage) {
-          console.log('url to the page', urlToThePage)
-          basicScraper.cropImg(urlToThePage, params, true,  function(img2) {
-            console.log('image path', img2);
-            compare(img1, img2);
-            // sendEmail(currEmail, currEmail);
+          basicScraper.cropImg(urlToThePage, params, true, function(img2) {
+            console.log('old image path', img1);
+            console.log('new image path', img2);
           });
         });
         }
