@@ -80,7 +80,7 @@ var cronjob = new CronJob(schedule, function() {
                 }; // if (!equal){
               }) // compare(img1, img2, function (equal){
             }); // basicScraper.cropImg(img1, params, true, function(img2) {
-}, email); // basicScraper.getScreenshot()
+          }, email); // basicScraper.getScreenshot()
         } // for loop iterating over each url for a user
       }); // .then(function(url){
     }; // or (var i = 0; i < allUsers.length; i++){
