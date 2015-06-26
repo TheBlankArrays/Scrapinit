@@ -21,6 +21,7 @@ module.exports = {
   cropImg: function(url, crop, cb, compare) {
     console.log(url);
     console.log(JSON.stringify(crop));
+<<<<<<< HEAD
     if (compare) {
       .crop(crop.w, crop.h, crop.x, crop.y)
       .write('../client/' + url.substr(0, url.length - 12) + 'compare.jpg' , function(err){
@@ -29,12 +30,30 @@ module.exports = {
       }
     } else {
     gm('../client/' + url)
+=======
+
+    if (compare) {
+      gm('../client/' + url)
+>>>>>>> [Feat] added compare parameter to cropImg so crop doesn't overwrite file when comparing file
       .crop(crop.w, crop.h, crop.x, crop.y)
-      .write('../client/' + url.substr(0, url.length - 12) + '.jpg' , function(err){
+      .write('../client/' + url.substr(0, url.length - 12) + 'compare.jpg' , function(err){
         if (err) return console.dir(arguments)
         cb(url.substr(0, url.length - 12) + '.jpg', crop);
       }
+<<<<<<< HEAD
     }
+=======
+    } else {
+      gm('../client/' + url)
+        .crop(crop.w, crop.h, crop.x, crop.y)
+        .write('../client/' + url.substr(0, url.length - 12) + '.jpg' , function(err){
+          if (err) return console.dir(arguments)
+          cb(url.substr(0, url.length - 12) + '.jpg', crop);
+        }
+      
+    }
+
+>>>>>>> [Feat] added compare parameter to cropImg so crop doesn't overwrite file when comparing file
     )
 
   }
