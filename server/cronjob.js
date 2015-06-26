@@ -5,7 +5,6 @@ var secret = require('../config.js');
 var db = require('./db.js');
 var Sequelize = require('sequelize');
 var mandrill = require('mandrill-api');
-var resemble = require('resemblejs')
 mandrill_client = new mandrill.Mandrill(secret.mandrill.client_id);
 
 // To run the cronjob as it is now: navigate to server dir and type node cronjob
