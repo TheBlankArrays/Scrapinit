@@ -174,7 +174,7 @@ module.exports = {
               }); // close catch of create url db call
 
 
-            }); // close image to text callback
+            }; // close image to text callback
 
           }); // close cropImg callback
 
