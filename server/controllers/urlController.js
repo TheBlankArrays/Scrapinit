@@ -1,4 +1,5 @@
 var basicScraper = require('./basicScraperController');
+var cronjob = require('./cronController').addCron;
 var db = require("../db");
 
 
@@ -38,7 +39,6 @@ module.exports = {
   },
 
   addUrl: function (req, res, next) {
-
     var email = req.session.email;
     var url = {url: req.body.url};
     console.log('req body', JSON.stringify(req.body));
@@ -76,6 +76,7 @@ module.exports = {
                console.log('urlfound: '+ urlFound);
 
                userFound.addUrl(urlFound, {
+                  email: userFound.email,
                   cropImage: cropImg,
                   cropHeight: crop.h,
                   cropWidth: crop.w,
@@ -92,8 +93,7 @@ module.exports = {
                       model: db.UserUrl,
                       where: {
                         user_id: req.session.user_id
-                      },
-                      attributes: ['cropImage', 'status', 'frequency']
+                      }
                     }
                   ]
                 }).then(function (userUrl){
@@ -102,6 +102,8 @@ module.exports = {
                     id: userUrl.id,
                     UserUrl: userUrl.UserUrls[0]
                   }
+                  console.log('sending ' + userUrl.url + ' to cronjob');
+                  cronjob(userUrl.UserUrls[0], userUrl.url);
                   res.status(201).json(response);
                 });
                })
@@ -132,6 +134,7 @@ module.exports = {
               .then(function (urlCreated) {
 
                 userFound.addUrl(urlCreated, {
+                   email: userFound.email,
                    cropImage: cropImg,
                    cropHeight: crop.h,
                    cropWidth: crop.w,
@@ -148,8 +151,7 @@ module.exports = {
                         model: db.UserUrl,
                         where: {
                           user_id: req.session.user_id
-                        },
-                        attributes: ['cropImage', 'status', 'frequency']
+                        }
                       }
                     ]
                   }).then(function (userUrl){
@@ -158,6 +160,8 @@ module.exports = {
                       id: userUrl.id,
                       UserUrl: userUrl.UserUrls[0]
                     }
+                    console.log('sending ' + userUrl.url + ' to cronjob');
+                    cronjob(userUrl.UserUrls[0], userUrl.url);
                     res.status(201).json(response);
                   });
                 })

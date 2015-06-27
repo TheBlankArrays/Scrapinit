@@ -2,6 +2,10 @@ var Sequelize = require("sequelize");
 
 module.exports = function(sequelize, tableConfig) {
   return sequelize.define('UserUrl', {
+    email: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
     webImage: {
       type: Sequelize.STRING
     },
