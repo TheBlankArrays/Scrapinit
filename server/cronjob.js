@@ -8,6 +8,12 @@ var mandrill = require('mandrill-api');
 mandrill_client = new mandrill.Mandrill(secret.mandrill.client_id);
 var compare = require('./imgCompare.js').compare;
 
+var nodemailer = require('nodemailer');
+var transporter = nodemailer.createTransport({
+    service: 'mailgun',
+    auth: secret.auth
+});
+
 // To run the cronjob as it is now: navigate to server dir and type node cronjob
 // for every five minutes
 // var schedule = '* +' */5 * * * *';
@@ -32,6 +38,8 @@ var cronjob = new CronJob(schedule, function() {
           console.log('checking', url[j].url, 'for changes');
 
            var img1 = url[j].UserUrl.cropImage;
+           var email = currEmail;
+           console.log('email is', email)
            var params = {
             h: url[j].UserUrl.cropHeight,
             w: url[j].UserUrl.cropWidth,
@@ -44,6 +52,24 @@ var cronjob = new CronJob(schedule, function() {
           basicScraper.cropImg(urlToThePage, params, true, function(img2) {
             console.log('old image path', img1);
             console.log('new image path', img2);
+            console.log('sending email to ', email);
+            var mailOptions = {
+                from: "The Blank Arrays <postmaster@sandbox72a87403dd654630bfa3c4b021cda08d.mailgun.org>", // sender address
+                to: email, // list of receivers
+                subject: 'testing', // Subject line
+                text: 'testing', // plaintext body
+                html: '<b>Hello world </b>' // html body
+            };
+
+            // send mail with defined transport object
+            // transporter.sendMail(mailOptions, function(error, info){
+            //     if(error){
+            //         console.log(error);
+            //     }else{
+            //         console.log('Message sent: ' + info.response);
+            //     }
+            // });
+
           });
         });
         }
