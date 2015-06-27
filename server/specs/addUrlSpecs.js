@@ -191,12 +191,10 @@ describe('API add url', function () {
           var url = res.body;
           url.should.have.property('UserUrl').and.should.be.an.Object;
           url.should.have.property('url').and.should.be.a.String;
-          url.should.be.a.String();
-          url.UserUrl.webImage.should.be.a.String;
-          url.UserUrl.cropHeight.should.be.a.Number;
-          url.UserUrl.cropWidth.should.be.a.Number;
-          url.UserUrl.cropOriginX.should.be.a.Number;
-          url.UserUrl.cropOriginY.should.be.a.Number;
+          url.should.have.property('id').and.should.be.an.Number;
+          url.UserUrl.cropImage.should.be.a.String;
+          url.UserUrl.should.have.property('status').and.should.be.a.Boolean;
+          url.UserUrl.frequency.should.be.a.Number;
           done();
         });
       });
