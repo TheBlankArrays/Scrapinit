@@ -19,7 +19,7 @@ var transporter = nodemailer.createTransport({
 // var schedule = '* +' */5 * * * *';
 
 // for faster testing
-var schedule = '*/5 * * * * *';
+var schedule = '*/30 * * * * *';
 //To run every 3 seconds do */3; every 5 min do * */5 *
 
 var cronjob = new CronJob(schedule, function() {
@@ -39,6 +39,7 @@ var cronjob = new CronJob(schedule, function() {
 
            var img1 = url[j].UserUrl.cropImage;
            var email = currEmail;
+           var website = url[j].url
            console.log('email is', email)
            var params = {
             h: url[j].UserUrl.cropHeight,
@@ -48,61 +49,39 @@ var cronjob = new CronJob(schedule, function() {
           }
            //console.log('about to call basicScraper')
         // get the server to render the page with params coordinates
-        basicScraper.getScreenshot(url[j].url, url[j].id, function(urlToThePage) {
-          basicScraper.cropImg(urlToThePage, params, true, function(img2) {
+        basicScraper.getScreenshot(url[j].url, url[j].id, function(img1) {
+          basicScraper.cropImg(img1, params, true, function(img2) {
             console.log('old image path', img1);
             console.log('new image path', img2);
-            console.log('sending email to ', email);
-            var mailOptions = {
-                from: "The Blank Arrays <postmaster@sandbox72a87403dd654630bfa3c4b021cda08d.mailgun.org>", // sender address
-                to: email, // list of receivers
-                subject: 'testing', // Subject line
-                text: 'testing', // plaintext body
-                html: '<b>Hello world </b>' // html body
-            };
+            compare(img1, img2, function (equal){
+              if (!equal){
+                // sendEmail(currEmail, currEmail);
+                console.log('sending email to ', email, website);
+                var mailOptions = {
+                    from: "The Blank Arrays <postmaster@sandbox72a87403dd654630bfa3c4b021cda08d.mailgun.org>", // sender address
+                    to: email, // list of receivers
+                    subject: 'We found some tubular changes!', // Subject line
+                    text: 'Hi there! It looks like we found a change on '+ website + '!', // plaintext body
+                    html: "<span>The Scrapinit found a change in the webpage you are following</span>",
+                        // html: '<b>Hello world </b>' // html body
+                };
 
-            // send mail with defined transport object
-            // transporter.sendMail(mailOptions, function(error, info){
-            //     if(error){
-            //         console.log(error);
-            //     }else{
-            //         console.log('Message sent: ' + info.response);
-            //     }
-            // });
-
-          });
-        });
-        }
-      });
-    };
-  });
+                // send mail with defined transport object
+                transporter.sendMail(mailOptions, function(error, info){
+                    if(error){
+                        console.log(error);
+                    }else{
+                        console.log('Message sent: ' + info.response);
+                    } //  else statemenet  
+                }); //  transporter.sendMail(mailOptions, function(error, info){
+              }; // if (!equal){
+            }) // compare(img1, img2, function (equal){
+          }); // basicScraper.cropImg(img1, params, true, function(img2) {
+        }); // basicScraper.getScreenshot()
+        } // for loop iterating over each url for a user
+      }); // .then(function(url){
+    }; // or (var i = 0; i < allUsers.length; i++){
+  }); // .then(function(allUsers) {
 }, null, true, 'America/Los_Angeles');
 
-var sendEmail = function (email, name){
-  var message = {
-    "html": "<span>The Scrapinit found a change in the webpage you are following</span>",
-    "subject": "We scraped some tubular stuff for you!!",
-    "from_email": email,
-    "from_name": "The Blank Arrays",
-    "to": [{
-      "email": email,
-      "name":  name,
-      "type": "to"
-    },
-    ],
-    "headers": {
-      "Reply-To": ""
-    },
-    "important": true,
-  };
 
-  var async = false;
-//send email // uncomment to send an email
-mandrill_client.messages.send({"message": message, "async": async}, function(result) {
-  console.log('Sent a message to '+ email+'  '+ result);
-}, function(e) {
-            // Mandrill returns the error as an object with name and message keys
-            console.log('A mandrill error occurred: ' + e.name + ' - ' + e.message);
-            // A mandrill error occurred: Unknown_Subaccount - No subaccount exists with the id 'customer-123'
-          });
-}

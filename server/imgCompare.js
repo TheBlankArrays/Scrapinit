@@ -3,7 +3,7 @@ var path = require('path');
 
 module.exports = {
 
-  compare: function (image1, image2) {
+  compare: function (image1, image2, callback) {
      
 
     var newDirName = __dirname + '../';
@@ -20,6 +20,7 @@ module.exports = {
       diffImage: 'difference.png',
     }, function (err, imagesAreSame) {
       console.log('IMAGE DIFF : images are the same: ',imagesAreSame)
+      callback(imagesAreSame);
     // error will be any errors that occurred 
     // imagesAreSame is a boolean whether the images were the same or not 
     // diffImage will have an image which highlights differences 
