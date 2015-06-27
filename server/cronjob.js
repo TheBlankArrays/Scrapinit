@@ -4,10 +4,7 @@ var CronJob = require('cron').CronJob;
 var secret = require('../config.js');
 var db = require('./db.js');
 var Sequelize = require('sequelize');
-var mandrill = require('mandrill-api');
-mandrill_client = new mandrill.Mandrill(secret.mandrill.client_id);
 var compare = require('./imgCompare.js').compare;
-
 var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport({
     service: 'mailgun',
@@ -56,7 +53,7 @@ var cronjob = new CronJob(schedule, function() {
             compare(img1, img2, function (equal){
               if (!equal){
                 // sendEmail(currEmail, currEmail);
-                console.log('sending email to ', email, website);
+                console.log('change detected on', website, 'sending email to ', email);
                 var mailOptions = {
                     from: "The Blank Arrays <postmaster@sandbox72a87403dd654630bfa3c4b021cda08d.mailgun.org>", // sender address
                     to: email, // list of receivers
