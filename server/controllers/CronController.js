@@ -15,72 +15,67 @@ var transporter = nodemailer.createTransport({
 // var CronJob = require('cron').CronJob;
 
 module.exports = {
-  newCron: function(UserUrl) {
-    console.log('we have a new cron!', UserUrl)
-    var freq = '* * */' + UserUrl.frequency + '* * *';
-
+  addCron: function(UserUrl, url) {
+    var userUrl = UserUrl;
+    // minutes
+    var freq = '* */' + UserUrl.frequency + ' * * * *';
+    // seconds
+    // var freq = '*/' + UserUrl.frequency + ' * * * * *';
     var job = new CronJob({
       cronTime: freq,
       onTick: function() {
-                  console.log('checking', UserUrl.url, 'for changes');
-        //            var oldImg = UserUrl.cropImage;
-        //            var email = url[j].UserUrl.email;
-        //            var website = url[j].url
-        //            var params = {
-        //             h: url[j].UserUrl.cropHeight,
-        //             w: url[j].UserUrl.cropWidth,
-        //             x: url[j].UserUrl.cropOriginX,
-        //             y: url[j].UserUrl.cropOriginY
-        //           }
+        console.log('checking', url, 'for changes');
+         var oldImg = UserUrl.cropImage;
+         var email = UserUrl.email;
+         var website = url
+         var params = {
+          h: UserUrl.cropHeight,
+          w: UserUrl.cropWidth,
+          x: UserUrl.cropOriginX,
+          y: UserUrl.cropOriginY
+        }
 
-        //           // get the server to render the page with params coordinates
-        //           basicScraper.getScreenshot(url[j].url, url[j].id, function(img1, email) {
-        //             basicScraper.cropImg(img1, params, true, function(newImg) {
-        //               console.log('old image path', oldImg);
-        //               console.log('new image path', newImg);
+        // get the server to render the page with params coordinates
+        basicScraper.getScreenshot(website, UserUrl.user_id, function(img1, email) {
+          basicScraper.cropImg(img1, params, true, function(newImg) {
+            console.log('old image path', oldImg);
+            console.log('new image path', newImg);
 
 
-        //               compare(oldImg, newImg, function (equal){
+            compare(oldImg, newImg, function (equal){
 
-        //                 if (!equal){
+              if (!equal){
 
-        //                   console.log('change detected on', website, 'sending email to ', email);
+                console.log('change detected on', website, 'sending email to ', email);
 
-        //                   var mailOptions = {
-        //                       from: "The Blank Arrays <postmaster@sandbox72a87403dd654630bfa3c4b021cda08d.mailgun.org>", // sender address
-        //                       // currently accessing only one user email
-        //                       to: email, // list of receivers
-        //                       subject: 'We found some tubular changes!', // Subject line
-        //                       text: 'Hi there! It looks like we found a change on '+ website + '!', // plaintext body
-        //                       html: "<span>The Scrapinit team found a change on " + website +"!</span>",
-        //                           // html: '<b>Hello world </b>' // html body
-        //                   };
+                var mailOptions = {
+                    from: "The Blank Arrays <postmaster@sandbox72a87403dd654630bfa3c4b021cda08d.mailgun.org>", // sender address
+                    // currently accessing only one user email
+                    to: email, // list of receivers
+                    subject: 'We found some tubular changes!', // Subject line
+                    text: 'Hi there! It looks like we found a change on '+ website + '!', // plaintext body
+                    html: "<span>The Scrapinit team found a change on " + website +"!</span>",
+                        // html: '<b>Hello world </b>' // html body
+                };
 
-        //                   // Send email function
-        //                   transporter.sendMail(mailOptions, function(error, info){
-        //                       if(error){
-        //                           console.log(error);
-        //                       }else{
-        //                           console.log('Message sent: ' + info.response);
-        //                       } //  else statemenet  
-        //                   }); //  transporter.sendMail(mailOptions, function(error, info){
-        //                 }; // if (!equal){
-        //               }) // compare(img1, img2, function (equal){
-        //             }); // basicScraper.cropImg(img1, params, true, function(img2) {
-        // }, email); // basicScraper.getScreenshot()
+                // Send email function
+                transporter.sendMail(mailOptions, function(error, info){
+                    if(error){
+                        console.log(error);
+                    }else{
+                        console.log('Message sent: ' + info.response);
+                    } //  else statemenet  
+                }); //  transporter.sendMail(mailOptions, function(error, info){
+              }; // if (!equal){
+            }) // compare(img1, img2, function (equal){
+          }); // basicScraper.cropImg(img1, params, true, function(img2) {
+        }, email); // basicScraper.getScreenshot()
       },
       start: false,
       timeZone: "America/Los_Angeles"
     });
-    job.start();
-
+    job.start(UserUrl);
   }
 }
-
-// for faster testing
-// var schedule = '*/30 * * * * *';
-
-//To run every 3 seconds do */3; every 5 min do * */5 *
-// var schedule = '*/5 * * * * *';
 
 
