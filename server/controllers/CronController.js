@@ -1,93 +1,86 @@
-var basicScraper = require('./controllers/basicScraperController');
-var getExternalUrl = require('./controllers/urlController').getExternalUrl;
+var basicScraper = require('./basicScraperController');
+var getExternalUrl = require('./urlController').getExternalUrl;
 var CronJob = require('cron').CronJob;
-var secret = require('../config.js');
-var db = require('./db.js');
+var secret = require('../../config.js');
+var db = require('../db.js');
 var Sequelize = require('sequelize');
-var mandrill = require('mandrill-api');
-mandrill_client = new mandrill.Mandrill(secret.mandrill.client_id);
-var compare = require('./imgCompare.js').compare;
+var compare = require('../imgCompare.js').compare;
+var nodemailer = require('nodemailer');
+var transporter = nodemailer.createTransport({
+    service: 'mailgun',
+    auth: secret.auth
+});
 
 
+// var CronJob = require('cron').CronJob;
 
 module.exports = {
-  addCron: function(userObj) {
-    // information I need:
-    /*
-      frequency
-      userUrl obj
-      user id
-      image path name
-      url
-      parameters
-    */
+  newCron: function(UserUrl) {
+    console.log('we have a new cron!', UserUrl)
+    var freq = '* * */' + UserUrl.frequency + '* * *';
+
+    var job = new CronJob({
+      cronTime: freq,
+      onTick: function() {
+                  console.log('checking', UserUrl.url, 'for changes');
+        //            var oldImg = UserUrl.cropImage;
+        //            var email = url[j].UserUrl.email;
+        //            var website = url[j].url
+        //            var params = {
+        //             h: url[j].UserUrl.cropHeight,
+        //             w: url[j].UserUrl.cropWidth,
+        //             x: url[j].UserUrl.cropOriginX,
+        //             y: url[j].UserUrl.cropOriginY
+        //           }
+
+        //           // get the server to render the page with params coordinates
+        //           basicScraper.getScreenshot(url[j].url, url[j].id, function(img1, email) {
+        //             basicScraper.cropImg(img1, params, true, function(newImg) {
+        //               console.log('old image path', oldImg);
+        //               console.log('new image path', newImg);
+
+
+        //               compare(oldImg, newImg, function (equal){
+
+        //                 if (!equal){
+
+        //                   console.log('change detected on', website, 'sending email to ', email);
+
+        //                   var mailOptions = {
+        //                       from: "The Blank Arrays <postmaster@sandbox72a87403dd654630bfa3c4b021cda08d.mailgun.org>", // sender address
+        //                       // currently accessing only one user email
+        //                       to: email, // list of receivers
+        //                       subject: 'We found some tubular changes!', // Subject line
+        //                       text: 'Hi there! It looks like we found a change on '+ website + '!', // plaintext body
+        //                       html: "<span>The Scrapinit team found a change on " + website +"!</span>",
+        //                           // html: '<b>Hello world </b>' // html body
+        //                   };
+
+        //                   // Send email function
+        //                   transporter.sendMail(mailOptions, function(error, info){
+        //                       if(error){
+        //                           console.log(error);
+        //                       }else{
+        //                           console.log('Message sent: ' + info.response);
+        //                       } //  else statemenet  
+        //                   }); //  transporter.sendMail(mailOptions, function(error, info){
+        //                 }; // if (!equal){
+        //               }) // compare(img1, img2, function (equal){
+        //             }); // basicScraper.cropImg(img1, params, true, function(img2) {
+        // }, email); // basicScraper.getScreenshot()
+      },
+      start: false,
+      timeZone: "America/Los_Angeles"
+    });
+    job.start();
 
   }
 }
 
 // for faster testing
-var schedule = '*/5 * * * * *';
+// var schedule = '*/30 * * * * *';
+
 //To run every 3 seconds do */3; every 5 min do * */5 *
+// var schedule = '*/5 * * * * *';
 
-var cronjob = new CronJob(schedule, function() {
-  console.log('You will see this message every 5 min');
-  // get urls
-  db.User.findAll()
-  .then(function(allUsers) {
-    for (var i = 0; i < allUsers.length; i++){
-      var currEmail = allUsers[i].email;
-      console.log('email', currEmail)
-      allUsers[i].getUrls()
-      .then(function(url) {
-        for (var j=0; j<url.length; j++){
-          console.log('checking', url[j].url, 'for changes');
 
-           var img1 = url[j].UserUrl.cropImage;
-           var params = {
-            h: url[j].UserUrl.cropHeight,
-            w: url[j].UserUrl.cropWidth,
-            x: url[j].UserUrl.cropOriginX,
-            y: url[j].UserUrl.cropOriginY
-          }
-           //console.log('about to call basicScraper')
-        // get the server to render the page with params coordinates
-        basicScraper.getScreenshot(url[j].url, url[j].id, function(urlToThePage) {
-          basicScraper.cropImg(urlToThePage, params, true, function(img2) {
-            console.log('old image path', img1);
-            console.log('new image path', img2);
-          });
-        });
-        }
-      });
-    };
-  });
-}, null, true, 'America/Los_Angeles');
-
-var sendEmail = function (email, name){
-  var message = {
-    "html": "<span>The Scrapinit found a change in the webpage you are following</span>",
-    "subject": "We scraped some tubular stuff for you!!",
-    "from_email": email,
-    "from_name": "The Blank Arrays",
-    "to": [{
-      "email": email,
-      "name":  name,
-      "type": "to"
-    },
-    ],
-    "headers": {
-      "Reply-To": ""
-    },
-    "important": true,
-  };
-
-  var async = false;
-//send email // uncomment to send an email
-mandrill_client.messages.send({"message": message, "async": async}, function(result) {
-  console.log('Sent a message to '+ email+'  '+ result);
-}, function(e) {
-            // Mandrill returns the error as an object with name and message keys
-            console.log('A mandrill error occurred: ' + e.name + ' - ' + e.message);
-            // A mandrill error occurred: Unknown_Subaccount - No subaccount exists with the id 'customer-123'
-          });
-}

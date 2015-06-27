@@ -1,4 +1,5 @@
 var basicScraper = require('./basicScraperController');
+var cronjob = require('./cronController').newCron;
 var db = require("../db");
 
 
@@ -6,7 +7,7 @@ var db = require("../db");
 
 module.exports = {
   getList: function (req, res, next) {
-    console.log('we are here')
+    // console.log('we are here')
     var email = req.session.email;
     db.User.findOne({
       where: {
@@ -75,6 +76,7 @@ module.exports = {
                   cropOriginY: crop.y
                })
                .then(function(associate) {
+                 cronjob(associate);
                  res.status(201).json({ cropImage: cropImg });
 
                });
