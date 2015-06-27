@@ -3,7 +3,7 @@ var Sequelize = require("sequelize");
 module.exports = function(sequelize, tableConfig) {
   return sequelize.define('UserUrl', {
     email: {
-      Sequelize.STRING,
+      type: Sequelize.STRING,
       allowNull: false
     },
     webImage: {
