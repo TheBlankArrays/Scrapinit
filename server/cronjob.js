@@ -13,7 +13,7 @@ var compare = require('./imgCompare.js').compare;
 // var schedule = '* +' */5 * * * *';
 
 // for faster testing
-var schedule = '*/5 * * * * *';
+var schedule = '*/30 * * * * *';
 //To run every 3 seconds do */3; every 5 min do * */5 *
 
 var cronjob = new CronJob(schedule, function() {
@@ -46,8 +46,13 @@ var cronjob = new CronJob(schedule, function() {
           console.log('url to the page', urlToThePage)
           basicScraper.cropImg(urlToThePage, params, true,  function(img2) {
             console.log('image path', img2);
-            compare(img1, img2);
-            // sendEmail(currEmail, currEmail);
+            
+            compare(img1, img2, function (equal){
+              if (!equal){
+               //sendEmail(currEmail, currEmail);
+              };
+              
+            });
           });
         });
         }
