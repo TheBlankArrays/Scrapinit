@@ -10,7 +10,7 @@ var validProtocols = {
 }
 
 module.exports = {
-  getScreenshot: function(url, userId, cb) {
+  getScreenshot: function(url, userId, cb, email) {
 
     console.log('userId in getscreenshot ' + userId);
 
@@ -19,18 +19,18 @@ module.exports = {
 
     webshot(url, '../client/assets/' + userId + '/' + urlWithoutHTTP + '-preview.jpg', function(err) {
       // screenshot now saved to google.png// screenshot now saved to hello_world.png
-      cb('assets/' + userId + '/' + urlWithoutHTTP + '-preview.jpg');
+      cb('assets/' + userId + '/' + urlWithoutHTTP + '-preview.jpg', email);
     });
   },
 
-  cropImg: function(url, crop, compare, cb) {
+  cropImg: function(url, crop, compare, cb, email) {
 
     var filepath = url.substr(0, url.length - 12) + ((compare) ? '-compare.jpg' : '.jpg');
 
      gm('../client/' + url).crop(crop.w, crop.h, crop.x, crop.y)
       .write('../client/' + filepath, function(err){
         if (err) return console.dir(arguments)
-        cb(filepath, crop);
+        cb(filepath, crop, email);
       });
 
   }

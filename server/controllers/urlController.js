@@ -1,4 +1,5 @@
 var basicScraper = require('./basicScraperController');
+var cronjob = require('./cronController').newCron;
 var db = require("../db");
 
 
@@ -6,7 +7,7 @@ var db = require("../db");
 
 module.exports = {
   getList: function (req, res, next) {
-    console.log('we are here')
+    // console.log('we are here')
     var email = req.session.email;
     db.User.findOne({
       where: {
@@ -76,6 +77,7 @@ module.exports = {
                console.log('urlfound: '+ urlFound);
 
                userFound.addUrl(urlFound, {
+                  email: userFound.email,
                   cropImage: cropImg,
                   cropHeight: crop.h,
                   cropWidth: crop.w,
@@ -132,6 +134,7 @@ module.exports = {
               .then(function (urlCreated) {
 
                 userFound.addUrl(urlCreated, {
+                   email: userFound.email,
                    cropImage: cropImg,
                    cropHeight: crop.h,
                    cropWidth: crop.w,
