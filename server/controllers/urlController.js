@@ -74,8 +74,8 @@ module.exports = {
                   cropOriginY: crop.y
                })
                .then(function(associate) {
-                 console.log(associate);
-                 res.status(201).json(associate);
+                 res.status(201).json({ cropImage: cropImg });
+
                });
 
 
@@ -108,8 +108,8 @@ module.exports = {
                      cropOriginY: crop.y
                   })
                   .then(function(associate) {
-                    console.log(associate);
-                    res.status(201).json(associate);
+                    console.log('associate ', associate);
+                    res.status(201).json({cropImage: associate[0][0].cropImage});
                   })
                   .catch(function (err) {
                     res.status(403).json({message: err.message});
