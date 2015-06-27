@@ -17,7 +17,10 @@ var transporter = nodemailer.createTransport({
 
 // for faster testing
 var schedule = '*/30 * * * * *';
+
 //To run every 3 seconds do */3; every 5 min do * */5 *
+// var schedule = '*/5 * * * * *';
+
 
 var cronjob = new CronJob(schedule, function() {
   console.log('You will see this message every 5 min');
@@ -27,54 +30,55 @@ var cronjob = new CronJob(schedule, function() {
   db.User.findAll()
   .then(function(allUsers) {
     for (var i = 0; i < allUsers.length; i++){
-      var currEmail = allUsers[i].email;
-      console.log('email', currEmail)
       allUsers[i].getUrls()
       .then(function(url) {
         for (var j=0; j<url.length; j++){
           console.log('checking', url[j].url, 'for changes');
-
-           var img1 = url[j].UserUrl.cropImage;
-           var email = currEmail;
+           var oldImg = url[j].UserUrl.cropImage;
+           var email = url[j].UserUrl.email;
            var website = url[j].url
-           console.log('email is', email)
            var params = {
             h: url[j].UserUrl.cropHeight,
             w: url[j].UserUrl.cropWidth,
             x: url[j].UserUrl.cropOriginX,
             y: url[j].UserUrl.cropOriginY
           }
-           //console.log('about to call basicScraper')
-        // get the server to render the page with params coordinates
-        basicScraper.getScreenshot(url[j].url, url[j].id, function(img1) {
-          basicScraper.cropImg(img1, params, true, function(img2) {
-            console.log('old image path', img1);
-            console.log('new image path', img2);
-            compare(img1, img2, function (equal){
-              if (!equal){
-                // sendEmail(currEmail, currEmail);
-                console.log('change detected on', website, 'sending email to ', email);
-                var mailOptions = {
-                    from: "The Blank Arrays <postmaster@sandbox72a87403dd654630bfa3c4b021cda08d.mailgun.org>", // sender address
-                    to: email, // list of receivers
-                    subject: 'We found some tubular changes!', // Subject line
-                    text: 'Hi there! It looks like we found a change on '+ website + '!', // plaintext body
-                    html: "<span>The Scrapinit found a change in the webpage you are following</span>",
-                        // html: '<b>Hello world </b>' // html body
-                };
 
-                // send mail with defined transport object
-                transporter.sendMail(mailOptions, function(error, info){
-                    if(error){
-                        console.log(error);
-                    }else{
-                        console.log('Message sent: ' + info.response);
-                    } //  else statemenet  
-                }); //  transporter.sendMail(mailOptions, function(error, info){
-              }; // if (!equal){
-            }) // compare(img1, img2, function (equal){
-          }); // basicScraper.cropImg(img1, params, true, function(img2) {
-        }); // basicScraper.getScreenshot()
+          // get the server to render the page with params coordinates
+          basicScraper.getScreenshot(url[j].url, url[j].id, function(img1, email) {
+            basicScraper.cropImg(img1, params, true, function(newImg) {
+              console.log('old image path', oldImg);
+              console.log('new image path', newImg);
+
+
+              compare(oldImg, newImg, function (equal){
+
+                if (!equal){
+
+                  console.log('change detected on', website, 'sending email to ', email);
+
+                  var mailOptions = {
+                      from: "The Blank Arrays <postmaster@sandbox72a87403dd654630bfa3c4b021cda08d.mailgun.org>", // sender address
+                      // currently accessing only one user email
+                      to: email, // list of receivers
+                      subject: 'We found some tubular changes!', // Subject line
+                      text: 'Hi there! It looks like we found a change on '+ website + '!', // plaintext body
+                      html: "<span>The Scrapinit team found a change on " + website +"!</span>",
+                          // html: '<b>Hello world </b>' // html body
+                  };
+
+                  // Send email function
+                  transporter.sendMail(mailOptions, function(error, info){
+                      if(error){
+                          console.log(error);
+                      }else{
+                          console.log('Message sent: ' + info.response);
+                      } //  else statemenet  
+                  }); //  transporter.sendMail(mailOptions, function(error, info){
+                }; // if (!equal){
+              }) // compare(img1, img2, function (equal){
+            }); // basicScraper.cropImg(img1, params, true, function(img2) {
+}, email); // basicScraper.getScreenshot()
         } // for loop iterating over each url for a user
       }); // .then(function(url){
     }; // or (var i = 0; i < allUsers.length; i++){
