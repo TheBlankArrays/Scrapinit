@@ -1,5 +1,5 @@
 var basicScraper = require('./basicScraperController');
-var cronjob = require('./cronController').newCron;
+var cronjob = require('./cronController').addCron;
 var db = require("../db");
 
 
@@ -7,7 +7,7 @@ var db = require("../db");
 
 module.exports = {
   getList: function (req, res, next) {
-    // console.log('we are here')
+    console.log('we are here')
     var email = req.session.email;
     db.User.findOne({
       where: {
@@ -39,7 +39,6 @@ module.exports = {
   },
 
   addUrl: function (req, res, next) {
-
     var email = req.session.email;
     var url = {url: req.body.url};
     console.log('req body', JSON.stringify(req.body));
@@ -94,8 +93,7 @@ module.exports = {
                       model: db.UserUrl,
                       where: {
                         user_id: req.session.user_id
-                      },
-                      attributes: ['cropImage', 'status', 'frequency']
+                      }
                     }
                   ]
                 }).then(function (userUrl){
@@ -104,6 +102,8 @@ module.exports = {
                     id: userUrl.id,
                     UserUrl: userUrl.UserUrls[0]
                   }
+                  console.log('sending ' + userUrl.url + ' to cronjob');
+                  cronjob(userUrl.UserUrls[0], userUrl.url);
                   res.status(201).json(response);
                 });
                })
@@ -151,8 +151,7 @@ module.exports = {
                         model: db.UserUrl,
                         where: {
                           user_id: req.session.user_id
-                        },
-                        attributes: ['cropImage', 'status', 'frequency']
+                        }
                       }
                     ]
                   }).then(function (userUrl){
@@ -161,6 +160,8 @@ module.exports = {
                       id: userUrl.id,
                       UserUrl: userUrl.UserUrls[0]
                     }
+                    console.log('sending ' + userUrl.url + ' to cronjob');
+                    cronjob(userUrl.UserUrls[0], userUrl.url);
                     res.status(201).json(response);
                   });
                 })
