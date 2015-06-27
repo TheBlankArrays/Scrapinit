@@ -103,7 +103,6 @@ describe('API add url', function () {
     });
   });
 
-  //deletes inserted user from database after all tests are complete
   after(function (done) {
     utils.destroyUser(User, utils.testUser, function () {
       done();
