@@ -36,45 +36,32 @@ describe('API AUTH USER', function() {
   //schemas that will be used to execute queries
   var User = schemas.User;
 
-  //deletes inserted user from database after all tests are complete
-  after(function(done) {
+
+  afterEach(function(done) {
     utils.destroyUser(User, utils.testUser, function () {
       done();
     });
   });
-
   describe('user management', function () {
+
+
 
     describe('Route ', function () {
 
       it('signup should return 201 when the user is created successfully', function (done) {
-        request.post('/api/user/signup')
+        request.post('/api/users/signup')
         .send(utils.testUser)
-        .expect(201)
         .end(function (err, res) {
+          res.status.should.be.equal(201);
           done();
         });
-      });
-
-      it('signup should respond with status code 401 if username already exists', function (done) {
-        request.post('/api/user/signup')
-        .send(utils.testUser)
-        .expect(201)
-        .end(function (err, res) {
-          request.post('/api/user/login')
-          .send(utils.testUser)
-          .expect(401)
-          .end(function (err, res) {
-            done();
-          });
-        })
       });
 
       it('Signup should encrypt the password into the database', function (done) {
         request.post('/api/users/signup')
         .send(utils.testUser)
-        .expect(201)
         .end(function (err, res) {
+          res.status.should.be.equal(201);
           User.findOne({
             where: {email: utils.testUser.email}
           }).then(function (userFound) {
@@ -87,28 +74,28 @@ describe('API AUTH USER', function() {
       });
 
       it('login should respond with status code 200 if username/password is correct', function (done) {
-        request.post('/api/user/signup')
+        request.post('/api/users/signup')
         .send(utils.testUser)
-        .expect(201)
         .end(function (err, res) {
-          request.post('/api/user/login')
+          res.status.should.be.equal(201);
+          request.post('/api/users/login')
           .send(utils.testUser)
-          .expect(200)
           .end(function (err, res) {
+            res.status.should.be.equal(200);
             done();
           });
         });
       });
 
-      it('login should respond with status code 401 if username/password is incorrect', function (done) {
+      it('login should respond with status code 400 if username/password is incorrect', function (done) {
         var wrongTestUser = {
           username: "doesntexist",
           password: "wrongpassword"
         };
-        request.post('/api/user/login')
+        request.post('/api/users/login')
         .send(wrongTestUser)
-        .expect(401)
         .end(function (err, res) {
+          res.status.should.be.equal(400);
           done();
         });
       });
@@ -121,39 +108,38 @@ describe('API AUTH USER', function() {
 
     describe('signup and login/logout', function () {
 
-      it('Return 403 if email is empty', function (done) {
-        request.post('/api/user/login')
+      it('Return 400 if email is empty', function (done) {
+        request.post('/api/users/login')
         .send({
           email: null,
           password: '123qwe'
         })
-        .expect(403)
         .end(function (err, res) {
+          res.status.should.be.equal(400);
           done();
         });
       });
 
-      it('Return 403 if password is empty', function (done) {
-        request.post('/api/user/login')
+      it('Return 400 if password is empty', function (done) {
+        request.post('/api/users/login')
         .send({
           email: 'Pepe',
           password: null,
         })
-        .expect(403)
         .end(function (err, res) {
+          res.status.should.be.equal(400);
           done();
         });
       });
 
-      it('Return 403 if email is already exist', function (done) {
-        request.post('/api/user/login')
+      it('Return 400 if email is already exist', function (done) {
+        request.post('/api/users/login')
         .send(utils.testUser)
-        .expect(201)
         .end(function (err, res) {
-          request.post('/api/user/login')
+          request.post('/api/users/login')
           .send(utils.testUser)
-          .expect(403)
           .end(function (err, res) {
+            res.status.should.be.equal(400);
             done();
           });
         });

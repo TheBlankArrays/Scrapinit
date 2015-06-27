@@ -12,3 +12,5 @@ config.js
 client/assets
 images/*
 server/difference.png
+sever/specs/*.png
+sever/specs/*.jpg

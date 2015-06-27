@@ -86,14 +86,13 @@ describe('URL LIST', function () {
   var Url = schemas.Url;
   var UserUrl = schemas.UserUrl;
 
-  before(function (done) {
+  beforeEach(function (done) {
     utils.signUpUser(utils.testUser, function (err) {
       done();
     });
   });
 
-  //deletes inserted user from database after all tests are complete
-  after(function (done) {
+  afterEach(function (done) {
     utils.destroyUser(User, utils.testUser, function () {
       done();
     });
@@ -105,8 +104,8 @@ describe('URL LIST', function () {
 
       it('should return 401 when there are not a user logged and try request', function (done) {
         request.get('/api/users/list')
-        .expect(401)
         .end(function (err, res) {
+          res.status.should.be.equal(401);
           done();
         });
       });
@@ -116,8 +115,8 @@ describe('URL LIST', function () {
         utils.logInAgent(agent, utils.testUser, function (user) {
           utils.logOutAgent(agent, function () {
             request.get('/api/users/list')
-            .expect(401)
             .end(function (err, res) {
+              res.status.should.be.equal(401);
               done();
             });
           });
@@ -141,8 +140,8 @@ describe('URL LIST', function () {
             })
             .then(function (ok) {
               agent.get('/api/users/list')
-              .expect(200)
               .end(function (err, res) {
+                res.status.should.be.equal(200);
                 var result = res.body;
                 result.should.have.property('urls');
                 Array.isArray(result.urls).should.equal(true);
