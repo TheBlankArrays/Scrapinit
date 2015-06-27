@@ -108,8 +108,8 @@ module.exports = {
                      cropOriginY: crop.y
                   })
                   .then(function(associate) {
-                    console.log('associate ', associate);
-                    res.status(201).json({cropImage: associate[0][0].cropImage});
+                    //console.log('associate datavalues  ', JSON.stringify(associate[0][0].dataValues));
+                    res.status(201).json({cropImage: associate[0][0].dataValues.cropImage});
                   })
                   .catch(function (err) {
                     res.status(403).json({message: err.message});
