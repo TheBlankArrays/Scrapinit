@@ -86,14 +86,13 @@ describe('URL LIST', function () {
   var Url = schemas.Url;
   var UserUrl = schemas.UserUrl;
 
-  before(function (done) {
+  beforeEach(function (done) {
     utils.signUpUser(utils.testUser, function (err) {
       done();
     });
   });
 
-  //deletes inserted user from database after all tests are complete
-  after(function (done) {
+  afterEach(function (done) {
     utils.destroyUser(User, utils.testUser, function () {
       done();
     });
@@ -103,7 +102,7 @@ describe('URL LIST', function () {
 
     describe('Route /api/users/list', function () {
 
-      xit('should return 401 when there are not a user logged and try request', function (done) {
+      it('should return 401 when there are not a user logged and try request', function (done) {
         request.get('/api/users/list')
         .end(function (err, res) {
           res.status.should.be.equal(401);
@@ -111,7 +110,7 @@ describe('URL LIST', function () {
         });
       });
 
-      xit('should return 401 when user just logged out and try request', function (done) {
+      it('should return 401 when user just logged out and try request', function (done) {
         var agent = utils.createAgent();
         utils.logInAgent(agent, utils.testUser, function (user) {
           utils.logOutAgent(agent, function () {
