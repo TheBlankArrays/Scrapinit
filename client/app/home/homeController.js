@@ -55,7 +55,7 @@ angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router', 
                     if (foundId > -1) {
                       $scope.urls[foundId].img = data.cropImage + '?' + new Date().getTime();
                     } else {
-                      $scope.urls.push({url: $scope.url, img: data.cropImage});
+                      $scope.urls.push({url: $scope.url, img: data.cropImage, text: data.text});
                     }
 
                     //$scope.urls.push({url: $scope.url, img: data.cropImage});

@@ -4,6 +4,8 @@ var webshot = require('webshot');
 var easyimg = require('easyimage');
 var gm = require('gm').subClass({ imageMagick: true });
 
+var nodecr = require('nodecr');
+
 var validProtocols = {
   'http': 'true',
   'https': 'true'
@@ -33,5 +35,17 @@ module.exports = {
         cb(filepath, crop, email);
       });
 
+  },
+
+  imagetotext: function(img, cb) {
+    //nodecr.process('../client/assets/1/www_amazon_com_Down-Rabbit-Hole-Adventures-Cautionary_dp_0062372106_ref_zg_bsnr_books_2.jpg',function(err, text) {
+    nodecr.process('../client/' + img,function(err, text) {
+        if(err) {
+            console.error(err);
+        } else {
+            cb(text);
+        }
+    });
   }
+
 };
