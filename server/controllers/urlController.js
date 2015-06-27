@@ -67,6 +67,7 @@ module.exports = {
                console.log('urlfound: '+ urlFound);
 
                userFound.addUrl(urlFound, {
+                  email: userFound.email,
                   cropImage: cropImg,
                   cropHeight: crop.h,
                   cropWidth: crop.w,
@@ -101,6 +102,7 @@ module.exports = {
                 .then(function (urlCreated) {
 
                   userFound.addUrl(urlCreated, {
+                     email: userFound.email,
                      cropImage: cropImg,
                      cropHeight: crop.h,
                      cropWidth: crop.w,
