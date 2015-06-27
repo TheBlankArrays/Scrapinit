@@ -57,6 +57,8 @@ var cronjob = new CronJob(schedule, function() {
 
                   console.log('change detected on', website, 'sending email to ', email);
 
+                  // TODO: update oldImg to be newImg
+
                   var mailOptions = {
                       from: "The Blank Arrays <postmaster@sandbox72a87403dd654630bfa3c4b021cda08d.mailgun.org>", // sender address
                       // currently accessing only one user email
