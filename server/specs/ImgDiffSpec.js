@@ -1,7 +1,8 @@
 var mocha = require('mocha');
 var should = require('chai').should();
 var expect = require('chai').expect;
-var compare = 
+var compare = require('./../imgCompare.js').compare;
+
 
 describe('Image comparison', function() {
   var i = 'a';
@@ -10,25 +11,17 @@ describe('Image comparison', function() {
     done();
    });
 
-   it('should return true when the same image is used', function (done) {
-    var a1 = './Users/dominikabienkowska/Desktop/Scrapinit/server/specs/blankImage.jpg';
-    var a2 = './Users/dominikabienkowska/Desktop/Scrapinit/server/specs/blankImage.jpg';
-  imageDiff({
-  actualImage: 'blankImage.png',
-  expectedImage: 'redditImage1.jpg',
-  diffImage: 'difference.png',
-}, function (err, imagesAreSame) {
-  console.log('IMAGE DIFF : images are the same: ',imagesAreSame)
-   expect(imagesAreSame).to.equal(true);
-return imagesAreSame
- // error will be any errors that occurred 
-  // imagesAreSame is a boolean whether the images were the same or not 
-  // diffImage will have an image which highlights differences 
-});
 
+  it('compare should be a function', function (done) {
 
-    //compare(img1, img2, dir);
- 
+   compare.should.be.a.Function
+    done();
+   })
+
+   it('should return undefined when no images are passes', function (done) {
+    var i = '';
+   var result = compare(i,i,i);
+   expect(result).to.equal(undefined);
     done();
    })
 
