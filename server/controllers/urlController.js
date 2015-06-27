@@ -27,6 +27,16 @@ module.exports = {
       }
     });
   },
+
+  checkParametersAddUrl: function (req, res, next) {
+    var params = req.body;
+    if (!params.url || !params.urlImg || !params.crop || !params.crop.x || 
+      !params.crop.y || !params.crop.w || !params.crop.h){
+      res.status(400).json({error: 'Need more data'});
+    }
+    next();
+  },
+
   addUrl: function (req, res, next) {
 
     var email = req.session.email;
@@ -56,7 +66,6 @@ module.exports = {
         .then(function(urlFound) {
           console.log('req.body.urlImg' + req.body.urlImg);
           console.log('req.body.crop' + JSON.stringify(req.body.crop));
-
           basicScraper.cropImg(req.body.urlImg, req.body.crop, false, function(cropImg, crop) {
             // crop image whether or not the url has already been submitted
             console.log('***** urlImg',req.body.urlImg )
@@ -74,9 +83,31 @@ module.exports = {
                   cropOriginY: crop.y
                })
                .then(function(associate) {
-                 res.status(201).json({ cropImage: cropImg });
-
-               });
+                db.Url.findOne({
+                  where: {
+                    id: urlFound.id
+                  },
+                  include: [
+                    { 
+                      model: db.UserUrl,
+                      where: {
+                        user_id: req.session.user_id
+                      },
+                      attributes: ['cropImage', 'status', 'frequency']
+                    }
+                  ]
+                }).then(function (userUrl){
+                  var response = {
+                    url: userUrl.url,
+                    id: userUrl.id,
+                    UserUrl: userUrl.UserUrls[0]
+                  }
+                  res.status(201).json(response);
+                });
+               })
+               .catch(function (err) {
+                res.status(400).json({message: err.message});
+              });
 
 
               //  userFound.getUrls()
@@ -98,26 +129,45 @@ module.exports = {
               console.log('url not found');
 
               db.Url.create(url)
-                .then(function (urlCreated) {
+              .then(function (urlCreated) {
 
-                  userFound.addUrl(urlCreated, {
-                     cropImage: cropImg,
-                     cropHeight: crop.h,
-                     cropWidth: crop.w,
-                     cropOriginX: crop.x,
-                     cropOriginY: crop.y
-                  })
-                  .then(function(associate) {
-                    //console.log('associate datavalues  ', JSON.stringify(associate[0][0].dataValues));
-                    res.status(201).json({cropImage: associate[0][0].dataValues.cropImage});
-                  })
-                  .catch(function (err) {
-                    res.status(403).json({message: err.message});
-                  }); // close catch of addurl db call
-                })  // close then of create url db call
+                userFound.addUrl(urlCreated, {
+                   cropImage: cropImg,
+                   cropHeight: crop.h,
+                   cropWidth: crop.w,
+                   cropOriginX: crop.x,
+                   cropOriginY: crop.y
+                })
+                .then(function(associate) {
+                  db.Url.findOne({
+                    where: {
+                      id: urlFound.id
+                    },
+                    include: [
+                      { 
+                        model: db.UserUrl,
+                        where: {
+                          user_id: req.session.user_id
+                        },
+                        attributes: ['cropImage', 'status', 'frequency']
+                      }
+                    ]
+                  }).then(function (userUrl){
+                    var response = {
+                      url: userUrl.url,
+                      id: userUrl.id,
+                      UserUrl: userUrl.UserUrls[0]
+                    }
+                    res.status(201).json(response);
+                  });
+                })
                 .catch(function (err) {
-                  res.status(403).json({message: err.message});
-                }); // close catch of create url db call
+                  res.status(400).json({message: err.message});
+                }); // close catch of addurl db call
+              })  // close then of create url db call
+              .catch(function (err) {
+                res.status(400).json({message: err.message});
+              }); // close catch of create url db call
 
             } // close else urlFound
 

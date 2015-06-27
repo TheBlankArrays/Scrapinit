@@ -23,10 +23,10 @@ var setup = function(app) {
     .get(authController.isAuth, authController.logout);
 
   app.route('/api/users/url')
-    .post(authController.isAuth, function(req, res, next) {
-      console.log('url route');
-      urlController.addUrl(req, res, next);
-    });
+    .post(authController.isAuth,
+      urlController.checkParametersAddUrl,
+      urlController.addUrl
+    );
 
   app.route("/api/users/url/:idUrl")
     .get(authController.isAuth, urlController.getUrl);
