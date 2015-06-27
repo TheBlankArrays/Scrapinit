@@ -2,7 +2,8 @@ var Sequelize = require("sequelize");
 
 module.exports = function(sequelize, tableConfig) {
   return sequelize.define('UserUrl', {
-    webImage: Sequelize.STRING,
+    email: Sequelize.STRING,
+    ocr: Sequelize.STRING,
     cropImage: Sequelize.STRING,
     cropHeight: Sequelize.INTEGER,
     cropWidth: Sequelize.INTEGER,
