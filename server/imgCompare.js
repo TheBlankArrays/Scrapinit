@@ -5,13 +5,12 @@ module.exports = {
 
   compare: function (image1, image2, callback) {
      
-
-    var newDirName = __dirname + '../';
-    var newDir = __dirname.slice(0,-6);
-    var img1 = path.join(newDir,'client', image1);
-    var img2 = path.join(newDir,'client', image2);
-    console.log('image1:', img1)
-    console.log('image2:', img2)
+      var newDirName = __dirname + '../';
+      var newDir = __dirname.slice(0,-6);
+      var img1 = path.join(newDir,'client', image1);
+      var img2 = path.join(newDir,'client', image2);
+      console.log('image1:', img1)
+      console.log('image2:', img2)
 
 
     imageDiff({
