@@ -2,7 +2,6 @@ var mocha = require('mocha');
 var should = require('chai').should();
 var expect = require('chai').expect;
 var compare = require('./../imgCompare.js').compare;
- 
 
 describe('Image comparison', function() {
   var i = 'a';
@@ -11,12 +10,13 @@ describe('Image comparison', function() {
     done();
    });
 
+
    it('compare should be a function', function (done) {
    compare.should.be.a.Function
     done();
    })
 
-   it('compare should be a function', function (done) {
+   it('should return undefined when no images are passes', function (done) {
     var i = '';
    var result = compare(i,i,i);
    expect(result).to.equal(undefined);
