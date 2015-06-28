@@ -17,6 +17,14 @@ body {
   z-index: 200;
 
 }
+
+#imagepreview {
+  display: block;
+  margin: 20px auto;
+  width: 600px;
+}
+
+
 h1 {
   font-size: 450%;
   margin: 0;
