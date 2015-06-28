@@ -2,9 +2,6 @@
 var authController = require('./controllers/authController');
 var urlController = require('./controllers/urlController');
 var basicScraper = require('./controllers/basicScraperController');
-
-var nodecr = require('nodecr');
-
 var webshot = require('webshot');
 var url = require('url');
 
@@ -32,19 +29,6 @@ var setup = function(app) {
 
   app.route("/api/users/url/:idUrl")
     .get(authController.isAuth, urlController.getUrl);
-
-  app.route("/api/ocrwork")
-    .get(function(req, res, next) {
-
-        nodecr.process('../client/assets/1/www_amazon_com_Down-Rabbit-Hole-Adventures-Cautionary_dp_0062372106_ref_zg_bsnr_books_2.jpg',function(err, text) {
-            if(err) {
-                console.error(err);
-            } else {
-                console.log('text', text);
-            }
-        });
-
-    });
 
   app.get('/api/screenshot', authController.isAuth, function(req, res, next) {
         var url_parts = url.parse(req.url, true);
