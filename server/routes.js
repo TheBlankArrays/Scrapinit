@@ -34,8 +34,8 @@ var setup = function(app) {
         var url_parts = url.parse(req.url, true);
         var query = url_parts.query;
 
-        console.log('userId in routes.js screenshot ' + req.session.user_id);
         basicScraper.getScreenshot(query.url, req.session.user_id, function(imgpath) {
+          console.log('RESULT IMAGE', imgpath);
           res.send(imgpath);
         });
   });
