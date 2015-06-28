@@ -173,7 +173,8 @@ module.exports = {
                 res.status(400).json({message: err.message});
               }); // close catch of create url db call
 
-            } // close else urlFound
+
+            }; // close image to text callback
 
           }); // close cropImg callback
 

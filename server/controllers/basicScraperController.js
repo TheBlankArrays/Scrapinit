@@ -4,6 +4,7 @@ var webshot = require('webshot');
 var easyimg = require('easyimage');
 var gm = require('gm').subClass({ imageMagick: true });
 
+
 var validProtocols = {
   'http': 'true',
   'https': 'true'
@@ -34,4 +35,5 @@ module.exports = {
       });
 
   }
+
 };
