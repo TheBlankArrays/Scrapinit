@@ -17,10 +17,16 @@ var transporter = nodemailer.createTransport({
 module.exports = {
   addCron: function(UserUrl, url) {
     var userUrl = UserUrl;
+
     // minutes
-    var freq = '* */' + UserUrl.frequency + ' * * * *';
+    // var freq = '* */' + UserUrl.frequency + ' * * * *';
+
+    // test ever 10 seconds
+    var freq = '*/10 * * * * *';
+
     // seconds
     // var freq = '*/' + UserUrl.frequency + ' * * * * *';
+    
     var job = new CronJob({
       cronTime: freq,
       onTick: function() {
@@ -59,13 +65,13 @@ module.exports = {
                 };
 
                 // Send email function
-                transporter.sendMail(mailOptions, function(error, info){
-                    if(error){
-                        console.log(error);
-                    }else{
-                        console.log('Message sent: ' + info.response);
-                    } //  else statemenet  
-                }); //  transporter.sendMail(mailOptions, function(error, info){
+                // transporter.sendMail(mailOptions, function(error, info){
+                //     if(error){
+                //         console.log(error);
+                //     }else{
+                //         console.log('Message sent: ' + info.response);
+                //     } //  else statemenet  
+                // }); //  transporter.sendMail(mailOptions, function(error, info){
               }; // if (!equal){
             }) // compare(img1, img2, function (equal){
           }); // basicScraper.cropImg(img1, params, true, function(img2) {
@@ -74,7 +80,7 @@ module.exports = {
       start: false,
       timeZone: "America/Los_Angeles"
     });
-    job.start(UserUrl);
+    job.start();
   }
 }
 
