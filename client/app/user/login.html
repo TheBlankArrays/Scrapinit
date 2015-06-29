@@ -19,14 +19,31 @@
 
  
       <div>{{error}}</div>
-      <form ng-submit="login()">
-        <input type="text" placeholder="Email" ng-model="user.email">
-        <input type="password" placeholder="Password" ng-model="user.password">
-        <button id='login-button'>Login</button>
+
+       <form name="form" ng-submit="login()" novalidate>
+                <div class="form-group"  ng-class='{ "has-focus": form.email.hasFocus,
+                    "has-success": form.email.$valid,
+                     "has-error": form.email.$invalid && (form.$submitted || form.email.$touched),
+                     "is-empty": !form.email.$viewValue }'>
+                      <label for="email">Enter an email</label>
+                      <input type="text" placeholder="Email"  ng-model="user.email">
+                      <p class="error-block">Name is Required!</p>
+                </div>
+
+                <div class="form-group"  ng-class='{ "has-focus": form.email.hasFocus,
+                    "has-success": form.email.$valid,
+                     "has-error": form.email.$invalid && (form.$submitted || form.email.$touched),
+                  "is-empty": !form.email.$viewValue }'>
+                     <label for="email">Enter a Password</label>
+                     <input type="password" placeholder="Password" ng-model="user.password" required ng-focus='form.password.hasFocus=true', ng-blur='form.password.hasFocus=false' autocomplete="off">
+                     <p ng-show="form.password.$error.required && (form.password.$touched || submitted)" class="error-block">Password is Required!</p>
+                     <p ng-show="form.password.$error.password && (form.password.$touched || submitted)" class="error-block">Password is Invalid!</p>
+                  </div>
+             <button id='login-button'>Login</button>
       </form>
       <span ui-sref='signup'>Sign Up</span>
     </div>
-
+    
     <p>Welcome to The Web Scraper.  For all your scraping needs.</p>
     <p>All you need is a valid email address so sign up today and receive free scapes for life!</p>
  
