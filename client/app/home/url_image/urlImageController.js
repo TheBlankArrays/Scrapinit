@@ -1,16 +1,35 @@
 angular.module('app.home.urlImage', [ 'ui.router'])
-.controller('urlImageController', function ($scope, $state, $http) {
+.controller('urlImageController', function ($scope, $state, Url) {
 
- $scope.html = '';
+  $scope.send = function (cropCoor) {
+    Url.postUrl(cropCoor, $scope.urlImagePreview, $scope.url, function (err, data) {
+      if (err) {
+        $scope.error = 'UPS! We are in troubles.';
+      }else {
+        console.log('RESTUL POST URL', data);
+        $scope.$emit('emptyUrls');
+        $state.go('home.list');
+      }
+    });
+  };
 
- $scope.add = function() {
-     var loginUrl = '/api/users/retrieveUrl';
-     console.log('urlCtrl');
-     $http.post(loginUrl, {url: $scope.url })
-       .success(function (data) {
-         console.log(data);
-         $scope.html = 'newValues';
-         $state.go('login');
-       });
- };
+})
+.directive('crop', function () {
+
+  var linker = function(scope, element, attrs){
+    element.Jcrop({
+      onSelect: function (c) {
+        $(element).fadeOut(800);
+        scope.crop({cropCoor: c});
+      }
+    });
+  };
+
+  return {
+    restrict: 'A',
+    scope: {
+      crop: '&',
+    },
+    link: linker
+  }
 });
