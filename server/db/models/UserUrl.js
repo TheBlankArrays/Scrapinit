@@ -31,6 +31,7 @@ module.exports = function(sequelize, tableConfig) {
     },
     status: {
       type: Sequelize.BOOLEAN,
+      allowNull: false,
       defaultValue: true
     },
     frequency: {
