@@ -25,9 +25,12 @@ module.exports = {
         .then(function(url) {
           for (var j=0; j<url.length; j++){
              var userUrl = url[j].UserUrl;
+             var active = userUrl.status;
              var url = url[j].url;
-             console.log('watching ' + url + ' for ' + userUrl.email)
-             module.exports.addCron(userUrl, url);
+             if (active) {
+               console.log('watching ' + url + ' for ' + userUrl.email)
+               module.exports.addCron(userUrl, url);
+             }
           } // for loop iterating over each url for a user
         }); // .then(function(url){
       }; // or (var i = 0; i < allUsers.length; i++){
@@ -35,7 +38,6 @@ module.exports = {
   },
 
   addCron: function(UserUrl, url) {
-    console.log('we got some jobs', manager.jobs);
     var userUrl = UserUrl;
     var key = UserUrl.url_id.toString() + UserUrl.user_id.toString();
     console.log('Starting cronJob', key);
@@ -45,17 +47,16 @@ module.exports = {
     // var freq = '* * */' + UserUrl.frequency + ' * * *';
 
     // minutes
-    // var freq = '* */' + UserUrl.frequency + ' * * * *';
+    var freq = '* */' + UserUrl.frequency + ' * * * *';
 
     // TEST every 10 seconds
     // var freq = '*/10 * * * * *';
 
     // seconds
-    var freq = '*/' + UserUrl.frequency + ' * * * * *';
+    // var freq = '*/' + UserUrl.frequency + ' * * * * *';
 
-    manager.add(key, freq, /*compareFunc[action](UserUrl, url)*/
-      function() {
-        console.log('checking', url, 'for changes');
+    manager.add(key, freq, function() {
+        console.log('checking', url, 'for', UserUrl.email);
          var oldImg = UserUrl.cropImage;
          var email = UserUrl.email;
          var website = url
@@ -69,9 +70,6 @@ module.exports = {
         // get the server to render the page with params coordinates
         basicScraper.getScreenshot(website, UserUrl.user_id, function(img1, email) {
           basicScraper.cropImg(img1, params, true, function(newImg) {
-            console.log('old image path', oldImg);
-            console.log('new image path', newImg);
-
 
             compare(oldImg, newImg, function (equal){
 
@@ -119,7 +117,9 @@ module.exports = {
 }
 
 var compareFunc = {
-
+  // not working. throws error:
+  // couldn't add: 11 improper arguments
+  // couldn't start job: 11: TypeError: Cannot read property 'running' of undefined
   image: function(UserUrl, url) {
     console.log('in compareFunc');
     console.log('checking', url, 'for changes');
