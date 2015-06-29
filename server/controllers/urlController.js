@@ -1,5 +1,5 @@
 var basicScraper = require('./basicScraperController');
-var cronjob = require('./cronController').addCron;
+var cronjob = require('./cronController');
 var db = require("../db");
 
 
@@ -103,7 +103,7 @@ module.exports = {
                     UserUrl: userUrl.UserUrls[0]
                   }
                   console.log('sending ' + userUrl.url + ' to cronjob');
-                  cronjob(userUrl.UserUrls[0], userUrl.url);
+                  cronjob.addCron(userUrl.UserUrls[0], userUrl.url);
                   res.status(201).json(response);
                 });
                })
@@ -154,13 +154,15 @@ module.exports = {
                       }
                     ]
                   }).then(function (userUrl){
+                    console.log("we have access to the userUrl", userUrl.url)
                     var response = {
                       url: userUrl.url,
                       id: userUrl.id,
                       UserUrl: userUrl.UserUrls[0]
                     }
                     console.log('sending ' + userUrl.url + ' to cronjob');
-                    cronjob(userUrl.UserUrls[0], userUrl.url);
+                    console.log('with a status of', userUrl.status);
+                    cronjob.addCron(userUrl.UserUrls[0], userUrl.url);
                     res.status(201).json(response);
                   });
                 })
