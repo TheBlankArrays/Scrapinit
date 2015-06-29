@@ -6,7 +6,6 @@ angular.module('app.home.urlImage', [ 'ui.router'])
       if (err) {
         $scope.error = 'UPS! We are in troubles.';
       }else {
-        console.log('RESTUL POST URL', data);
         $scope.$emit('emptyUrls');
         $state.go('home.list');
       }
