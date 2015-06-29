@@ -1,4 +1,4 @@
-angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router', ])
+angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router', ])
 .controller('homeController', function ($scope, $state, $http, Url) {
 
 
@@ -92,7 +92,7 @@ angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router', 
   });
 };
    console.log('going to results');
-  $state.go('home.results');
+  $state.go('home.list');
 })
 .factory('Url', function ($http) {
 

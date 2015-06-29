@@ -1,5 +1,5 @@
-angular.module('app.home.addUrl', [ 'ui.router'])
-.controller('addUrlController', function ($scope, $state, $http) {
+angular.module('app.home.urlImage', [ 'ui.router'])
+.controller('urlImageController', function ($scope, $state, $http) {
 
  $scope.html = '';
 

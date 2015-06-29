@@ -1,5 +1,5 @@
-angular.module('app.home.results', [])
-.controller('resultsController', function ($scope, Url) {
+angular.module('app.home.list', [])
+.controller('listController', function ($scope, Url) {
   console.log('app home results');
 
   $scope.getUrls = function () {
