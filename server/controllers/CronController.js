@@ -16,6 +16,24 @@ var transporter = nodemailer.createTransport({
 var manager = new CronJobManager();
 
 module.exports = {
+  startAllCron: function() {
+    console.log('starting all cronjobs');
+    db.User.findAll()
+    .then(function(allUsers) {
+      for (var i = 0; i < allUsers.length; i++){
+        allUsers[i].getUrls()
+        .then(function(url) {
+          for (var j=0; j<url.length; j++){
+             var userUrl = url[j].UserUrl;
+             var url = url[j].url;
+             console.log('watching ' + url + ' for ' + userUrl.email)
+             module.exports.addCron(userUrl, url);
+          } // for loop iterating over each url for a user
+        }); // .then(function(url){
+      }; // or (var i = 0; i < allUsers.length; i++){
+    }); // .then(function(allUsers) {
+  },
+
   addCron: function(UserUrl, url) {
     console.log('we got some jobs', manager.jobs);
     var userUrl = UserUrl;
@@ -23,16 +41,20 @@ module.exports = {
     console.log('Starting cronJob', key);
     var action = UserUrl.compare || 'image';
 
+    // hours
+    // var freq = '* * */' + UserUrl.frequency + ' * * *';
+
     // minutes
     // var freq = '* */' + UserUrl.frequency + ' * * * *';
 
     // TEST every 10 seconds
-    var freq = '*/10 * * * * *';
+    // var freq = '*/10 * * * * *';
 
     // seconds
-    // var freq = '*/' + UserUrl.frequency + ' * * * * *';
+    var freq = '*/' + UserUrl.frequency + ' * * * * *';
 
-    manager.add(key, freq, function() {
+    manager.add(key, freq, /*compareFunc[action](UserUrl, url)*/
+      function() {
         console.log('checking', url, 'for changes');
          var oldImg = UserUrl.cropImage;
          var email = UserUrl.email;
@@ -57,14 +79,13 @@ module.exports = {
 
                 console.log('change detected on', website, 'sending email to ', email);
 
+                // parameters for email
                 var mailOptions = {
                     from: "The Blank Arrays <postmaster@sandbox72a87403dd654630bfa3c4b021cda08d.mailgun.org>", // sender address
-                    // currently accessing only one user email
                     to: email, // list of receivers
                     subject: 'We found some tubular changes!', // Subject line
                     text: 'Hi there! It looks like we found a change on '+ website + '!', // plaintext body
                     html: "<span>The Scrapinit team found a change on " + website +"!</span>",
-                        // html: '<b>Hello world </b>' // html body
                 };
 
                 // Send email function
@@ -83,14 +104,14 @@ module.exports = {
     manager.start(key);
   },
 
-  stopCron: function(UserUrl) {
-    var key = UserUrl.url_id.toString() + UserUrl.user_id.toString();
+  stopCron: function(user_id, url_id) {
+    var key = url_id.toString() + user_id.toString();
     console.log('Stopping cronJob', key);
     manager.stop(key);
   },
 
-  deleteCron: function(userUrl) {
-    var key = UserUrl.url_id.toString() + UserUrl.user_id.toString();
+  deleteCron: function(user_id, url_id) {
+    var key = url_id.toString() + user_id.toString();
     console.log('Deleting cronJob', key);
     manager.stop(key);
   },
@@ -98,52 +119,57 @@ module.exports = {
 }
 
 var compareFunc = {
+
   image: function(UserUrl, url) {
-        console.log('checking', url, 'for changes');
-         var oldImg = UserUrl.cropImage;
-         var email = UserUrl.email;
-         var website = url
-         var params = {
-          h: UserUrl.cropHeight,
-          w: UserUrl.cropWidth,
-          x: UserUrl.cropOriginX,
-          y: UserUrl.cropOriginY
-        }
+    console.log('in compareFunc');
+    console.log('checking', url, 'for changes');
+     var oldImg = UserUrl.cropImage;
+     var email = UserUrl.email;
+     var website = url
+     var params = {
+      h: UserUrl.cropHeight,
+      w: UserUrl.cropWidth,
+      x: UserUrl.cropOriginX,
+      y: UserUrl.cropOriginY
+    }
 
-        // get the server to render the page with params coordinates
-        basicScraper.getScreenshot(website, UserUrl.user_id, function(img1, email) {
-          basicScraper.cropImg(img1, params, true, function(newImg) {
-            console.log('old image path', oldImg);
-            console.log('new image path', newImg);
+    // get the server to render the page with params coordinates
+    basicScraper.getScreenshot(website, UserUrl.user_id, function(img1, email) {
+      basicScraper.cropImg(img1, params, true, function(newImg) {
+        console.log('old image path', oldImg);
+        console.log('new image path', newImg);
 
 
-            compare(oldImg, newImg, function (equal){
+        compare(oldImg, newImg, function (equal){
 
-              if (!equal){
+          if (!equal){
 
-                console.log('change detected on', website, 'sending email to ', email);
+            console.log('change detected on', website, 'sending email to ', email);
 
-                var mailOptions = {
-                    from: "The Blank Arrays <postmaster@sandbox72a87403dd654630bfa3c4b021cda08d.mailgun.org>", // sender address
-                    // currently accessing only one user email
-                    to: email, // list of receivers
-                    subject: 'We found some tubular changes!', // Subject line
-                    text: 'Hi there! It looks like we found a change on '+ website + '!', // plaintext body
-                    html: "<span>The Scrapinit team found a change on " + website +"!</span>",
-                        // html: '<b>Hello world </b>' // html body
-                };
+            var mailOptions = {
+                from: "The Blank Arrays <postmaster@sandbox72a87403dd654630bfa3c4b021cda08d.mailgun.org>", // sender address
+                // currently accessing only one user email
+                to: email, // list of receivers
+                subject: 'We found some tubular changes!', // Subject line
+                text: 'Hi there! It looks like we found a change on '+ website + '!', // plaintext body
+                html: "<span>The Scrapinit team found a change on " + website +"!</span>",
+                    // html: '<b>Hello world </b>' // html body
+            };
 
-                // Send email function
-                // transporter.sendMail(mailOptions, function(error, info){
-                //     if(error){
-                //         console.log(error);
-                //     }else{
-                //         console.log('Message sent: ' + info.response);
-                //     } //  else statemenet  
-                // }); //  transporter.sendMail(mailOptions, function(error, info){
-              }; // if (!equal){
-            }) // compare(img1, img2, function (equal){
-          }); // basicScraper.cropImg(img1, params, true, function(img2) {
-        }, email); // basicScraper.getScreenshot()
-      }
+            // Send email function
+            transporter.sendMail(mailOptions, function(error, info){
+                if(error){
+                    console.log(error);
+                }else{
+                    console.log('Message sent: ' + info.response);
+                } //  else statemenet  
+            }); //  transporter.sendMail(mailOptions, function(error, info){
+          }; // if (!equal){
+        }) // compare(img1, img2, function (equal){
+      }); // basicScraper.cropImg(img1, params, true, function(img2) {
+    }, email); // basicScraper.getScreenshot()
+  }
+
 }
+
+
