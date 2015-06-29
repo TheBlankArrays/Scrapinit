@@ -2,7 +2,6 @@
 var authController = require('./controllers/authController');
 var urlController = require('./controllers/urlController');
 var basicScraper = require('./controllers/basicScraperController');
-
 var webshot = require('webshot');
 var url = require('url');
 
