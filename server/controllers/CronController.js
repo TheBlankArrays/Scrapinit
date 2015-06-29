@@ -1,6 +1,7 @@
 var basicScraper = require('./basicScraperController');
 var getExternalUrl = require('./urlController').getExternalUrl;
 var CronJob = require('cron').CronJob;
+var CronJobManager = require('crontab_manager');
 var secret = require('../../config.js');
 var db = require('../db.js');
 var Sequelize = require('sequelize');
@@ -21,11 +22,11 @@ module.exports = {
     // minutes
     // var freq = '* */' + UserUrl.frequency + ' * * * *';
 
-    // test ever 10 seconds
-    var freq = '*/10 * * * * *';
+    // TEST every 10 seconds
+    // var freq = '*/10 * * * * *';
 
     // seconds
-    // var freq = '*/' + UserUrl.frequency + ' * * * * *';
+    var freq = '*/' + UserUrl.frequency + ' * * * * *';
     
     var job = new CronJob({
       cronTime: freq,
