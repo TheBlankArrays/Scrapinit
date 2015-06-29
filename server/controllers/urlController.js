@@ -124,7 +124,6 @@ module.exports = {
               //     // db.associate(userFound.email, urlFound.url, {html: html, selector: selector})//need to store and send the html & selector
 
 
-               console.log('url found');;
 
             } else {  // else !urlFound
 
@@ -144,7 +143,7 @@ module.exports = {
                 .then(function(associate) {
                   db.Url.findOne({
                     where: {
-                      id: urlFound.id
+                      id: urlCreated.id
                     },
                     include: [
                       { 
