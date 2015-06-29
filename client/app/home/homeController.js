@@ -65,9 +65,9 @@ angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router', 
                 })
            };
 
-         	 img.Jcrop({
-              onSelect: selectedCrop
-           });
+         	 // img.Jcrop({
+           //    onSelect: selectedCrop
+           // });
 
          });
 

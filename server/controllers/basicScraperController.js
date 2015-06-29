@@ -18,7 +18,7 @@ module.exports = {
     namePreview = urlWithoutHTTP + '-preview.jpg'
     utils.scrapeFullImage(url, namePreview, userId, function (err, path) {
       if (err === 'success') {
-        cb(path);
+        cb(path, email);
       }
     });
     // webshot(url, '../client/assets/' + userId + '/' + urlWithoutHTTP + '-preview.jpg', function(err) {
