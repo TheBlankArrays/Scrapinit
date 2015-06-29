@@ -6,7 +6,7 @@ angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router', 
    $scope.urls = [];
    $scope.loading = false;
    console.log($scope.urls);
-
+   $scope.urlImagePreview = '';
 
    $scope.logout = function() {
      $http.get("/api/users/logout")
@@ -30,13 +30,14 @@ angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router', 
          .success(function (data) {
 
             console.log('received response from server: ' + data);
-
+            $scope.urlImagePreview = data;
            var img = $("<img src='" + data + "' />");
            $('#imgview').html(img);
            $('#imgview').fadeIn(100);
 
+
            var selectedCrop = function(c) {
-             $('#imgview').fadeOut(800);
+            $('#imgview').fadeOut(800);
              $http.post('/api/users/url', {crop: c, urlImg: data, url: $scope.url})
                 .success(function (data) {
                   console.log('url response: ' + JSON.stringify(data));
@@ -64,9 +65,9 @@ angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router', 
                 })
            };
 
-         	 img.Jcrop({
-              onSelect: selectedCrop
-           });
+         	 // img.Jcrop({
+           //    onSelect: selectedCrop
+           // });
 
          });
 

@@ -1,9 +1,8 @@
 var request = require('request');
 var validator = require('validator');
-var webshot = require('webshot');
 var easyimg = require('easyimage');
 var gm = require('gm').subClass({ imageMagick: true });
-
+var utils = require('../utils/scrape.js');
 
 var validProtocols = {
   'http': 'true',
@@ -13,15 +12,19 @@ var validProtocols = {
 module.exports = {
   getScreenshot: function(url, userId, cb, email) {
 
-    console.log('userId in getscreenshot ' + userId);
-
     var urlWithoutHTTP = url.substring(url.indexOf("://") + 3)  // handle http AND https protocols
+    var namePreview = '';
     urlWithoutHTTP = urlWithoutHTTP.replace(/[?/.=]/g, '_');    // change weird characters to underscore
-
-    webshot(url, '../client/assets/' + userId + '/' + urlWithoutHTTP + '-preview.jpg', function(err) {
-      // screenshot now saved to google.png// screenshot now saved to hello_world.png
-      cb('assets/' + userId + '/' + urlWithoutHTTP + '-preview.jpg', email);
+    namePreview = urlWithoutHTTP + '-preview.jpg'
+    utils.scrapeFullImage(url, namePreview, userId, function (err, path) {
+      if (err === 'success') {
+        cb(path, email);
+      }
     });
+    // webshot(url, '../client/assets/' + userId + '/' + urlWithoutHTTP + '-preview.jpg', function(err) {
+    //   // screenshot now saved to google.png// screenshot now saved to hello_world.png
+    //   cb('assets/' + userId + '/' + urlWithoutHTTP + '-preview.jpg');
+    // });
   },
 
   cropImg: function(url, crop, compare, cb, email) {
