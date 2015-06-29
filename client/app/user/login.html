@@ -14,12 +14,10 @@
 
     <h1>The Web Scraper</h1>
 
-    <p>Welcome to The Web Scraper.  For all your scraping needs.</p>
-    <p>All you need is a valid email address so sign up today and receive free scapes for life!</p>
 
     <div class="form-style-8">
 
-      <h2>Login to your account</h2>
+ 
       <div>{{error}}</div>
       <form ng-submit="login()">
         <input type="text" placeholder="Email" ng-model="user.email">
@@ -28,6 +26,9 @@
       </form>
       <span ui-sref='signup'>Sign Up</span>
     </div>
+
+    <p>Welcome to The Web Scraper.  For all your scraping needs.</p>
+    <p>All you need is a valid email address so sign up today and receive free scapes for life!</p>
  
   <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
 
