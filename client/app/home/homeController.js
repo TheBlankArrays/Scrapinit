@@ -31,12 +31,13 @@ angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router', 
 
             console.log('received response from server: ' + data);
             $scope.urlImagePreview = data;
-           // var img = $("<img src='" + data + "' />");
-           // $('#imgview').html(img);
-           // $('#imgview').fadeIn(100);
+           var img = $("<img src='" + data + "' />");
+           $('#imgview').html(img);
+           $('#imgview').fadeIn(100);
 
 
            var selectedCrop = function(c) {
+            $('#imgview').fadeOut(800);
              $http.post('/api/users/url', {crop: c, urlImg: data, url: $scope.url})
                 .success(function (data) {
                   console.log('url response: ' + JSON.stringify(data));
@@ -64,9 +65,9 @@ angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router', 
                 })
            };
 
-         	 // img.Jcrop({
-           //    onSelect: selectedCrop
-           // });
+         	 img.Jcrop({
+              onSelect: selectedCrop
+           });
 
          });
 
