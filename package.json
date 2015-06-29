@@ -11,6 +11,7 @@
   "dependencies": {
     "bcrypt": "^0.8.3",
     "body-parser": "^1.12.4",
+    "casper": "^0.1.1",
     "cors": "^2.7.1",
     "cron": "^1.0.9",
     "easyimage": "^2.0.3",
