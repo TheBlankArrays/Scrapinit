@@ -47,59 +47,61 @@ module.exports = {
     // var freq = '* * */' + UserUrl.frequency + ' * * *';
 
     // minutes
-    var freq = '* */' + UserUrl.frequency + ' * * * *';
+    // var freq = '* */' + UserUrl.frequency + ' * * * *';
 
     // TEST every 10 seconds
     // var freq = '*/10 * * * * *';
 
     // seconds
-    // var freq = '*/' + UserUrl.frequency + ' * * * * *';
+    var freq = '*/' + UserUrl.frequency + ' * * * * *';
 
     manager.add(key, freq, function() {
-        console.log('checking', url, 'for', UserUrl.email);
-         var oldImg = UserUrl.cropImage;
-         var email = UserUrl.email;
-         var website = url
-         var params = {
-          h: UserUrl.cropHeight,
-          w: UserUrl.cropWidth,
-          x: UserUrl.cropOriginX,
-          y: UserUrl.cropOriginY
-        }
+      console.log('checking', url, 'for', UserUrl.email);
+       var oldImg = UserUrl.cropImage;
+       var email = UserUrl.email;
+       var website = url
+       var params = {
+        h: UserUrl.cropHeight,
+        w: UserUrl.cropWidth,
+        x: UserUrl.cropOriginX,
+        y: UserUrl.cropOriginY
+      }
 
-        // get the server to render the page with params coordinates
-        basicScraper.getScreenshot(website, UserUrl.user_id, function(img1, email) {
-          basicScraper.cropImg(img1, params, true, function(newImg) {
+      // get the server to render the page with params coordinates
+      basicScraper.getScreenshot(website, UserUrl.user_id, email, function(img1, email) {
+        basicScraper.cropImg(img1, params, true, function(newImg) {
 
-            compare(oldImg, newImg, function (equal){
+          compare(oldImg, newImg, function (equal){
 
-              if (!equal){
+            if (!equal){
 
-                console.log('change detected on', website, 'sending email to ', email);
+              console.log('change detected on', website, 'sending email to ', email);
 
-                // parameters for email
-                var mailOptions = {
-                    from: "The Blank Arrays <postmaster@sandbox72a87403dd654630bfa3c4b021cda08d.mailgun.org>", // sender address
-                    to: email, // list of receivers
-                    subject: 'We found some tubular changes!', // Subject line
-                    text: 'Hi there! It looks like we found a change on '+ website + '!', // plaintext body
-                    html: "<span>The Scrapinit team found a change on " + website +"!</span>",
-                };
+              // parameters for email
+              var mailOptions = {
+                  from: "The Blank Arrays <postmaster@sandbox72a87403dd654630bfa3c4b021cda08d.mailgun.org>", // sender address
+                  to: email, // list of receivers
+                  subject: 'We found some tubular changes!', // Subject line
+                  text: 'Hi there! It looks like we found a change on '+ website + '!', // plaintext body
+                  html: "<span>The Scrapinit team found a change on " + website +"!</span>",
+              };
 
-                // Send email function
-                transporter.sendMail(mailOptions, function(error, info){
-                    if(error){
-                        console.log(error);
-                    }else{
-                        console.log('Message sent: ' + info.response);
-                    } //  else statemenet  
-                }); //  transporter.sendMail(mailOptions, function(error, info){
-              }; // if (!equal){
-            }) // compare(img1, img2, function (equal){
-          }); // basicScraper.cropImg(img1, params, true, function(img2) {
-        }, email); // basicScraper.getScreenshot()
-      })
+              // Send email function
+              transporter.sendMail(mailOptions, function(error, info){
+                  if(error){
+                      console.log(error);
+                  }else{
+                      console.log('Message sent: ' + info.response);
+                  } // else statemenet  
+              }); // transporter.sendMail(mailOptions, function(error, info){
+            }; // if (!equal){
+          }) // compare(img1, img2, function (equal){
+        }); // basicScraper.cropImg(img1, params, true, function(img2) {
+      }); // basicScraper.getScreenshot()
+    });
+
     manager.start(key);
+
   },
 
   stopCron: function(user_id, url_id) {
@@ -111,7 +113,7 @@ module.exports = {
   deleteCron: function(user_id, url_id) {
     var key = url_id.toString() + user_id.toString();
     console.log('Deleting cronJob', key);
-    manager.stop(key);
+    manager.deleteJob(key);
   },
 
 }
