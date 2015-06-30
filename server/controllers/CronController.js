@@ -47,7 +47,7 @@ module.exports = {
     // var freq = '* * */' + UserUrl.frequency + ' * * *';
 
     // minutes
-    // var freq = '* */' + UserUrl.frequency + ' * * * *';
+    var freq = '* */' + UserUrl.frequency + ' * * * *';
 
     // TEST every 10 seconds
     // var freq = '*/10 * * * * *';
