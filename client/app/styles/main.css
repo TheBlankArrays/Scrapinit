@@ -40,9 +40,9 @@ h2:hover {
    }
 
 .form-wrapper {
-  border-bottom: 2px solid #a73f2d;
-  border-right: 2px solid #a73f2d;
-  width: 80%;
+  border-bottom: 3px solid #a73f2d;
+  border-right: 3px solid #a73f2d;
+  width: 70%;
   margin: 30px auto;
   padding: 24px;
   background: #fff;
@@ -85,7 +85,7 @@ h2:hover {
     font-weight: 300;
     color: rgba(0, 0, 0, 0.4);
     padding: 0;
-    transition: all .4s ease; }
+    transition: all .6s ease; }
 .form-group::after {
     /*Default styles for 'after' pseudo selector for form-group*/
     content: "";
@@ -148,7 +148,10 @@ h2:hover {
     font-weight: 400;
     text-align: center;
     font-size: 30px;
-    top: 32px; 
+    top: 70%; 
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
     }
 input {
   line-height: 1;
@@ -165,8 +168,8 @@ input {
   vertical-align: bottom;
 }
 button {
-  font-size: 25px;
-
+  font-size: 30px;
+    width: 25%;
     -moz-box-shadow:inset 0px 34px 0px -15px #b54b3a;
     -webkit-box-shadow:inset 0px 34px 0px -15px #b54b3a;
     box-shadow:inset 0px 34px 0px -15px #b54b3a;
@@ -367,7 +370,9 @@ button {
       background:linear-gradient(to bottom, #34CACA 5%, #30C9C9 100%);
       background-color:#34CACA;
   }*/
-
+#signingup {
+  font-size: :30px;
+}
 #signup-button{
     font-size: 30px;
     -moz-border-radius: 7px;
@@ -394,6 +399,7 @@ button {
 }
 
 #login-button {
+    font-size: 20px;
     -moz-border-radius: 7px;
     -webkit-border-radius: 7px;
     border-radius: 7px;
