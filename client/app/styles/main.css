@@ -5,6 +5,7 @@ body {
 }
 #container {
   text-align: center;
+  font-size: 20px;
   width: 700px;
   margin: 10% auto 120px;
   border: 0px solid black;
@@ -33,10 +34,126 @@ h1 {
 h2:hover {
   color: #a73f2d;
 }
+
+.wrapper {
+  width: 100%;
+   }
+
+.form-wrapper {
+  border-bottom: 2px solid #a73f2d;
+  border-right: 2px solid #a73f2d;
+  width: 80%;
+  margin: 30px auto;
+  padding: 24px;
+  background: #fff;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1); 
+  -moz-border-radius: 12px;
+  -webkit-border-radius: 12px;
+  border-radius: 12px;
+  -khtml-border-radius: 12px;
+}
+
+.form-group {
+  /*styles for the form-group itself*/
+  position: relative;
+  width: 100%;
+  margin-bottom: 42px; }
+
+.form-group input[type='email'], .form-group input[type='password'] {
+    /*Default styles for field*/
+    position: relative;
+    width: 100%;
+    background: 0 0;
+    padding: 26px 0 12px;
+    font-size: 40px;
+    line-height: 1.4;
+    font-weight: 500;
+    border: 1px solid #a73f2d;
+    /*background-color:;*/
+    border-width: 0 0 1px;
+    box-shadow: none;
+    z-index: 1; }
+.form-group input[type='email']:focus, .form-group input[type='password']:focus {
+      outline: 0; }
+.form-group label {
+    /*Default styles for label*/
+    display: inline-block;
+    position: absolute;
+    margin-bottom: 6px;
+    top: 0;
+    font-size: 20px;
+    font-weight: 300;
+    color: rgba(0, 0, 0, 0.4);
+    padding: 0;
+    transition: all .4s ease; }
+.form-group::after {
+    /*Default styles for 'after' pseudo selector for form-group*/
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.08);
+    transition: all .3s ease; }
+.form-group .error-block {
+    /*Default Styles for Help-block*/
+    position: absolute;
+    line-height: 0;
+    font-weight: 300;
+    font-size: 20px;
+    color: #a73f2d;
+    line-height: 24px;
+    transition: all 0.5s ease;
+    margin: 0; }
+.form-group .error-block.ng-hide {
+      display: block !important;
+      visibility: hidden;
+      opacity: 0; }
+.form-group.has-focus {
+    /*When field has focus*/ }
+.form-group.has-focus label {
+      color: #696969; }
+.form-group.has-focus::after {
+      left: 0;
+      background: #039BE5;
+      width: 100%;
+      /*We are changing the width of the pseudo element from 0 to 100%. As there is already transition added to it, the change in width will 'animate'. As we have strategically positioned this pseudo element just below the input with a 2px height, it will 'appear' as bottom-border for the input (which it is actually not)*/ }
+.form-group.has-error {
+    /*When field has error*/ }
+.form-group.has-error label {
+      color: #a73f2d; }
+.form-group.has-error::after {
+      left: 0;
+      background: #a73f2d;
+      width: 100%; }
+.form-group.has-error .help-block:not(.ng-hide) {
+      position: absolute;
+      color: #a73f2d;
+      opacity: 1;
+      visibility: visible;
+      top: 100%; }
+.form-group.has-success.has-focus {
+    /*When field has success*/ }
+
+.form-group.has-success.has-focus label {
+      color: forestgreen; }
+.form-group.has-success.has-focus.has-focus::after {
+      left: 0;
+      background: forestgreen;
+      width: 100%; }
+.form-group.is-empty:not(.has-focus) label {
+    /* need to find a way to center it better */
+    font-weight: 400;
+    text-align: center;
+    font-size: 30px;
+    top: 32px; 
+    }
 input {
   line-height: 1;
   font-size: 25px;
-  text-align: left;
+  text-align: center;
   padding: 0 10px;
   color: #696969;
   letter-spacing: 2px;
@@ -177,7 +294,7 @@ button {
     background-repeat: no-repeat;
   }
 
-  .form-style-8{
+ /* .form-style-8{
       font-family: 'Open Sans Condensed', arial, sans;
       width: 500px;
       padding: 30px;
@@ -249,9 +366,10 @@ button {
   .form-style-8 input[type="submit"]:hover {
       background:linear-gradient(to bottom, #34CACA 5%, #30C9C9 100%);
       background-color:#34CACA;
-  }
+  }*/
 
 #signup-button{
+    font-size: 30px;
     -moz-border-radius: 7px;
     -webkit-border-radius: 7px;
     border-radius: 7px;
