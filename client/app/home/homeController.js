@@ -1,98 +1,41 @@
-angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router', ])
+angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router', ])
 .controller('homeController', function ($scope, $state, $http, Url) {
+  $scope.url = 'http://';
+  $scope.urls = [];
+  $scope.loading = false;
+  $scope.urlImagePreview = '';
 
+  $scope.$on('emptyUrls', function () {
+    $scope.url = 'http://';
+    $scope.urlImagePreview = '';
+    $scope.loading = false;
+  });
 
-   $scope.url = 'http://';
-   $scope.urls = [];
-   $scope.loading = false;
-   console.log($scope.urls);
-   $scope.urlImagePreview = '';
+  $scope.logout = function () {
+   $http.get("/api/users/logout")
+     .success(function (data) {
+       $state.go('login');
+     });
+  };
 
-   $scope.logout = function() {
-     $http.get("/api/users/logout")
-       .success(function (data) {
-         $state.go('login');
-       });
-   };
-
-
-  $scope.setUrls = function(urlsObject){
+  $scope.setUrls = function (urlsObject) {
     $scope.urls = urlsObject;
   };
 
-   $scope.add = function() {
-
-      $scope.theframe = $scope.url;
-      $scope.loading = true;
-
+  $scope.add = function () {
+    $scope.loading = true;
       //  console.log($scope.urls);
-       $http.get('/api/screenshot?url=' + $scope.url )
-         .success(function (data) {
+    $http.get('/api/screenshot?url=' + $scope.url )
+     .success(function (data) {
 
-            console.log('received response from server: ' + data);
-            $scope.urlImagePreview = data;
-           var img = $("<img src='" + data + "' />");
-           $('#imgview').html(img);
-           $('#imgview').fadeIn(100);
+      $scope.urlImagePreview = data;
+      $state.go('home.urlImage');
 
+     });
 
-           var selectedCrop = function(c) {
-            $('#imgview').fadeOut(800);
-             $http.post('/api/users/url', {crop: c, urlImg: data, url: $scope.url})
-                .success(function (data) {
-                  console.log('url response: ' + JSON.stringify(data));
-                  if (data !== 'error') {
-                    console.log(JSON.stringify(data));
+  };
+  $state.go('home.list');
 
-                    // check to see if url has already been added, if so update instead of pushing
-
-                    var foundId = -1;
-                    for (var i = 0; i < $scope.urls.length; i++) {
-                      if ($scope.urls[i].url === $scope.url) {
-                        foundId = i;
-                      }
-                    }
-
-                    if (foundId > -1) {
-                      $scope.urls[foundId].img = data.cropImage + '?' + new Date().getTime();
-                    } else {
-                      $scope.urls.push({url: $scope.url, img: data.cropImage});
-                    }
-
-                    //$scope.urls.push({url: $scope.url, img: data.cropImage});
-                  }
-                  $scope.loading = false;
-                })
-           };
-
-         	 img.Jcrop({
-              onSelect: selectedCrop
-           });
-
-         });
-
-         // $http.post('/api/users/retrieve_url', {url: $scope.url })
-         //   .success(function (data) {
-         //     //console.log(data);
-         //     $scope.html = data;
-         //    //  var ifrm = document.getElementById('theframe');
-         //    //  ifrm = (ifrm.contentWindow) ? ifrm.contentWindow : (ifrm.contentDocument.document) ? ifrm.contentDocument.document : ifrm.contentDocument;
-         //    //  ifrm.document.open();
-         //    //  ifrm.document.write(data);
-         //    //  ifrm.document.close();
-
-         //   });
-
-  Url.getUrls(function(err, urls){
-    if (err) {
-      $scope.error = 'We can´t retrieve the URLS';
-    }else {
-      $scope.setUrls(urls);
-    }
-  });
-};
-   console.log('going to results');
-  $state.go('home.results');
 })
 .factory('Url', function ($http) {
 
@@ -115,8 +58,16 @@ angular.module('app.home', ['app.home.addUrl', 'app.home.results', 'ui.router', 
     });
   };
 
+  var postUrl = function (cropCoor, urlImg, url, callback) {
+    $http.post('/api/users/url', {crop: cropCoor, urlImg: urlImg, url: url})
+    .success(function (data) {
+      callback(false, data);
+    });
+  };
+
   return {
-    getUrls: getUrls
+    getUrls: getUrls,
+    postUrl: postUrl
   }
 
 });
