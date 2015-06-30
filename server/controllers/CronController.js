@@ -59,7 +59,6 @@ module.exports = {
       console.log('checking', url, 'for', UserUrl.email);
        var oldImg = UserUrl.cropImage;
        var email = UserUrl.email;
-       var website = url
        var params = {
         h: UserUrl.cropHeight,
         w: UserUrl.cropWidth,
@@ -67,37 +66,9 @@ module.exports = {
         y: UserUrl.cropOriginY
       }
 
-      // get the server to render the page with params coordinates
-      basicScraper.getScreenshot(website, UserUrl.user_id, email, function(img1, email) {
-        basicScraper.cropImg(img1, params, true, function(newImg) {
+      // compares screenshot, sends email if there is a difference in image
+      compareUtils.compareScreenShot(UserUrl, url, email, params, oldImg);
 
-          compare(oldImg, newImg, function (equal){
-
-            if (!equal){
-
-              console.log('change detected on', website, 'sending email to ', email);
-
-              // parameters for email
-              var mailOptions = {
-                  from: "The Blank Arrays <postmaster@sandbox72a87403dd654630bfa3c4b021cda08d.mailgun.org>", // sender address
-                  to: email, // list of receivers
-                  subject: 'We found some tubular changes!', // Subject line
-                  text: 'Hi there! It looks like we found a change on '+ website + '!', // plaintext body
-                  html: "<span>The Scrapinit team found a change on " + website +"!</span>",
-              };
-
-              // Send email function
-              transporter.sendMail(mailOptions, function(error, info){
-                  if(error){
-                      console.log(error);
-                  }else{
-                      console.log('Message sent: ' + info.response);
-                  } // else statemenet  
-              }); // transporter.sendMail(mailOptions, function(error, info){
-            }; // if (!equal){
-          }) // compare(img1, img2, function (equal){
-        }); // basicScraper.cropImg(img1, params, true, function(img2) {
-      }); // basicScraper.getScreenshot()
     });
 
     manager.start(key);
@@ -118,58 +89,44 @@ module.exports = {
 
 }
 
-var compareFunc = {
-  // not working. throws error:
-  // couldn't add: 11 improper arguments
-  // couldn't start job: 11: TypeError: Cannot read property 'running' of undefined
-  image: function(UserUrl, url) {
-    console.log('in compareFunc');
-    console.log('checking', url, 'for changes');
-     var oldImg = UserUrl.cropImage;
-     var email = UserUrl.email;
-     var website = url
-     var params = {
-      h: UserUrl.cropHeight,
-      w: UserUrl.cropWidth,
-      x: UserUrl.cropOriginX,
-      y: UserUrl.cropOriginY
-    }
+var compareUtils = {
 
-    // get the server to render the page with params coordinates
+  compareScreenShot: function(UserUrl, website, email, params, oldImg) {
+    // gets screenshot of website
     basicScraper.getScreenshot(website, UserUrl.user_id, function(img1, email) {
+      // crops new image so we can compare the the old cropped image
       basicScraper.cropImg(img1, params, true, function(newImg) {
-        console.log('old image path', oldImg);
-        console.log('new image path', newImg);
-
-
+        // checks for difference in pictures
         compare(oldImg, newImg, function (equal){
-
           if (!equal){
-
-            console.log('change detected on', website, 'sending email to ', email);
-
-            var mailOptions = {
-                from: "The Blank Arrays <postmaster@sandbox72a87403dd654630bfa3c4b021cda08d.mailgun.org>", // sender address
-                // currently accessing only one user email
-                to: email, // list of receivers
-                subject: 'We found some tubular changes!', // Subject line
-                text: 'Hi there! It looks like we found a change on '+ website + '!', // plaintext body
-                html: "<span>The Scrapinit team found a change on " + website +"!</span>",
-                    // html: '<b>Hello world </b>' // html body
-            };
-
-            // Send email function
-            transporter.sendMail(mailOptions, function(error, info){
-                if(error){
-                    console.log(error);
-                }else{
-                    console.log('Message sent: ' + info.response);
-                } //  else statemenet  
-            }); //  transporter.sendMail(mailOptions, function(error, info){
+            // if images are not equal, send an email
+            compareUtils.sendEmail(website, email);
           }; // if (!equal){
         }) // compare(img1, img2, function (equal){
       }); // basicScraper.cropImg(img1, params, true, function(img2) {
     }, email); // basicScraper.getScreenshot()
+  },
+
+  sendEmail: function(website, email) {
+    console.log('change detected on', website, 'sending email to ', email);
+
+    // parameters for email
+    var mailOptions = {
+        from: "The Blank Arrays <postmaster@sandbox72a87403dd654630bfa3c4b021cda08d.mailgun.org>", // sender address
+        to: email, // list of receivers
+        subject: 'We found some tubular changes!', // Subject line
+        text: 'Hi there! It looks like we found a change on '+ website + '!', // plaintext body
+        html: "<span>The Scrapinit team found a change on " + website +"!</span>",
+    };
+
+    // Send email function
+    transporter.sendMail(mailOptions, function(error, info){
+        if(error){
+            console.log(error);
+        }else{
+            console.log('Message sent: ' + info.response);
+        } // else statemenet  
+    }); // transporter.sendMail(mailOptions, function(error, info){
   }
 
 }
