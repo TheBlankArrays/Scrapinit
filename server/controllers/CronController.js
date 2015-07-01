@@ -48,10 +48,12 @@ module.exports = {
     // var freq = '* * */' + UserUrl.frequency + ' * * *';
 
     // minutes
-    var freq = '* */' + UserUrl.frequency + ' * * * *';
+    // var freq = '* */' + UserUrl.frequency + ' * * * *';
+
+    // var freq = '*/10 * * * * *';
 
     // FOR TEST PURPOSES ONLY seconds
-    // var freq = '*/' + UserUrl.frequency + ' * * * * *';
+    var freq = '*/' + UserUrl.frequency + ' * * * * *';
 
     if (manager.exists(key)) {
       manager.deleteJob(key);
@@ -109,11 +111,9 @@ var compareUtils = {
         compare(oldImg, newImg, function (equal){
           if (!equal){
             // set status to false since we are stopping the cronjob
-            console.log('userurl status before', UserUrl.status);
             UserUrl.status = false;
-            console.log('userurl status after', UserUrl.status);
             // stop cronjob
-            module.exports.stopCron(UserUrl.url_id, UserUrl.user_id)
+            module.exports.stopCron(UserUrl.user_id, UserUrl.url_id)
             // if images are not equal, send an email
             compareUtils.sendEmail(website, email);
           }; // if (!equal){
@@ -135,9 +135,9 @@ var compareUtils = {
     // Send email function
     transporter.sendMail(mailOptions, function(error, info){
         if(error){
-            console.log(error);
-        }else{
-            console.log('Message sent: ' + info.response);            
+          console.log(error);
+        } else {
+          console.log('Message sent: ' + info.response);            
         }; // else statemenet  
     }); // transporter.sendMail(mailOptions, function(error, info){
   }
