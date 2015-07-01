@@ -29,7 +29,11 @@ module.exports = function(sequelize, tableConfig) {
       type: Sequelize.INTEGER,
       allowNull: false
     },
-    status: Sequelize.BOOLEAN,
+    status: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+      defaultValue: true
+    },
     frequency: {
       type: Sequelize.INTEGER,
       defaultValue: 5
