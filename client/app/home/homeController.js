@@ -1,3 +1,4 @@
+
 angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router'])
 
 .controller('homeController', function ($scope, $state, $http, Url) {
@@ -5,13 +6,12 @@ angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router'])
   $scope.urls = [];
   $scope.loading = false;
   $scope.urlImagePreview = '';
+
   $scope.$on('emptyUrls', function () {
     $scope.url = 'http://';
     $scope.urlImagePreview = '';
     $scope.loading = false;
   });
-
-
 
   $scope.logout = function () {
    $http.get("/api/users/logout")
