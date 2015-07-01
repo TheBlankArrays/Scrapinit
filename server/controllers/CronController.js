@@ -38,6 +38,7 @@ module.exports = {
   },
 
   addCron: function(UserUrl, url) {
+    UserUrl.status = true;
     var userUrl = UserUrl;
     var key = UserUrl.url_id.toString() + UserUrl.user_id.toString();
     console.log('Starting cronJob', key);
@@ -55,8 +56,18 @@ module.exports = {
     // seconds
     var freq = '*/' + UserUrl.frequency + ' * * * * *';
 
+    if (manager.exists(key)) {
+      manager.deleteJob(key);
+    };
+
     manager.add(key, freq, function() {
+      if (UserUrl.status) {
+
+      } else {
+        manager.stop()
+      }
       console.log('checking', url, 'for', UserUrl.email);
+
        var oldImg = UserUrl.cropImage;
        var email = UserUrl.email;
        var params = {
@@ -73,6 +84,20 @@ module.exports = {
 
     manager.start(key);
 
+  },
+
+  updateCron: function() {
+
+  },
+
+  startCron: function(user_id, url_id) {
+    var key = url_id.toString() + user_id.toString();
+    if (manager.exists(key)) {
+      console.log('Starting cronjob', key);
+      manager.start(key);
+    } else {
+      console.log('error, cronjob', key, ' does not exist');
+    }
   },
 
   stopCron: function(user_id, url_id) {
@@ -99,6 +124,13 @@ var compareUtils = {
         // checks for difference in pictures
         compare(oldImg, newImg, function (equal){
           if (!equal){
+            
+            // set status to false since we are stopping the cronjob
+            UserUrl.status = false;
+
+            // stop cronjob
+            module.exports.stopCron(UserUrl.url_id, UserUrl.user_id)
+
             // if images are not equal, send an email
             compareUtils.sendEmail(website, email);
           }; // if (!equal){
