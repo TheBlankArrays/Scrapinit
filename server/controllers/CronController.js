@@ -118,13 +118,14 @@ var compareUtils = {
 
   compareScreenShot: function(UserUrl, website, email, params, oldImg) {
     // gets screenshot of website
-    basicScraper.getScreenshot(website, UserUrl.user_id, function(img1, email) {
+    basicScraper.getScreenshot(website, UserUrl.user_id, function(status, path) {
       // crops new image so we can compare the the old cropped image
-      basicScraper.cropImg(img1, params, true, function(newImg) {
+
+      basicScraper.cropImg(path, params, true, function(newImg) {
         // checks for difference in pictures
         compare(oldImg, newImg, function (equal){
           if (!equal){
-            
+
             // set status to false since we are stopping the cronjob
             UserUrl.status = false;
 
@@ -157,10 +158,8 @@ var compareUtils = {
             console.log(error);
         }else{
             console.log('Message sent: ' + info.response);
-        } // else statemenet  
+        } // else statemenet
     }); // transporter.sendMail(mailOptions, function(error, info){
   }
 
 }
-
-
