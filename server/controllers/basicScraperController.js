@@ -20,7 +20,9 @@ module.exports = {
     namePreview = urlWithoutHTTP + '-preview.jpg'
     utils.scrapeFullImage(url, namePreview, userId, function (err, path) {
       if (err === 'success') {
-        cb(path, email);
+        cb(200, path);
+      } else {
+        cb(err);
       }
     });
     // webshot(url, '../client/assets/' + userId + '/' + urlWithoutHTTP + '-preview.jpg', function(err) {
@@ -30,6 +32,8 @@ module.exports = {
   },
 
   cropImg: function(url, crop, compare, cb, email) {
+
+    console.log('url corpimg', url);
 
     var filepath = url.substr(0, url.length - 12) + ((compare) ? '-compare.jpg' : '.jpg');
 
