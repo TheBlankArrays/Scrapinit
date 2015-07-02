@@ -1,27 +1,17 @@
-angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router', 'uiSwitch'])
+angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router'])
 
 .controller('homeController', function ($scope, $state, $http, Url) {
   $scope.url = 'http://';
   $scope.urls = [];
   $scope.loading = false;
   $scope.urlImagePreview = '';
-
-
-
   $scope.$on('emptyUrls', function () {
     $scope.url = 'http://';
     $scope.urlImagePreview = '';
     $scope.loading = false;
   });
 
-$scope.$watch('enabled', function (newVal) {
-    var route;
-    if (newVal){
-     route = 'image';
-    } else {
-      route = 'text';
-    }
-});
+
 
   $scope.logout = function () {
    $http.get("/api/users/logout")
@@ -36,10 +26,8 @@ $scope.$watch('enabled', function (newVal) {
 
   $scope.add = function () {
     $scope.loading = true;
-      //  console.log($scope.urls);
     $http.get('/api/screenshot?url=' + $scope.url )
      .success(function (data) {
-
       $scope.urlImagePreview = data;
       $state.go('home.urlImage');
 
@@ -50,13 +38,13 @@ $scope.$watch('enabled', function (newVal) {
 
 })
 .factory('Url', function ($http) {
-
   var getUrls = function (callback) {
     $http({
       method: 'GET',
       url: '/api/users/list'
     })
     .success(function(data) {
+    
       var urls = [];
       var urlArray = data.urls;
       console.log('data - ', data);
