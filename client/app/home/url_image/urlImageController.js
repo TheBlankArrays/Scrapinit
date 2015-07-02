@@ -1,8 +1,10 @@
 angular.module('app.home.urlImage', [ 'ui.router'])
 .controller('urlImageController', function ($scope, $state, Url) {
 
+
   $scope.send = function (cropCoor) {
-    Url.postUrl(cropCoor, $scope.urlImagePreview, $scope.url, function (err, data) {
+   console.log('user selected this option:', $scope.userDecision)
+    Url.postUrl(cropCoor, $scope.urlImagePreview, $scope.url, $scope.userDecision, function (err, data) {
       if (err) {
         $scope.error = 'UPS! We are in troubles.';
       }else {

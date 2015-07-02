@@ -5,6 +5,7 @@ angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router', '
   $scope.urls = [];
   $scope.loading = false;
   $scope.urlImagePreview = '';
+  $scope.userDecision = 'text';
 
   $scope.$on('emptyUrls', function () {
     $scope.url = 'http://';
@@ -12,15 +13,14 @@ angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router', '
     $scope.loading = false;
   });
 
-  $scope.$watch('enabled', function (newVal) {
-    var route;
-    if (newVal){
-     route = 'image';
+  $scope.$watch('enabled', function (userInput) {
+    if (!userInput)
+    {
+      $scope.userDecision = 'text';
     } else {
-      route = 'text';
+      $scope.userDecision = 'image';
     }
-    console.log(route)
-});
+  });
 
   $scope.logout = function () {
    $http.get("/api/users/logout")
@@ -67,8 +67,9 @@ angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router', '
     });
   };
 
-  var postUrl = function (cropCoor, urlImg, url, callback) {
-    $http.post('/api/users/url', {crop: cropCoor, urlImg: urlImg, url: url})
+  var postUrl = function (cropCoor, urlImg, url, userDecision, callback) {
+    console.log(userDecision, 'userDecision');
+    $http.post('/api/users/url', {crop: cropCoor, urlImg: urlImg, url: url, userDecision: userDecision})
     .success(function (data) {
       callback(false, data);
     });
