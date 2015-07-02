@@ -22,6 +22,7 @@ module.exports = {
       console.log('err', err);
       if (err === 'success') {
         cb(path, email);
+
       } else {
         cb(err);
       }
