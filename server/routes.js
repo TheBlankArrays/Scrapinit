@@ -34,13 +34,9 @@ var setup = function(app) {
         var url_parts = url.parse(req.url, true);
         var query = url_parts.query;
 
-        basicScraper.getScreenshot(query.url, req.session.user_id, function(err, path) {
+        basicScraper.getScreenshot(query.url, req.session.user_id, function(path) {
           console.log('RESULT IMAGE', path);
-          if (!path) {
-            res.send(err);
-          } else {
-            res.send(path);
-          }
+          res.send(path);
         });
   });
 
