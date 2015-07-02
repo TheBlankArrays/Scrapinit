@@ -3,6 +3,15 @@ body {
   text-align: center;
   font-family: 'Archivo Narrow'
 }
+
+
+.switch.checked {
+  background: #b34332 !important;
+  border-color: #b34332 !important;
+
+}
+
+
 #container {
   text-align: center;
   font-size: 20px;

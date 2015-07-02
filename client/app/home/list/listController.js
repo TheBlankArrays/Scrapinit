@@ -1,17 +1,6 @@
-angular.module('app.home.list', ['toggle-switch'])
+angular.module('app.home.list', [])
 .controller('listController', function ($scope, Url) {
   console.log('app home results');
-
-
-  $scope.switch = function (value){
-    var decision = 'image';
-    if (!value){
-      decision = 'txt';
-    }
-
-console.log('user decision is' , decision)
-}
-
 
   $scope.getUrls = function () {
     console.log('in home results');
