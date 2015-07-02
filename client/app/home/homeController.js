@@ -1,4 +1,5 @@
-angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router', ])
+angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router'])
+
 .controller('homeController', function ($scope, $state, $http, Url) {
   $scope.url = 'http://';
   $scope.urls = [];
@@ -24,10 +25,8 @@ angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router', ]
 
   $scope.add = function () {
     $scope.loading = true;
-      //  console.log($scope.urls);
     $http.get('/api/screenshot?url=' + $scope.url )
      .success(function (data) {
-
       $scope.urlImagePreview = data;
       $state.go('home.urlImage');
 
@@ -38,13 +37,13 @@ angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router', ]
 
 })
 .factory('Url', function ($http) {
-
   var getUrls = function (callback) {
     $http({
       method: 'GET',
       url: '/api/users/list'
     })
     .success(function(data) {
+    
       var urls = [];
       var urlArray = data.urls;
       console.log('data - ', data);

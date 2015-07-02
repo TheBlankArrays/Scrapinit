@@ -617,3 +617,12 @@ button {
     margin-right: -50%;
     transform: translate(-50%, -50%)
     }
+
+.switch small {
+    background: #E05050;
+}
+
+.switch.checked {
+  background: #171A17;
+  border-color: #5A5A5A;
+}

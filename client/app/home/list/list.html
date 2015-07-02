@@ -1,19 +1,26 @@
 <table class="gradienttable">
   <thead>
+
     <tr>
       <th>Image</th>
       <th>URL</th>
       <th>pingRate</th>
-      <th>active</th>
+      <th>switch</th>
     </tr>
   </thead>
 
-  <tbody>
+   <tbody>
     <tr ng-repeat="url in urls">
       <td><img src="{{url.img}}" width="175px"></td>
       <td>{{url.url}}</td>
       <td>5 minutes</td>
-      <td>true</td>
+      <td>
+        
+       <toggle-switch ng-model="decision"  ng-click='switch(decision)' on-label="image"
+    off-label="text"><toggle-switch>
+
+     
+      </td>
     </tr>
   </tbody>
 
