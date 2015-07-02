@@ -36,7 +36,7 @@ module.exports = {
       }; // or (var i = 0; i < allUsers.length; i++){
     }); // .then(function(allUsers) {
   },
-  
+
   addCron: function(UserUrl, url) {
     UserUrl.status = true;
     var userUrl = UserUrl;
@@ -120,7 +120,6 @@ var compareUtils = {
       basicScraper.cropImg(img1, params, true, function(newImg) {
         // checks for difference in pictures
         compare(oldImg, newImg, function (equal){
-          console.log('I have access to email inside of compare', email);
           if (!equal){
             // set status to false since we are stopping the cronjob
             UserUrl.status = false;
@@ -136,7 +135,6 @@ var compareUtils = {
 
   sendEmail: function(website, email, oldImg, newImg) {
     console.log('change detected on', website, 'sending email to ', email);
-    console.log('sendEmail I have access to image paths', oldImg, newImg)
     // parameters for email
     var mailOptions = {
         from: "The Blank Arrays <postmaster@sandbox72a87403dd654630bfa3c4b021cda08d.mailgun.org>", // sender address
