@@ -41,6 +41,9 @@ module.exports = function(sequelize, tableConfig) {
       type: Sequelize.INTEGER,
       defaultValue: 5
     },
+    comparison: {
+      type: Sequelize.STRING,
+    }
   }, tableConfig)
 }
 
