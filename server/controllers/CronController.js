@@ -119,7 +119,8 @@ var compareUtils = {
       // crops new image so we can compare the the old cropped image
       basicScraper.cropImg(img1, params, true, function(newImg) {
         // checks for difference in pictures
-        compare(oldImg, newImg, function (equal){
+        console.log('img1 in cropImg', img1);
+        compare(oldImg, newImg, function (equal, oldImg, newImg){
           if (!equal){
             // set status to false since we are stopping the cronjob
             UserUrl.status = false;
