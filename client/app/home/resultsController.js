@@ -1,7 +1,9 @@
 angular.module('app.home.results', [])
 .controller('resultsController', function ($scope, Url) {
+  console.log('app home results');
 
   $scope.getUrls = function () {
+    console.log('in home results');
     Url.getUrls(function (err, urls) {
       if (err) {
         $scope.error = 'We can´t retrieve the URLS';
@@ -11,24 +13,6 @@ angular.module('app.home.results', [])
     });
   };
 
-})
-.factory('Url', function ($http) {
-
-  var getUrls = function (callback) {
-    $http({
-      method: 'GET',
-      url: '/api/users/urls'
-    })
-    .success(function(urls) {
-      callback(false, urls);
-    })
-    .error(function(err) {
-      callback(true);
-    });
-  };
-
-  return {
-    getUrls: getUrls
-  }
+  $scope.getUrls();
 
 });
