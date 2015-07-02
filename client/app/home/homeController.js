@@ -1,4 +1,4 @@
-angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router'])
+angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router', 'uiSwitch'])
 
 .controller('homeController', function ($scope, $state, $http, Url) {
   $scope.url = 'http://';
@@ -11,6 +11,16 @@ angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router'])
     $scope.urlImagePreview = '';
     $scope.loading = false;
   });
+
+  $scope.$watch('enabled', function (newVal) {
+    var route;
+    if (newVal){
+     route = 'image';
+    } else {
+      route = 'text';
+    }
+    console.log(route)
+});
 
   $scope.logout = function () {
    $http.get("/api/users/logout")
