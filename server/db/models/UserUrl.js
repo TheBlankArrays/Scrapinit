@@ -6,8 +6,11 @@ module.exports = function(sequelize, tableConfig) {
       type: Sequelize.STRING,
       allowNull: false
     },
-    webImage: {
+    cronVal: {
       type: Sequelize.STRING
+    },
+    compareVal: {
+      type: Sequelize.STRING,
     },
     cropImage: {
       type: Sequelize.STRING,

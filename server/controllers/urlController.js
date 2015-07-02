@@ -81,7 +81,8 @@ module.exports = {
                   cropHeight: crop.h,
                   cropWidth: crop.w,
                   cropOriginX: crop.x,
-                  cropOriginY: crop.y
+                  cropOriginY: crop.y,
+                  status: true
                })
                .then(function(associate) {
                 db.Url.findOne({
@@ -138,7 +139,8 @@ module.exports = {
                    cropHeight: crop.h,
                    cropWidth: crop.w,
                    cropOriginX: crop.x,
-                   cropOriginY: crop.y
+                   cropOriginY: crop.y,
+                   status: true
                 })
                 .then(function(associate) {
                   db.Url.findOne({
