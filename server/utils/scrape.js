@@ -25,6 +25,7 @@ var utils = {
         zoomFactor: 2
       }, function(err) {
           // screenshot now saved to google.png// screenshot now saved to hello_world.png
+          console.log('err from scrape.js ' + err);
           if (!err) {
             callback('success', 'assets/' + userId + '/' + file);
           } else {
