@@ -18,7 +18,11 @@ body {
   z-index: 200;
 
 }
-
+#urlimage {
+  text-align: center;
+  width: 800px;
+  margin: auto auto;
+}
 #imagepreview {
   display: block;
   margin: 20px auto;
@@ -66,7 +70,7 @@ h1:hover {
   margin: 30px auto;
   padding: 10px;
   background: #fff;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1); 
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
   -moz-border-radius: 12px;
   -webkit-border-radius: 12px;
   border-radius: 12px;
@@ -168,7 +172,7 @@ h1:hover {
     font-weight: 400;
     text-align: center;
     font-size: 25px;
-    top: 70%; 
+    top: 70%;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%)
@@ -399,7 +403,7 @@ button {
     -webkit-border-radius: 7px;
     border-radius: 7px;
     -khtml-border-radius: 7px; /* for old Konqueror browsers */
-    
+
 
 }
 #signout-button{
@@ -506,7 +510,7 @@ button {
   margin: 30px auto;
   padding: 10px;
   background: #fff;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1); 
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
   -moz-border-radius: 12px;
   -webkit-border-radius: 12px;
   border-radius: 12px;
@@ -608,7 +612,7 @@ button {
     font-weight: 400;
     text-align: center;
     font-size: 25px;
-    top: 70%; 
+    top: 70%;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%)
