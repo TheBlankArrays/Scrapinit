@@ -21,7 +21,7 @@ module.exports = {
     utils.scrapeFullImage(url, namePreview, userId, function (err, path) {
       console.log('err', err);
       if (err === 'success') {
-        cb(200, path);
+        cb(path, email);
       } else {
         cb(err);
       }

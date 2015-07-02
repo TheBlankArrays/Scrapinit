@@ -20,7 +20,7 @@ angular.module('app.home.urlImage', [ 'ui.router'])
       onSelect: function (c) {
         $(element).fadeOut(800);
         for (key in c) {
-          c[key] = c[key] * 4;
+          c[key] = c[key] * 2.56;
         }
         scope.crop({cropCoor: c});
       }
