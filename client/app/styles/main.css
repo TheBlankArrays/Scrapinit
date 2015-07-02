@@ -68,15 +68,45 @@ header {
 
 
 .switch.checked {
-  background: #b34332 !important;
-  border-color: #b34332 !important;
+  background: #666 !important;
+  border-color: #666 !important;
 
 }
+.switch {
+  background: #fff !important;
+  color: #666 !important;
+}
 
+.switch small {
+  border: 1px solid #b54b3a !important;
+}
+
+.switch.checked small {
+  left:70px !important;
+}
+
+
+#switching {
+  display: inline-block;
+  vertical-align: top;
+  width: 49%;
+  box-sizing: border-box;
+  margin: 10px 0px 20px 0px;
+  text-align: left;
+}
+
+#switching .switch {
+  width: 100px;
+}
 
 #logout {
   text-align: right;
   margin: 10px 0px 20px 0px;
+  display: inline-block;
+  width: 50%;
+  box-sizing: border-box;
+  text-align: right;
+  vertical-align: top;
 }
 
 #container {
