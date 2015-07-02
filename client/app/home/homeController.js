@@ -1,4 +1,3 @@
-
 angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router'])
 
 .controller('homeController', function ($scope, $state, $http, Url) {
