@@ -39,12 +39,14 @@ module.exports = {
   },
 
   addUrl: function (req, res, next) {
+    console.log('in addUrl ', Object.keys(req.body));
     var email = req.session.email;
     var url = {url: req.body.url};
     console.log('req body', JSON.stringify(req.body));
     console.log('url up top ' + JSON.stringify(url));
     var that = this;
     var selector = 'body';
+    var comparison = req.body.userDecision;
 
     db.User.findOne({
       where: {
@@ -82,7 +84,8 @@ module.exports = {
                   cropWidth: crop.w,
                   cropOriginX: crop.x,
                   cropOriginY: crop.y,
-                  status: true
+                  status: true,
+                  comparison: comparison
                })
                .then(function(associate) {
                 db.Url.findOne({
@@ -140,7 +143,8 @@ module.exports = {
                    cropWidth: crop.w,
                    cropOriginX: crop.x,
                    cropOriginY: crop.y,
-                   status: true
+                   status: true,
+                   comparison: comparison
                 })
                 .then(function(associate) {
                   db.Url.findOne({
