@@ -3,7 +3,7 @@ var should = require('should');
 var assert = require('assert');
 var expect = require('expect.js');
 
-
+//works!
 describe('Image-to-text conversion', function(){
   var path =  '../../client/assets/1/';
   it('should return error if invalid path is input', function(done){
