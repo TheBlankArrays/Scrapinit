@@ -21,16 +21,8 @@ var utils = {
         },
         defaultWhiteBackground: true,
         quality: 100,
-        renderDelay: 500,
-        zoomFactor: 2,
-        timeout: 4000,
-        settings: {
-          resourceTimeout: 5000
-        },
-        onResourceTimeout: function(request) {
-          callback(403, 'error');
-          console.log('errorrrs timeout')
-        }
+        renderDelay: 50,
+        zoomFactor: 2
       }, function(err) {
           // screenshot now saved to google.png// screenshot now saved to hello_world.png
           if (!err) {
