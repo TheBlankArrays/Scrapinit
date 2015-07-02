@@ -13,6 +13,8 @@
   </div>
   <form ng-submit='add()'>
     <input type="text" name="url" ng-model="url" id="url">
+    <switch id="enabled" name="enabled" ng-model="enabled" on="Image" off="Text" ></switch>
+  <br>{{ status }}
   </form>
 
   <hr>
