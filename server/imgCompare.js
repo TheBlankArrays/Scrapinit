@@ -19,7 +19,7 @@ module.exports = {
       diffImage: 'difference.png',
     }, function (err, imagesAreSame) {
       console.log('IMAGE DIFF : images are the same: ',imagesAreSame)
-      callback(imagesAreSame);
+      callback(imagesAreSame, img1, img2);
     // error will be any errors that occurred 
     // imagesAreSame is a boolean whether the images were the same or not 
     // diffImage will have an image which highlights differences 
