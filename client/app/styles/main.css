@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:url('fonts/icomoon.eot?j4u0gf');
-  src:url('fonts/icomoon.eot?#iefixj4u0gf') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?j4u0gf') format('truetype'),
-    url('fonts/icomoon.woff?j4u0gf') format('woff'),
-    url('fonts/icomoon.svg?j4u0gf#icomoon') format('svg');
+  src:url('fonts/icomoon.eot?-3gxmn9');
+  src:url('fonts/icomoon.eot?#iefix-3gxmn9') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?-3gxmn9') format('truetype'),
+    url('fonts/icomoon.woff?-3gxmn9') format('woff'),
+    url('fonts/icomoon.svg?-3gxmn9#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -35,7 +35,12 @@
 .icon-exit:before {
   content: "\ea14";
 }
-
+.icon-filter:before {
+  content: "\ea5b";
+}
+.icon-share:before {
+  content: "\ea7d";
+}
 
 html, body {
   background-image: url('');
@@ -55,6 +60,146 @@ header {
   color: #000;
   font-size: 30px;
 }
+.table {
+  width: 100%;
+}
+
+.table__search {
+  width: 200px;
+  margin: 12px 0px;
+  text-align: left;
+  position: relative;
+  display: block;
+}
+
+.table__search input {
+  height: 24px;
+  font-size: 16px;
+  line-height: 24px;
+  color: #666;
+  text-align: left;
+  width: 200px;
+  padding-right: 25px;
+}
+
+.table__search span {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  font-size: 16px;
+  line-height: 24px;
+  height: 24px;
+  color: #666;
+  padding: 0px 6px;
+  border-left: 1px solid #666;
+}
+
+.table__header {
+  width: 100%;
+  text-align: center;
+  border-radius: 7px 7px 0px 0px;
+  background-color: #333;
+  color: #fff;
+  height: 44px;
+  line-height: 44px;
+}
+
+.table__header > div {
+  box-sizing:border-box;
+  width: 15%;
+  height: 25px;
+  line-height: 25px;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  display: inline-block;
+  vertical-align: center;
+}
+
+.table__rows {
+  width: 100%;
+  text-align: center;
+  border-radius: 0px 0px 7px 7px;
+  background-color: rgba(255,255,255,0.6);
+  color: #333;
+  padding: 10px 0px;
+}
+
+.table__row{
+  padding: 6px 0px;
+  border-top: 1px solid #999;
+}
+
+.table__row:first-child {
+  border-top: 0px;
+}
+
+.table__row > div {
+  box-sizing:border-box;
+  width: 15%;
+  min-height: 25px;
+  max-height: 75px;
+  line-height: 25px;
+  padding: 10px;
+  text-align: center;
+  display: inline-block;
+  vertical-align: middle;
+  word-wrap: break-word;
+}
+
+.table__row img {
+  max-width: 90%;
+  max-height: 70px;
+}
+
+.table__row a {
+  text-decoration: none;
+  color: #b54b3a;
+  font-size: 14px;
+}
+
+.table__row .remove__url {
+  color: #b54b3a;
+  cursor: pointer;
+}
+
+.scrapping {
+  width: 100%;
+  padding: 20px;
+}
+
+.scrapping span {
+  font-size: 100px;
+  color: #333;
+  animation: scrapping 3s infinite;
+  display: block;
+  width: 120px;
+  height: 120px;
+  margin: 20px auto;
+}
+
+@keyframes scrapping {
+  0% {
+    margin-top: 20px;
+  }
+  50% {
+   margin-top: 200px
+  }
+  100% {
+    margin-top: 20px;
+  }
+}
+
+
+
+.empty__urls {
+  margin: 100px 0px;
+  text-align: center;
+  font-size: 24px;
+}
+
+
+
 
 #page {
   background-color: rgba(255,255,255,0.4);
@@ -348,28 +493,13 @@ button {
     left: 0;
     right: 0;
     z-index: -100;
-
+    background-color: rgba(255,255,255,0.2);
     display: block;
     background-image: url('/app/images/almacon_2012_background_by_sakurirainne.png');
     width: 9000px;
     height: 8000px;
 
     animation: changeBlur 5s linear 5s infinite alternate;
-  }
-
-  #second-bg-image {
-
-    opacity: 0.6;
-
-    position: fixed;
-    top: -20;
-    bottom: 0;
-    left: -20;
-    right: 0;
-
-    animation: changeBlur 7s linear 7s infinite alternate;
-    z-index: -50;
-
   }
 
   #color {
@@ -555,7 +685,7 @@ button {
 }
 
 
-table.gradienttable {
+/*table.gradienttable {
 	font-family: verdana,arial,sans-serif;
 	font-size:11px;
 	color:#333333;
@@ -609,7 +739,7 @@ table.gradienttable td{
 	border-left: 1px solid #fcfdec;;
 	border-right:0px;
 
-}
+}*/
 
 .wrapper {
   width: 100%;
