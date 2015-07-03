@@ -1,27 +1,64 @@
-<table class="gradienttable">
-  <thead>
+<div ng-show="urls.length > 0 && !loading">
+  <div class="table">
+    <div class="table__search">
+      <input class="table__input" type="text" ng-model="search" placeholder="Search"/>
+      <span class="icon-filter"></span>
+    </div>
+    <div class="table__header">
+      <div>
+        IMAGE
+      </div>
+      <div>
+        TYPE
+      </div>
+      <div>
+        VALUE
+      </div>
+      <div>
+        URL
+      </div>
+      <div>
+        FREQUENCY
+      </div>
+      <div>
+        OPTIONS
+      </div>
+    </div>
+    <div class="table__rows">
+      <div class="table__row" ng-repeat="url in urls | filter:search">
+        <div>
+          <img src="{{url.img}}"/>
+        </div>
+        <div>
+          Image
+        </div>
+        <div>
+          --
+        </div>
+        <div>
+          <a href="{{ur.url}}">
+            <span class="icon-share"></span>
+            Go to page
+          </a>
+        </div>
+        <div>
+          5 minutes
+        </div>
+        <div>
+          <span class="remove__url">
+            Delete
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="scrapping" ng-show="loading">
+  <span class="icon-paint-format"></span>
+</div>
+<div ng-show="urls.length == 0">
+  <div class="empty__urls">
+    Hilarious string
+  </div>
+</div>
 
-    <tr>
-      <th>Image</th>
-      <th>URL</th>
-      <th>pingRate</th>
-      <th>status</th>
-    </tr>
-  </thead>
-
-   <tbody>
-    <tr ng-repeat="url in urls">
-      <td><img src="{{url.img}}" width="175px"></td>
-      <td>{{url.url}}</td>
-      <td>5 minutes</td>
-      <td>active</td>
-    </tr>
-  </tbody>
-
-  <tr ng-show="loading">
-    <td colspan="4" style="text-align: center; padding: 15px 0;">
-      <img src="/app/images/ajax-loader.gif">
-    </td>
-  </tr>
-
-</table>
