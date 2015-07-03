@@ -18,7 +18,6 @@ module.exports = {
       // crops new image so we can compare the the old cropped image
       basicScraper.cropImg(img1, params, true, function(newImg) {
         // checks for difference in pictures
-        console.log('img1 in cropImg', img1);
         cb(oldImg, newImg)
       }); // basicScraper.cropImg(img1, params, true, function(img2) {
     }, email); // basicScraper.getScreenshot()
@@ -41,17 +40,12 @@ module.exports = {
     }); //this.getNewCroppedImage(UserUrl, website, email, params, oldImg, function(oldImg, newImg) {
   },
 
-  compareScreenShot: function(UserUrl, website, email, params, oldImg) {
+  compareScreenShot: function(UserUrl, website, email, params, oldImg, cb) {
     this.getNewCroppedImage(UserUrl, website, email, params, oldImg, function(oldImg, newImg) {
       // checks for difference in pictures
       compare(oldImg, newImg, function (equal, oldImg, newImg){
         if (!equal){
-          // set status to false since we are stopping the cronjob
-          UserUrl.status = false;
-          // stop cronjob
-          this.stopCron(UserUrl.user_id, UserUrl.url_id)
-          // if images are not equal, send an email
-          this.sendEmail(website, email, oldImg, newImg);
+          cb(equal, oldImg, newImg);
         }; // if (!equal){
       }); // compare(img1, img2, function (equal){
     });
