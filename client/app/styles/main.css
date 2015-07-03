@@ -213,6 +213,40 @@ header {
   min-height: 100%;
 }
 
+#form__url {
+  position: relative;
+}
+
+#url{
+  width: 100%;
+  text-align: left;
+  padding: 0px 10px;
+  height: 34px;
+  line-height: 34px;
+  -moz-border-radius: 7px;
+  -webkit-border-radius: 7px;
+  border-radius: 7px;
+  -khtml-border-radius: 7px; /* for old Konqueror browsers */
+  color: #333;
+  display: block;
+  margin: 12px auto;
+}
+
+#form__url input[type="submit"] {
+  display: block;
+  position: absolute;
+  height: 32px;
+  line-height: 32px;
+  right: 1px;
+  top: 1px;
+  width: 150px;
+  font-size: 16px;
+  background-color: #b54b3a;
+  color: #fff;
+  cursor: pointer;  
+  border: 0px;
+  border-radius: 0px 7px 7px 0px;
+}
 
 .switch.checked {
   background: #666 !important;
@@ -671,20 +705,7 @@ button {
     -khtml-border-radius: 7px; /* for old Konqueror browsers */
 }
 
-#url{
-  width: 100%;
-  text-align: left;
-  padding: 0px 10px;
-  height: 34px;
-  line-height: 34px;
-  -moz-border-radius: 7px;
-  -webkit-border-radius: 7px;
-  border-radius: 7px;
-  -khtml-border-radius: 7px; /* for old Konqueror browsers */
-  color: #333;
-  display: block;
-  margin: 12px auto;
-}
+
 
 
 /*table.gradienttable {

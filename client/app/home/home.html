@@ -12,8 +12,9 @@
         Logout
       </button>
     </div>
-    <form ng-submit='add()'>
-      <input type="text" name="url" ng-model="url" id="url">
+    <form id="form__url" ng-submit='add()'>
+      <input type="text" placeholder="http://" name="url" ng-model="url" id="url">
+      <input type="submit" value="SUBMIT"/>
     </form>
 
     <hr>

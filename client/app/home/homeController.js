@@ -1,14 +1,14 @@
 angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router', 'uiSwitch'])
 
 .controller('homeController', function ($scope, $state, $http, Url) {
-  $scope.url = 'http://';
+  $scope.url = '';
   $scope.urls = [];
   $scope.loading = false;
   $scope.urlImagePreview = '';
   $scope.userDecision = 'text';
 
   $scope.$on('emptyUrls', function () {
-    $scope.url = 'http://';
+    $scope.url = '';
     $scope.urlImagePreview = '';
     $scope.loading = false;
   });
