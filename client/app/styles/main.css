@@ -198,6 +198,11 @@ header {
   font-size: 24px;
 }
 
+/*angular-tour replace*/
+.tour-tip .tour-close-tip {
+  top: 6px !important;
+  font-size: 18px !important;
+}
 
 #app {
   background-color: rgba(255,255,255,0.4);
@@ -206,7 +211,7 @@ header {
 }
 
 #page {
-  width: 65%;
+  width: 60%;
   margin: 0px auto;
   /*background-color: #fff;*/
   padding: 10px 25px 25px 25px;

@@ -4,26 +4,33 @@
       <input class="table__input" type="text" ng-model="search" placeholder="Search"/>
       <span class="icon-filter"></span>
     </div>
-    <div class="table__header">
-      <div>
-        IMAGE
+    <span ng-click="closeTour()" tourtip="Here will appear all your URLs history"
+              tourtip-step="1"
+              tourtip-next-label="Finish"
+              tourtip-placement="left"
+              scrollSpeed="500"
+              tourtip-offset="15">
+      <div class="table__header">
+        <div>
+          IMAGE
+        </div>
+        <div>
+          TYPE
+        </div>
+        <div>
+          VALUE
+        </div>
+        <div>
+          URL
+        </div>
+        <div>
+          FREQUENCY
+        </div>
+        <div>
+          OPTIONS
+        </div>
       </div>
-      <div>
-        TYPE
-      </div>
-      <div>
-        VALUE
-      </div>
-      <div>
-        URL
-      </div>
-      <div>
-        FREQUENCY
-      </div>
-      <div>
-        OPTIONS
-      </div>
-    </div>
+    </span>
     <div class="table__rows">
       <div class="table__row" ng-repeat="url in urls | filter:search">
         <div>
@@ -57,8 +64,15 @@
   <span class="icon-paint-format"></span>
 </div>
 <div ng-show="urls.length == 0 && !loading">
-  <div class="empty__urls">
-    Hilarious string
+  <span ng-click="closeTour()" tourtip="Here will appear your URLs history"
+              tourtip-step="1"
+              tourtip-next-label="Finish"
+              tourtip-placement="left"
+              scrollSpeed="500"
+              tourtip-offset="15">
+    <div class="empty__urls">
+      Hilarious string
+    </div>
   </div>
 </div>
 
