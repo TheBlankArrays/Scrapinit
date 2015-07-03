@@ -1,7 +1,7 @@
 var basicScraper = require('./basicScraperController');
 var cronjob = require('./cronController');
 var db = require("../db");
-
+var ocr = require('./ocr');
 
 
 
@@ -47,6 +47,7 @@ module.exports = {
     var that = this;
     var selector = 'body';
     var comparison = req.body.userDecision;
+    var path =  __dirname + '/../../client/';
 
     db.User.findOne({
       where: {
@@ -73,61 +74,58 @@ module.exports = {
             console.log('***** urlImg',req.body.urlImg )
             if (urlFound) {
 
-
                console.log('loggin it yo', JSON.stringify(crop));
                console.log('urlfound: '+ urlFound);
+               console.log('crop path' + cropImg);
 
-               userFound.addUrl(urlFound, {
-                  email: userFound.email,
-                  cropImage: cropImg,
-                  cropHeight: crop.h,
-                  cropWidth: crop.w,
-                  cropOriginX: crop.x,
-                  cropOriginY: crop.y,
-                  status: true,
-                  comparison: comparison
-               })
-               .then(function(associate) {
-                db.Url.findOne({
-                  where: {
-                    id: urlFound.id
-                  },
-                  include: [
-                    { 
-                      model: db.UserUrl,
-                      where: {
-                        user_id: req.session.user_id
-                      }
-                    }
-                  ]
-                }).then(function (userUrl){
-                  var response = {
-                    url: userUrl.url,
-                    id: userUrl.id,
-                    UserUrl: userUrl.UserUrls[0]
+               ocr.convertImageToText(path + cropImg, function(err, text){
+                  if(err){
+                    console.log('ocr ' + err);
+                  } else {
+                    console.log('ocr text ' + text);
+
+                           userFound.addUrl(urlFound, {
+                              email: userFound.email,
+                              cropImage: cropImg,
+                              cropHeight: crop.h,
+                              cropWidth: crop.w,
+                              cropOriginX: crop.x,
+                              cropOriginY: crop.y,
+                              status: true,
+                              comparison: comparison
+
+                           })
+                           .then(function(associate) {
+                            db.Url.findOne({
+                              where: {
+                                id: urlFound.id
+                              },
+                              include: [
+                                { 
+                                  model: db.UserUrl,
+                                  where: {
+                                    user_id: req.session.user_id
+                                  }
+                                }
+                              ]
+                            }).then(function (userUrl){
+                              var response = {
+                                url: userUrl.url,
+                                id: userUrl.id,
+                                UserUrl: userUrl.UserUrls[0]
+                              }
+                              console.log('sending ' + userUrl.url + ' to cronjob');
+                              cronjob.addCron(userUrl.UserUrls[0], userUrl.url);
+                              res.status(201).json(response);
+                            });
+                           })
+                           .catch(function (err) {
+                            res.status(400).json({message: err.message});
+                          });
+
                   }
-                  console.log('sending ' + userUrl.url + ' to cronjob');
-                  cronjob.addCron(userUrl.UserUrls[0], userUrl.url);
-                  res.status(201).json(response);
-                });
-               })
-               .catch(function (err) {
-                res.status(400).json({message: err.message});
-              });
 
-
-              //  userFound.getUrls()
-              //       .then(function(associate){
-              //         console.log('url found');
-              //         //console.log('associate'+ JSON.stringify(associate[0]));
-              //          res.status(201).json({});
-              //       })
-              //       .catch(function(err) {
-              //         console.log('we found an error', err);
-              //       })
-              //     // db.associate(userFound.email, urlFound.url, {html: html, selector: selector})//need to store and send the html & selector
-
-
+               });
 
             } else {  // else !urlFound
 
@@ -136,45 +134,64 @@ module.exports = {
               db.Url.create(url)
               .then(function (urlCreated) {
 
-                userFound.addUrl(urlCreated, {
-                   email: userFound.email,
-                   cropImage: cropImg,
-                   cropHeight: crop.h,
-                   cropWidth: crop.w,
-                   cropOriginX: crop.x,
-                   cropOriginY: crop.y,
-                   status: true,
-                   comparison: comparison
-                })
-                .then(function(associate) {
-                  db.Url.findOne({
-                    where: {
-                      id: urlCreated.id
-                    },
-                    include: [
-                      { 
-                        model: db.UserUrl,
+                console.log('crop path -' + cropImg);
+                ocr.convertImageToText(path + cropImg, function(err, text){
+                  if(err){
+                    console.log('ocr ' + err);
+                  } else {
+                    console.log('ocr text ' + text);
+                    userFound.addUrl(urlCreated, {
+                       email: userFound.email,
+                       cropImage: cropImg,
+                       cropHeight: crop.h,
+                       cropWidth: crop.w,
+                       cropOriginX: crop.x,
+                       cropOriginY: crop.y,
+                       status: true,
+                       comparison: comparison
+                    })
+                    .then(function(associate) {
+                      db.Url.findOne({
                         where: {
-                          user_id: req.session.user_id
+                          id: urlCreated.id
+                        },
+                        include: [
+                          { 
+                            model: db.UserUrl,
+                            where: {
+                              user_id: req.session.user_id
+                            }
+                          }
+                        ]
+                      }).then(function (userUrl){
+                        console.log("we have access to the userUrl", userUrl.url)
+                        var response = {
+                          url: userUrl.url,
+                          id: userUrl.id,
+                          UserUrl: userUrl.UserUrls[0]
                         }
-                      }
-                    ]
-                  }).then(function (userUrl){
-                    console.log("we have access to the userUrl", userUrl.url)
-                    var response = {
-                      url: userUrl.url,
-                      id: userUrl.id,
-                      UserUrl: userUrl.UserUrls[0]
-                    }
-                    console.log('sending ' + userUrl.url + ' to cronjob');
-                    console.log('with a status of', userUrl.status);
-                    cronjob.addCron(userUrl.UserUrls[0], userUrl.url);
-                    res.status(201).json(response);
-                  });
-                })
-                .catch(function (err) {
-                  res.status(400).json({message: err.message});
-                }); // close catch of addurl db call
+                        console.log('sending ' + userUrl.url + ' to cronjob');
+                        console.log('with a status of', userUrl.status);
+                        cronjob.addCron(userUrl.UserUrls[0], userUrl.url);
+                        res.status(201).json(response);
+                      });
+                    })
+                    .catch(function (err) {
+                      res.status(400).json({message: err.message});
+                    }); // close catch of addurl db call
+                  }
+                });
+
+
+
+
+
+
+
+
+
+
+
               })  // close then of create url db call
               .catch(function (err) {
                 res.status(400).json({message: err.message});
