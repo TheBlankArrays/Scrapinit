@@ -4,7 +4,8 @@
   "description": "Scrape",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./server/server.js"
   },
   "author": "Scrape",
   "license": "ISC",
@@ -54,5 +55,8 @@
     "karma": "^0.12.35",
     "karma-chrome-launcher": "^0.1.12",
     "karma-jasmine": "^0.3.5"
+  }, 
+  "engines": {
+    "node": "0.10.x"
   }
 }
