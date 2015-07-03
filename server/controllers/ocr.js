@@ -1,4 +1,4 @@
-var nodecr = require('nodecr');
+var tesseract = require('node-tesseract');
 var gm = require('gm').subClass({ imageMagick: true });
 
 var obj = {
@@ -12,7 +12,7 @@ var obj = {
      }); 
 
     // sample anonoymous function(stats, text){};
-    nodecr.process(imgPath, function(err, text) {
+    tesseract.process(imgPath, function(err, text) {
       if(err) {
         cb(err);
       } else {
