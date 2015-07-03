@@ -8,12 +8,11 @@ angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router', '
     ipCookie('myTour', $scope.currentStep, { expires: 3000 });
   };
   //finish angular-tour settings cookie
-  $scope.url = '';
   $scope.urls = [];
   $scope.loading = false;
   $scope.urlImagePreview = '';
   $scope.userDecision = 'text';
-
+  $scope.url = '';
   $scope.$on('emptyUrls', function () {
     $scope.url = '';
     $scope.urlImagePreview = '';

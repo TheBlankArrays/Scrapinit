@@ -1,15 +1,25 @@
+<tour step="currentStep" post-step="stepComplete()">
+  <span ng-show="urls.length > 0 && !loading" ng-click="closeTour()" tourtip="Here will appear all your URLs history"
+    tourtip-step="1"
+    tourtip-next-label="Finish"
+    tourtip-placement="left"
+    scrollSpeed="500"
+    tourtip-offset="15">
+  </span>
+  <span ng-show="urls.length == 0 && !loading" ng-click="closeTour()" tourtip="Here will appear your URLs history"
+    tourtip-step="1"
+    tourtip-next-label="Finish"
+    tourtip-placement="left"
+    scrollSpeed="500"
+    tourtip-offset="15">
+  </span>
+</tour>
 <div ng-show="urls.length > 0 && !loading">
   <div class="table">
     <div class="table__search">
       <input class="table__input" type="text" ng-model="search" placeholder="Search"/>
       <span class="icon-filter"></span>
     </div>
-    <span ng-click="closeTour()" tourtip="Here will appear all your URLs history"
-              tourtip-step="1"
-              tourtip-next-label="Finish"
-              tourtip-placement="left"
-              scrollSpeed="500"
-              tourtip-offset="15">
       <div class="table__header">
         <div>
           IMAGE
@@ -30,7 +40,6 @@
           OPTIONS
         </div>
       </div>
-    </span>
     <div class="table__rows">
       <div class="table__row" ng-repeat="url in urls | filter:search">
         <div>
@@ -64,15 +73,8 @@
   <span class="icon-paint-format"></span>
 </div>
 <div ng-show="urls.length == 0 && !loading">
-  <span ng-click="closeTour()" tourtip="Here will appear your URLs history"
-              tourtip-step="1"
-              tourtip-next-label="Finish"
-              tourtip-placement="left"
-              scrollSpeed="500"
-              tourtip-offset="15">
-    <div class="empty__urls">
-      Hilarious string
-    </div>
+  <div class="empty__urls">
+    Hilarious string
   </div>
 </div>
 

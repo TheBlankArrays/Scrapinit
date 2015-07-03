@@ -1,8 +1,10 @@
-<span ng-click="closeTour()" tourtip="Crop the image and enjoy!"
-              tourtip-step="3"
-              tourtip-next-label="Enjoy"
-              tourtip-placement="left"
-              scrollSpeed="500"
-              tourtip-offset="15">
-  <div id="urlimage"><img ng-src='{{urlImagePreview}}' crop='send(cropCoor)' width='800px'/></div>
-</span>
+<tour step="currentStep" post-step="stepComplete()">
+  <span ng-click="closeTour()" tourtip="Crop the image and enjoy!"
+                tourtip-step="3"
+                tourtip-next-label="Enjoy"
+                tourtip-placement="left"
+                scrollSpeed="500"
+                tourtip-offset="15">
+  </span>
+</tour>
+<div id="urlimage"><img ng-src='{{urlImagePreview}}' crop='send(cropCoor)' width='800px'/></div>
