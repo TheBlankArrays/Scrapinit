@@ -58,7 +58,7 @@ angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router', '
       var urlArray = data.urls;
       console.log('data - ', data);
       for (var i = 0; i < urlArray.length; i++) {
-        urls.push({url: urlArray[i].url, img: urlArray[i].UserUrl.cropImage, text: urlArray[i].UserUrl.cronVal});
+        urls.push({url: urlArray[i].url, img: urlArray[i].UserUrl.cropImage, text: urlArray[i].UserUrl.ocrText});
       }
       callback(false, urls);
     })

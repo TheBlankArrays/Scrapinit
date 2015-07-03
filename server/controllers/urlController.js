@@ -80,7 +80,7 @@ module.exports = {
                ocr.convertImageToText(path + cropImg, function(err, text){
                   if(err){
                     console.log('ocr ' + err);
-                    res.status(400).json({message: err}); 
+                    res.status(400).json({message: err});
                   } else {
                     console.log('ocr text ' + text);
                            userFound.addUrl(urlFound, {
@@ -92,7 +92,7 @@ module.exports = {
                               cropOriginY: crop.y,
                               status: true,
                               comparison: comparison,
-                              cronVal: text
+                              ocrText: text
                            })
                            .then(function(associate) {
                             db.Url.findOne({
