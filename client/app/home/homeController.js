@@ -53,12 +53,12 @@ angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router', '
       url: '/api/users/list'
     })
     .success(function(data) {
-    
+
       var urls = [];
       var urlArray = data.urls;
       console.log('data - ', data);
       for (var i = 0; i < urlArray.length; i++) {
-        urls.push({url: urlArray[i].url, img: urlArray[i].UserUrl.cropImage});
+        urls.push({url: urlArray[i].url, img: urlArray[i].UserUrl.cropImage, text: urlArray[i].UserUrl.cronVal});
       }
       callback(false, urls);
     })

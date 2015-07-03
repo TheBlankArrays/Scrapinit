@@ -30,7 +30,7 @@ module.exports = {
 
   checkParametersAddUrl: function (req, res, next) {
     var params = req.body;
-    if (!params.url || !params.urlImg || !params.crop || !params.crop.x || 
+    if (!params.url || !params.urlImg || !params.crop || !params.crop.x ||
       !params.crop.y || !params.crop.w || !params.crop.h){
       res.status(400).json({error: 'Need more data'});
     }
@@ -100,7 +100,7 @@ module.exports = {
                                 id: urlFound.id
                               },
                               include: [
-                                { 
+                                {
                                   model: db.UserUrl,
                                   where: {
                                     user_id: req.session.user_id
@@ -111,7 +111,7 @@ module.exports = {
                               var response = {
                                 url: userUrl.url,
                                 id: userUrl.id,
-                                UserUrl: userUrl.UserUrls[0]
+                                UserUrl: userUrl.UserUrls[0],
                               }
                               console.log('sending ' + userUrl.url + ' to cronjob');
                               cronjob.addCron(userUrl.UserUrls[0], userUrl.url);
@@ -157,7 +157,7 @@ module.exports = {
                           id: urlCreated.id
                         },
                         include: [
-                          { 
+                          {
                             model: db.UserUrl,
                             where: {
                               user_id: req.session.user_id
