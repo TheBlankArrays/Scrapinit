@@ -41,15 +41,7 @@ module.exports = {
     console.log('url corpimg', url);
 
     var filepath = url.substr(0, url.length - 12) + ((compare) ? '-compare.png' : '.png');
-<<<<<<< HEAD
-<<<<<<< HEAD
     console.log('cropimg ', filepath)
-=======
-
->>>>>>> [Feauture] replace jpg with png format
-=======
-    console.log('cropimg ', filepath)
->>>>>>> [Feature] added filtering in ocr.js
      gm('../client/' + url).crop(crop.w, crop.h, crop.x, crop.y)
       .write('../client/' + filepath, function(err){
         if (err) return console.dir(arguments)
