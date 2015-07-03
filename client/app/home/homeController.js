@@ -1,12 +1,6 @@
 angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router', 'uiSwitch', 'angular-tour', 'ivpusic.cookie'])
 
 .controller('homeController', function ($scope, $state, $http, Url, ipCookie) {
-  //angular-tour settings cookie
-  $scope.currentStep = ipCookie('myBasicTour') || 0;
-  // save cookie after each step
-  $scope.stepComplete = function() {
-    ipCookie('myBasicTour', $scope.currentStep, { expires: 3000 });
-  };
   //finish angular-tour settings cookie
   $scope.urls = [];
   $scope.loading = false;
