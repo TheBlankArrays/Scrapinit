@@ -12,23 +12,20 @@
       <header>
         SCRAPIN´IT
       </header>
-      <div id="switching">
-        <switch id="enabled" name="enabled" ng-model="enabled" on="Image" off="Text" class="purple">
-      </div>
+
       <div id="logout">
         <button id='signout-button' type ='button' ng-click="logout()">
-          <span class="icon-exit"></span> 
+          <span class="icon-exit"></span>
           Logout
         </button>
       </div>
       <form id="form__url" ng-submit='add()'>
-        <input type="text" placeholder="http://" name="url" ng-model="url" id="url">
-        <input type="submit" value="SUBMIT"/>
+        <input type="text" name="url" ng-model="url" id="url">
+        <input type="submit" value="Submit"/>
       </form>
 
       <hr>
       <ui-view></ui-view>
     </div>
-  
-</div>
 
+</div>

@@ -6,7 +6,7 @@ angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router', '
   $scope.loading = false;
   $scope.urlImagePreview = '';
   $scope.userDecision = 'text';
-  $scope.url = '';
+  $scope.url = 'http://';
   $scope.$on('emptyUrls', function () {
     $scope.url = '';
     $scope.urlImagePreview = '';
