@@ -160,6 +160,7 @@ header {
 
 .table__row .remove__url {
   color: #b54b3a;
+  cursor: pointer;
 }
 
 .scrapping {
