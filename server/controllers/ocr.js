@@ -10,7 +10,6 @@ var obj = {
         var re = /\n/g;
         text = text.replace(re, ' ');
         text = text.trim();
-        console.log('regexd text ' + text);
         cb(null, text);
       }
     }); 

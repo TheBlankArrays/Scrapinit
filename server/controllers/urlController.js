@@ -81,9 +81,9 @@ module.exports = {
                ocr.convertImageToText(path + cropImg, function(err, text){
                   if(err){
                     console.log('ocr ' + err);
+                    res.status(400).json({message: err}); 
                   } else {
                     console.log('ocr text ' + text);
-
                            userFound.addUrl(urlFound, {
                               email: userFound.email,
                               cropImage: cropImg,
@@ -92,8 +92,8 @@ module.exports = {
                               cropOriginX: crop.x,
                               cropOriginY: crop.y,
                               status: true,
-                              comparison: comparison
-
+                              comparison: comparison,
+                              cronVal: text
                            })
                            .then(function(associate) {
                             db.Url.findOne({
@@ -138,6 +138,7 @@ module.exports = {
                 ocr.convertImageToText(path + cropImg, function(err, text){
                   if(err){
                     console.log('ocr ' + err);
+                    res.status(400).json({message: err});
                   } else {
                     console.log('ocr text ' + text);
                     userFound.addUrl(urlCreated, {
@@ -148,7 +149,8 @@ module.exports = {
                        cropOriginX: crop.x,
                        cropOriginY: crop.y,
                        status: true,
-                       comparison: comparison
+                       comparison: comparison,
+                       cronVal: text
                     })
                     .then(function(associate) {
                       db.Url.findOne({
