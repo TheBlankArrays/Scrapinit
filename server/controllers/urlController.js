@@ -7,7 +7,6 @@ var ocr = require('./ocr');
 
 module.exports = {
   getList: function (req, res, next) {
-    console.log('we are here')
     var email = req.session.email;
     db.User.findOne({
       where: {
