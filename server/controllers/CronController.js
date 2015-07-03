@@ -1,12 +1,13 @@
 var basicScraper = require('./basicScraperController');
 var getExternalUrl = require('./urlController').getExternalUrl;
+var compare = require('../imgCompare.js').compare;
 var CronJob = require('cron').CronJob;
 var CronJobManager = require('cron-job-manager');
-var secret = require('../../config.js');
 var db = require('../db.js');
-var Sequelize = require('sequelize');
-var compare = require('../imgCompare.js').compare;
 var nodemailer = require('nodemailer');
+var ocr = require('./ocr');
+var secret = require('../../config.js');
+var Sequelize = require('sequelize');
 var transporter = nodemailer.createTransport({
     service: 'mailgun',
     auth: secret.auth
@@ -50,10 +51,10 @@ module.exports = {
     // minutes
     // var freq = '* */' + UserUrl.frequency + ' * * * *';
 
-    var freq = '* * * 1 * *';
+    // var freq = '* * * 1 * *';
 
     // FOR TEST PURPOSES ONLY seconds
-    // var freq = '*/' + UserUrl.frequency + ' * * * * *';
+    var freq = '*/' + UserUrl.frequency + ' * * * * *';
 
     if (manager.exists(key)) {
       manager.deleteJob(key);
@@ -76,8 +77,14 @@ module.exports = {
           // compareUtils.compareOCR(value, value, value);
         // }
         // compares screenshot, sends email if there is a difference in image
-
-        compareUtils.compareScreenShot(UserUrl, url, email, params, oldImg);
+        console.log('the compare value is', UserUrl.compare);
+        if (UserUrl.compare === 'text') {
+          compareUtils.compareOCR();
+        } else if (UserUrl.compare === 'image') {
+          compareUtils.compareScreenShot(UserUrl, url, email, params, oldImg);
+        } else {
+          compareUtils.compareScreenShot(UserUrl, url, email, params, oldImg);
+        }
       } else {
         manager.stop()
       }
@@ -109,29 +116,40 @@ module.exports = {
 };
 
 var compareUtils = {
-  compareOCR: function() {
+  compareOCR: function(UserUrl, website, email, params, oldImg) {
     // TODO: take values that are input to it, pass it through compare ocr functions? Should be in basicScroperController?
+    compareUtils.getNewCroppedImage(UserUrl, website, email, params, oldImg, function(oldImg, newImg) {
+        ocr.converImageToText(newImg, function(newImg) {
+        }); // ocr.converImageToText(newImg, function(newImg) {
+    }); //compareUtils.getNewCroppedImage(UserUrl, website, email, params, oldImg, function(oldImg, newImg) {
+
   },
 
-  compareScreenShot: function(UserUrl, website, email, params, oldImg) {
-    // gets screenshot of website
+  getNewCroppedImage: function(UserUrl, website, email, params, oldImg, cb) {
     basicScraper.getScreenshot(website, UserUrl.user_id, function(img1, email) {
       // crops new image so we can compare the the old cropped image
       basicScraper.cropImg(img1, params, true, function(newImg) {
         // checks for difference in pictures
         console.log('img1 in cropImg', img1);
-        compare(oldImg, newImg, function (equal, oldImg, newImg){
-          if (!equal){
-            // set status to false since we are stopping the cronjob
-            UserUrl.status = false;
-            // stop cronjob
-            module.exports.stopCron(UserUrl.user_id, UserUrl.url_id)
-            // if images are not equal, send an email
-            compareUtils.sendEmail(website, email, oldImg, newImg);
-          }; // if (!equal){
-        }); // compare(img1, img2, function (equal){
+        cb(oldImg, newImg)
       }); // basicScraper.cropImg(img1, params, true, function(img2) {
     }, email); // basicScraper.getScreenshot()
+  },
+
+  compareScreenShot: function(UserUrl, website, email, params, oldImg) {
+    compareUtils.getNewCroppedImage(UserUrl, website, email, params, oldImg, function(oldImg, newImg) {
+      // checks for difference in pictures
+      compare(oldImg, newImg, function (equal, oldImg, newImg){
+        if (!equal){
+          // set status to false since we are stopping the cronjob
+          UserUrl.status = false;
+          // stop cronjob
+          module.exports.stopCron(UserUrl.user_id, UserUrl.url_id)
+          // if images are not equal, send an email
+          compareUtils.sendEmail(website, email, oldImg, newImg);
+        }; // if (!equal){
+      }); // compare(img1, img2, function (equal){
+    });
   }, // compareScreenShot: function(UserUrl, website, email, params, oldImg) {
 
   sendEmail: function(website, email, oldImg, newImg) {
