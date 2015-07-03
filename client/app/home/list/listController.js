@@ -1,7 +1,5 @@
 angular.module('app.home.list', [])
 .controller('listController', function ($scope, Url) {
-  console.log('app home results');
-
   $scope.getUrls = function () {
     console.log('in home results');
     Url.getUrls(function (err, urls) {

@@ -1,14 +1,14 @@
 <tour step="currentStep" post-step="stepComplete()">
-  <span ng-show="urls.length > 0 && !loading" ng-click="closeTour()" tourtip="Here will appear all your URLs history"
-    tourtip-step="1"
-    tourtip-next-label="Finish"
-    tourtip-placement="left"
+  <span tourtip="Copy here the URL that you want"
+    tourtip-step="0"
+    tourtip-next-label="Next"
+    tourtip-placement="bottom"
     scrollSpeed="500"
-    tourtip-offset="15">
+    tourtip-offset="-10">
   </span>
-  <span ng-show="urls.length == 0 && !loading" ng-click="closeTour()" tourtip="Here will appear your URLs history"
+  <span ng-click="closeTour()" tourtip="Here will appear all your URLs history"
     tourtip-step="1"
-    tourtip-next-label="Finish"
+    tourtip-next-label="Close"
     tourtip-placement="left"
     scrollSpeed="500"
     tourtip-offset="15">

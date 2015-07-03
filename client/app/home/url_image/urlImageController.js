@@ -1,7 +1,12 @@
 angular.module('app.home.urlImage', [ 'ui.router'])
-.controller('urlImageController', function ($scope, $state, Url) {
-
-
+.controller('urlImageController', function ($scope, $state, Url, ipCookie) {
+  //angular-tour settings cookie
+  $scope.currentStep = ipCookie('myImageTour') || 0;
+  // save cookie after each step
+  $scope.stepComplete = function() {
+    ipCookie('myImageTour', $scope.currentStep, { expires: 3000 });
+  };
+  //finish angular-tour settings cookie
   $scope.send = function (cropCoor) {
    console.log('user selected this option:', $scope.userDecision)
     Url.postUrl(cropCoor, $scope.urlImagePreview, $scope.url, $scope.userDecision, function (err, data) {
