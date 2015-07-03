@@ -17,7 +17,7 @@ module.exports = {
     var namePreview = '';
     urlWithoutHTTP = urlWithoutHTTP.replace(/[?/.=]/g, '_');    // change weird characters to underscore
 
-    namePreview = urlWithoutHTTP + '-preview.jpg'
+    namePreview = urlWithoutHTTP + '-preview.png'
     utils.scrapeFullImage(url, namePreview, userId, function (err, path) {
       console.log('err', err);
       if (err === 'success') {
@@ -37,7 +37,7 @@ module.exports = {
 
     console.log('url corpimg', url);
 
-    var filepath = url.substr(0, url.length - 12) + ((compare) ? '-compare.jpg' : '.jpg');
+    var filepath = url.substr(0, url.length - 12) + ((compare) ? '-compare.png' : '.png');
 
      gm('../client/' + url).crop(crop.w, crop.h, crop.x, crop.y)
       .write('../client/' + filepath, function(err){

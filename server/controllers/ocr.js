@@ -10,6 +10,8 @@ var obj = {
         var re = /\n/g;
         text = text.replace(re, ' ');
         text = text.trim();
+        console.log('//////////////////////');
+         console.log('text: ', text);
         cb(null, text);
       }
     }); 
