@@ -1,21 +1,23 @@
-<div id='page'>
-  <header>
-    SCRAPIN´IT
-  </header>
-  <div id="switching">
-    <switch id="enabled" name="enabled" ng-model="enabled" on="Image" off="Text" class="purple">
-  </div>
-  <div id="logout">
-    <button id='signout-button' type ='button' ng-click="logout()">
-      <span class="icon-exit"></span> 
-      Logout
-    </button>
-  </div>
-  <form ng-submit='add()'>
-    <input type="text" name="url" ng-model="url" id="url">
-  </form>
+<div id="app">
+  <div id='page'>
+    <header>
+      SCRAPIN´IT
+    </header>
+    <div id="switching">
+      <switch id="enabled" name="enabled" ng-model="enabled" on="Image" off="Text" class="purple">
+    </div>
+    <div id="logout">
+      <button id='signout-button' type ='button' ng-click="logout()">
+        <span class="icon-exit"></span> 
+        Logout
+      </button>
+    </div>
+    <form ng-submit='add()'>
+      <input type="text" name="url" ng-model="url" id="url">
+    </form>
 
-  <hr>
-  <ui-view></ui-view>
+    <hr>
+    <ui-view></ui-view>
+  </div>
 </div>
 

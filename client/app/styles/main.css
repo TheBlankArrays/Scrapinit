@@ -199,11 +199,13 @@ header {
 }
 
 
-
-
-#page {
+#app {
   background-color: rgba(255,255,255,0.4);
   background-image: url('/app/images/crossword.png');
+  width: 100%;
+}
+
+#page {
   width: 65%;
   margin: 0px auto;
   /*background-color: #fff;*/
