@@ -1,5 +1,13 @@
+<tour step="currentStep" post-step="stepComplete()">
+  <span tourtip="Copy here the URL that you want"
+        tourtip-step="0"
+        tourtip-next-label="Next"
+        tourtip-placement="left"
+        scrollSpeed="500"
+        tourtip-offset="15">
+  </span>
+</tour>
 <div id="app">
-  <tour step="currentStep" post-step="stepComplete()">
     <div id='page'>
       <header>
         SCRAPIN´IT
@@ -14,20 +22,13 @@
         </button>
       </div>
       <form id="form__url" ng-submit='add()'>
-        <span tourtip="Copy here the URL that you want"
-              tourtip-step="0"
-              tourtip-next-label="Next"
-              tourtip-placement="left"
-              scrollSpeed="500"
-              tourtip-offset="15">
-          <input type="text" placeholder="http://" name="url" ng-model="url" id="url">
-        </span>
+        <input type="text" placeholder="http://" name="url" ng-model="url" id="url">
         <input type="submit" value="SUBMIT"/>
       </form>
 
       <hr>
       <ui-view></ui-view>
     </div>
-  </tour>
+  
 </div>
 
