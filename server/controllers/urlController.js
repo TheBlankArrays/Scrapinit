@@ -149,7 +149,7 @@ module.exports = {
                        cropOriginY: crop.y,
                        status: true,
                        comparison: comparison,
-                       cronVal: text
+                       ocrText: text
                     })
                     .then(function(associate) {
                       db.Url.findOne({
