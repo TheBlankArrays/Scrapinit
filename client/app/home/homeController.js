@@ -1,14 +1,21 @@
-angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router', 'uiSwitch'])
+angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router', 'uiSwitch', 'angular-tour', 'ivpusic.cookie'])
 
-.controller('homeController', function ($scope, $state, $http, Url) {
-  $scope.url = 'http://';
+.controller('homeController', function ($scope, $state, $http, Url, ipCookie) {
+  //angular-tour settings cookie
+  $scope.currentStep = ipCookie('myTour') || 0;
+  // save cookie after each step
+  $scope.stepComplete = function() {
+    ipCookie('myTour', $scope.currentStep, { expires: 3000 });
+  };
+  //finish angular-tour settings cookie
+  $scope.url = '';
   $scope.urls = [];
   $scope.loading = false;
   $scope.urlImagePreview = '';
   $scope.userDecision = 'text';
 
   $scope.$on('emptyUrls', function () {
-    $scope.url = 'http://';
+    $scope.url = '';
     $scope.urlImagePreview = '';
     $scope.loading = false;
   });
