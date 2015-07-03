@@ -20,16 +20,19 @@ angular.module('app.routes', ['ui.router'])
       .state('home', {
         url: '/',
         templateUrl: 'app/home/home.html',
-        controller: 'homeController'
+        controller: 'homeController',
+        auth: true
       })
       .state('home.urlImage', {
         url: 'url_image',
         templateUrl: 'app/home/url_image/url_image.html',
-        controller: 'urlImageController'
+        controller: 'urlImageController',
+        auth: true
       })
       .state('home.list', {
         url: 'list',
         templateUrl: 'app/home/list/list.html',
-        controller: 'listController'
+        controller: 'listController',
+        auth: true
       });
   });
