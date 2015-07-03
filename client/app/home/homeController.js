@@ -2,10 +2,10 @@ angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router', '
 
 .controller('homeController', function ($scope, $state, $http, Url, ipCookie) {
   //angular-tour settings cookie
-  $scope.currentStep = ipCookie('myTour') || 0;
+  $scope.currentStep = ipCookie('myBasicTour') || 0;
   // save cookie after each step
   $scope.stepComplete = function() {
-    ipCookie('myTour', $scope.currentStep, { expires: 3000 });
+    ipCookie('myBasicTour', $scope.currentStep, { expires: 3000 });
   };
   //finish angular-tour settings cookie
   $scope.urls = [];
