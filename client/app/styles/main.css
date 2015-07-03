@@ -248,7 +248,7 @@ header {
   font-size: 16px;
   background-color: #b54b3a;
   color: #fff;
-  cursor: pointer;  
+  cursor: pointer;
   border: 0px;
   border-radius: 0px 7px 7px 0px;
 }
@@ -890,6 +890,9 @@ table.gradienttable td{
     transform: translate(-50%, -50%)
     }
 
+#switching {
+  margin: 0 25px 0 -25px;
+}
 .switch small {
     background: #E05050;
 }
@@ -897,4 +900,24 @@ table.gradienttable td{
 .switch.checked {
   background: #171A17;
   border-color: #5A5A5A;
+}
+
+#options-panel {
+  text-align: center;
+  background-color: rgba(135,206,232,0.4);
+  border-radius: 30px;
+  margin: 0 100px 20px;
+}
+#options-panel table {
+  margin: 0 auto;
+}
+#options-panel td {
+  vertical-align: middle;
+  text-align: center;
+  padding: 5px 10px;
+}
+#options-panel select {
+  line-height: 2;
+  font-size: 24px;
+  -webkit-appearance: menulist-button;
 }
