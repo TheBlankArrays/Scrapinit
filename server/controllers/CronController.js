@@ -3,7 +3,7 @@ var getExternalUrl = require('./urlController').getExternalUrl;
 var compare = require('../imgCompare.js').compare;
 var CronJob = require('cron').CronJob;
 var CronJobManager = require('cron-job-manager');
-var compareUtils = require('../cronUtils');
+var compareUtils = require('../cron');
 var nodemailer = require('nodemailer');
 var ocr = require('./ocr');
 var secret = require('../../config.js');
@@ -83,7 +83,14 @@ module.exports = {
         } else if (UserUrl.compare === 'image') {
           compareUtils.compareScreenShot(UserUrl, url, email, params, oldImg);
         } else {
-          compareUtils.compareScreenShot(UserUrl, url, email, params, oldImg);
+          compareUtils.compareScreenShot(UserUrl, url, email, params, oldImg, function(equal, oldImg, newImg) {
+          // set status to false since we are stopping the cronjob
+          UserUrl.status = false;
+          // stop cronjob
+          module.exports.stopCron(UserUrl.user_id, UserUrl.url_id)
+          // if images are not equal, send an email
+          compareUtils.sendEmail(url, email, oldImg, newImg);
+          });
         }
       } else {
         manager.stop()
