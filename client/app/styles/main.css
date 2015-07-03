@@ -247,10 +247,12 @@ header {
   width: 150px;
   font-size: 16px;
   background-color: #b54b3a;
+  border: 1px solid rgba(255,255,255,0.4) !important;
   color: #fff;
   cursor: pointer;
   border: 0px;
   border-radius: 0px 7px 7px 0px;
+  font-weight: bold;
 }
 
 .switch.checked {
@@ -286,10 +288,8 @@ header {
 }
 
 #logout {
-  text-align: right;
   margin: 10px 0px 20px 0px;
-  display: inline-block;
-  width: 50%;
+  display: block;
   box-sizing: border-box;
   text-align: right;
   vertical-align: top;
@@ -500,8 +500,7 @@ button {
     display:inline-block;
     cursor:pointer;
     color:#ffffff;
-    font-family:Arial;
-    font-size:15px;
+    font-size:17px;
     font-weight:bold;
     padding:9px 23px;
     text-decoration:none;
@@ -689,8 +688,12 @@ button {
     border-radius: 7px;
     -khtml-border-radius: 7px; /* for old Konqueror browsers */
     padding: 6px !important;
-    font-size: 10px !important;
+    font-size: 17px !important;
     border-radius: 6px !important;
+    padding: 0 10px;
+    letter-spacing: 2px;
+    font-family: 'Archivo Narrow';
+    border: 1px solid rgba(255,255,255, 0.5);
 }
 
 #submit-button {
