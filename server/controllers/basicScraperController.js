@@ -12,11 +12,14 @@ var validProtocols = {
 
 module.exports = {
   getScreenshot: function(url, userId, cb, email) {
+    var urlWithoutHTTP = (url.indexOf("://")===-1) ? url : url.substring(url.indexOf("://")+3);
 
-    var urlWithoutHTTP = url.substring(url.indexOf("://") + 3)  // handle http AND https protocols
+    console.log('urlWithoutHTTP', urlWithoutHTTP)
+      // handle http AND https protocols
     var namePreview = '';
-    urlWithoutHTTP = urlWithoutHTTP.replace(/[?/.=]/g, '_');    // change weird characters to underscore
-
+    urlWithoutHTTP = urlWithoutHTTP.replace(/[?/.=&]/g, '_');    // change weird characters to underscore
+    urlWithoutHTTP = urlWithoutHTTP.substring(0, 35);
+    console.log('URL after', urlWithoutHTTP);
     namePreview = urlWithoutHTTP + '-preview.png'
     utils.scrapeFullImage(url, namePreview, userId, function (err, path) {
       console.log('err', err);

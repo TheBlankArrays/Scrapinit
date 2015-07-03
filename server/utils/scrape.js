@@ -7,6 +7,7 @@ var utils = {
   scrapeFullImage: function (url, file, userId, callback) {
     console.log('url', url);
     console.log('file', file);
+
     console.log('folder', userId);
 
     webshot(url, '../client/assets/' + userId + '/' + file,
