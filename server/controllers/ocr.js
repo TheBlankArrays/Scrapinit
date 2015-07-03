@@ -1,4 +1,3 @@
-
 var nodecr = require('nodecr');
 var gm = require('gm').subClass({ imageMagick: true });
 
