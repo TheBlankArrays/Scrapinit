@@ -1,8 +1,8 @@
 var tesseract = require('node-tesseract');
+var gm = require('gm').subClass({ imageMagick: true });
 
 var obj = {
-  convertImageToText : function(imagePath, cb){ 
-    // sample anonoymous function(stats, text){};
+  convertImageToText : function(imagePath, cb){     // sample anonoymous function(stats, text){};
     tesseract.process(imagePath, function(err, text) {
       if(err) {
         cb(err);
