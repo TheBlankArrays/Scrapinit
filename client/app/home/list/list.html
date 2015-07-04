@@ -49,7 +49,10 @@
           Image
         </div>
         <div>
-          {{url.text}}
+          {{url.text | limitTo: 40}}
+          <div ng-show="url.text.length > 40">
+            . . .
+          </div>
         </div>
         <div>
           <a href="{{ur.url}}">
