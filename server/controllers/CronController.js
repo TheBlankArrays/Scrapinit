@@ -42,7 +42,7 @@ module.exports = {
     UserUrl.status = true;
     var userUrl = UserUrl;
     var key = UserUrl.url_id.toString() + UserUrl.user_id.toString();
-    console.log('Starting cronJob', key);
+    console.log('Starting cronJob', key, 'for', UserUrl.url);
     var action = UserUrl.compare || 'image';
 
     // hours
@@ -77,19 +77,28 @@ module.exports = {
           // compareUtils.compareOCR(value, value, value);
         // }
         // compares screenshot, sends email if there is a difference in image
-        console.log('the compare value is', UserUrl.compare);
-        if (UserUrl.compare === 'text') {
-          compareUtils.compareOCR();
-        } else if (UserUrl.compare === 'image') {
-          compareUtils.compareScreenShot(UserUrl, url, email, params, oldImg);
+        if (UserUrl.comparison === 'text') {
+          compareUtils.compareOCR(UserUrl, url, email, params, oldImg, function() {
+
+          });
+        } else if (UserUrl.comparison === 'image') {
+          compareUtils.compareScreenShot(UserUrl, url, email, params, oldImg, function(oldImg, newImg) {
+            // set status to false since we are stopping the cronjob
+            UserUrl.status = false;
+            // stop cronjob
+            module.exports.stopCron(UserUrl.user_id, UserUrl.url_id)
+            // if images are not equal, send an email
+            compareUtils.sendEmail(url, email, oldImg, newImg);
+          });
+
         } else {
-          compareUtils.compareScreenShot(UserUrl, url, email, params, oldImg, function(equal, oldImg, newImg) {
-          // set status to false since we are stopping the cronjob
-          UserUrl.status = false;
-          // stop cronjob
-          module.exports.stopCron(UserUrl.user_id, UserUrl.url_id)
-          // if images are not equal, send an email
-          compareUtils.sendEmail(url, email, oldImg, newImg);
+          compareUtils.compareScreenShot(UserUrl, url, email, params, oldImg, function(oldImg, newImg) {
+            // set status to false since we are stopping the cronjob
+            UserUrl.status = false;
+            // stop cronjob
+            module.exports.stopCron(UserUrl.user_id, UserUrl.url_id)
+            // if images are not equal, send an email
+            compareUtils.sendEmail(url, email, oldImg, newImg);
           });
         }
       } else {

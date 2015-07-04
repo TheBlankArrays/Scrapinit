@@ -12,6 +12,9 @@ module.exports = function(sequelize, tableConfig) {
     compareVal: {
       type: Sequelize.STRING,
     },
+    comparison: {
+      type: Sequelize.STRING,
+    },
     cropImage: {
       type: Sequelize.STRING,
       allowNull: false
@@ -36,17 +39,17 @@ module.exports = function(sequelize, tableConfig) {
       type: Sequelize.INTEGER,
       allowNull: false
     },
-    status: {
-      type: Sequelize.BOOLEAN,
-      allowNull: false,
-      defaultValue: true
-    },
     frequency: {
       type: Sequelize.INTEGER,
       defaultValue: 5
     },
-    comparison: {
-      type: Sequelize.STRING,
+    sockedID: {
+      type: Sequelize.STRING
+    },
+    status: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+      defaultValue: true
     }
   }, tableConfig)
 }
