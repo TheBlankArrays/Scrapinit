@@ -39,7 +39,7 @@ module.exports = function(sequelize, tableConfig) {
       type: Sequelize.INTEGER,
       defaultValue: 5
     },
-    sockedID {
+    sockedID: {
       type: Sequelize.STRING
     },
     status: {
