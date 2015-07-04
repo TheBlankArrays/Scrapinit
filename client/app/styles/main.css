@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:url('fonts/icomoon.eot?-3gxmn9');
-  src:url('fonts/icomoon.eot?#iefix-3gxmn9') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?-3gxmn9') format('truetype'),
-    url('fonts/icomoon.woff?-3gxmn9') format('woff'),
-    url('fonts/icomoon.svg?-3gxmn9#icomoon') format('svg');
+  src:url('fonts/icomoon.eot?knydm1');
+  src:url('fonts/icomoon.eot?#iefixknydm1') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?knydm1') format('truetype'),
+    url('fonts/icomoon.woff?knydm1') format('woff'),
+    url('fonts/icomoon.svg?knydm1#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -28,6 +28,9 @@
 }
 .icon-history:before {
   content: "\e94d";
+}
+.icon-bin:before {
+  content: "\e9ac";
 }
 .icon-checkmark2:before {
   content: "\ea11";
@@ -247,10 +250,12 @@ header {
   width: 150px;
   font-size: 16px;
   background-color: #b54b3a;
+  border: 1px solid rgba(255,255,255,0.4) !important;
   color: #fff;
-  cursor: pointer;  
+  cursor: pointer;
   border: 0px;
   border-radius: 0px 7px 7px 0px;
+  font-weight: bold;
 }
 
 .switch.checked {
@@ -286,10 +291,8 @@ header {
 }
 
 #logout {
-  text-align: right;
   margin: 10px 0px 20px 0px;
-  display: inline-block;
-  width: 50%;
+  display: block;
   box-sizing: border-box;
   text-align: right;
   vertical-align: top;
@@ -500,8 +503,7 @@ button {
     display:inline-block;
     cursor:pointer;
     color:#ffffff;
-    font-family:Arial;
-    font-size:15px;
+    font-size:17px;
     font-weight:bold;
     padding:9px 23px;
     text-decoration:none;
@@ -689,8 +691,12 @@ button {
     border-radius: 7px;
     -khtml-border-radius: 7px; /* for old Konqueror browsers */
     padding: 6px !important;
-    font-size: 10px !important;
+    font-size: 17px !important;
     border-radius: 6px !important;
+    padding: 0 10px;
+    letter-spacing: 2px;
+    font-family: 'Archivo Narrow';
+    border: 1px solid rgba(255,255,255, 0.5);
 }
 
 #submit-button {
@@ -890,6 +896,9 @@ table.gradienttable td{
     transform: translate(-50%, -50%)
     }
 
+#switching {
+  margin: 0 25px 0 -25px;
+}
 .switch small {
     background: #E05050;
 }
@@ -897,4 +906,24 @@ table.gradienttable td{
 .switch.checked {
   background: #171A17;
   border-color: #5A5A5A;
+}
+
+#options-panel {
+  text-align: center;
+  background-color: rgba(135,206,232,0.4);
+  border-radius: 30px;
+  margin: 0 100px 20px;
+}
+#options-panel table {
+  margin: 0 auto;
+}
+#options-panel td {
+  vertical-align: middle;
+  text-align: center;
+  padding: 5px 10px;
+}
+#options-panel select {
+  line-height: 2;
+  font-size: 24px;
+  -webkit-appearance: menulist-button;
 }

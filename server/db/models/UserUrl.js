@@ -19,6 +19,10 @@ module.exports = function(sequelize, tableConfig) {
       type: Sequelize.STRING,
       allowNull: false
     },
+    ocrText: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
     cropHeight: {
       type: Sequelize.INTEGER,
       allowNull: false
@@ -49,4 +53,3 @@ module.exports = function(sequelize, tableConfig) {
     }
   }, tableConfig)
 }
-

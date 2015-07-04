@@ -9,22 +9,20 @@ var obj = {
      if (err){
       console.log('image processing error', err)
       }
-     }); 
-
-    // sample anonoymous function(stats, text){};
-    tesseract.process(imgPath, function(err, text) {
-      if(err) {
-        cb(err);
-      } else {
-        var re = /\n/g;
-        text = text.replace(re, ' ');
-        text = text.trim();
-        console.log('//////////////////////');
-         console.log('text: ', text);
-        cb(null, text);
-      }
-    }); 
-  },
+      tesseract.process(filteredImage, function(err, text) {
+        if(err) {
+          cb(err);
+        } else {
+          var re = /\n/g;
+          text = text.replace(re, ' ');
+          text = text.trim();
+          console.log('//////////////////////');
+           console.log('text: ', text);
+          cb(null, text);
+        }
+      }); 
+    });
+  }
 };
 
 

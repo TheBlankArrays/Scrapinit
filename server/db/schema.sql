@@ -26,6 +26,7 @@ CREATE TABLE `UserUrl` (
     `frequency` INT NOT NULL DEFAULT '5',
     `webImage` varchar NOT NULL,
     `cropImage` varchar NOT NULL,
+    'ocrText' varchar NOT NULL,
     `cropHeight` INT NOT NULL,
     `cropWidth` INT NOT NULL,
     `cropOriginX` INT NOT NULL,
@@ -58,7 +59,7 @@ DROP TABLE IF EXISTS `UserUrl`;
 
 CREATE TABLE `UserUrl` (
     `urlID` INT NOT NULL AUTO_INCREMENT,
-    -- selector?? 
+    -- selector??
     -- 'selector' VARCHAR(255) NOT NULL,
     `html` VARCHAR(255) NOT NULL,
     'frequency' INT NOT NULL DEFAULT 5,

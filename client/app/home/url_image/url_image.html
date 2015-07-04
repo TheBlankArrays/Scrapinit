@@ -1,10 +1,43 @@
 <tour step="currentStep" post-step="stepComplete()">
-  <span ng-click="closeTour()" tourtip="Crop the image and enjoy!"
+   <span tourtip="Set your URL scrape type and frequency"
     tourtip-step="0"
-    tourtip-next-label="Close"
+    tourtip-next-label="next"
     tourtip-placement="left"
     scrollSpeed="500"
     tourtip-offset="15">
   </span>
+  <span ng-click="closeTour()" tourtip="Crop the image and enjoy!"
+    tourtip-step="1"
+    tourtip-next-label="Close"
+    tourtip-placement="top"
+    scrollSpeed="500"
+    tourtip-offset="-82">
+  </span>
 </tour>
+<div id="options-panel">
+  <table>
+    <tr>
+      <td colspan="4">Choose your URL scrape type and frequency and select your watch dimensions.</td>
+    </tr>
+    <tr>
+      <td>Type:</td>
+      <td>
+        <div id="switching">
+          <switch id="enabled" name="enabled" ng-model="enabled" on="Image" off="Text" class="purple">
+        </div>
+      </td>
+      <td>Frequency:</td>
+      <td>
+        <select>
+          <option value="">5 min</option>
+          <option value="">30 min</option>
+          <option value="">1 hour</option>
+          <option value="">4 hours</option>
+          <option value="">24 hours</option>
+          <option value="">week</option>
+        </select>
+      </td>
+    </tr>
+  </table>
+</div>
 <div id="urlimage"><img ng-src='{{urlImagePreview}}' crop='send(cropCoor)' width='800px'/></div>
