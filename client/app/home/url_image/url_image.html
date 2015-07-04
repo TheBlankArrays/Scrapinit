@@ -1,10 +1,17 @@
 <tour step="currentStep" post-step="stepComplete()">
-  <span ng-click="closeTour()" tourtip="Crop the image and enjoy!"
+   <span tourtip="Set your URL scrape type and frequency"
     tourtip-step="0"
-    tourtip-next-label="Close"
+    tourtip-next-label="next"
     tourtip-placement="left"
     scrollSpeed="500"
     tourtip-offset="15">
+  </span>
+  <span ng-click="closeTour()" tourtip="Crop the image and enjoy!"
+    tourtip-step="1"
+    tourtip-next-label="Close"
+    tourtip-placement="top"
+    scrollSpeed="500"
+    tourtip-offset="-82">
   </span>
 </tour>
 <div id="options-panel">
