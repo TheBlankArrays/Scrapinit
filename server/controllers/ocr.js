@@ -7,7 +7,7 @@ var obj = {
     var current = imagePath.split('../');
     var imgPath = '../'+current[2];
     var filteredImage = imgPath.substring(0, imgPath.length-4) + '-filter.png';
-    var imgFil = gm(imgPath).type('grayscale').enhance().unsharp(6.8, 1.0, 2.69, 0).resize(1200,2000).write(filteredImage, function (err) {
+    var imgFil = gm(imgPath).enhance().unsharp(6.8, 1.0, 2.69, 0).resize(1200,2000).write(filteredImage, function (err) {
      if (err){
       console.log('image processing error', err)
       }
