@@ -22,6 +22,9 @@
     </div>
       <div class="table__header">
         <div>
+          URL
+        </div>
+        <div>
           IMAGE
         </div>
         <div>
@@ -29,9 +32,6 @@
         </div>
         <div>
           VALUE
-        </div>
-        <div>
-          URL
         </div>
         <div>
           FREQUENCY
@@ -42,7 +42,12 @@
       </div>
     <div class="table__rows">
       <div class="table__row" ng-repeat="url in urls | filter:search">
-
+        <div>
+          <a href="{{url.url}}">
+            <span class="icon-share"></span>
+            {{url.url | domain}}
+          </a>
+        </div>
         <div>
           <img src="{{url.img}}"/>
         </div>
@@ -62,12 +67,6 @@
           </div>
         </div>
         <div>
-          <a href="{{url.url}}">
-            <span class="icon-share"></span>
-            Go to page
-          </a>
-        </div>
-        <div>
           {{url.frequency}}
         </div>
         <div>
@@ -77,7 +76,7 @@
           </span>
         </div>
 
-        <i style='text-align: left; color: rgba(58,58,66,0.4);'>{{url.url}}</i><br>
+        <!-- <i style='text-align: left; color: rgba(58,58,66,0.4);'>{{url.url | domain}}</i><br> -->
       </div>
     </div>
   </div>
