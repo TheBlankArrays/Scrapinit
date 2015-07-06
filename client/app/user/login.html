@@ -13,12 +13,12 @@
 -->
 <div id="container">
   <div class="form-style-8">
-    <h1>Scrapin'it</h1> 
+    <img src="/app/images/logo.png" />
     <div id='incorrect'>{{error}}</div>
     <div class="wrapper">
       <div class="form-wrapper">
         <form name="form"  ng-submit="login()">
-          <div class="form-group" 
+          <div class="form-group"
             ng-class='{ "has-focus": form.email.hasFocus,
             "has-success": form.email.$valid,
             "has-error": form.email.$invalid && (form.$submitted || form.email.$touched),
@@ -26,11 +26,11 @@
             <label for="email">email</label>
             <input type="email" name="email" ng-model="user.email" required
             ng-focus='form.email.hasFocus=true', ng-blur='form.email.hasFocus=false'>
-             <p ng-show="form.email.$error.required && (form.email.$touched || submitted)" 
+             <p ng-show="form.email.$error.required && (form.email.$touched || submitted)"
              class="error-block">Email is Required!</p>
           </div>
 
-          <div class="form-group" 
+          <div class="form-group"
             ng-class='{ "has-focus": form.password.hasFocus,
             "has-success": form.password.$valid,
             "has-error": form.password.$invalid && (form.$submitted || form.password.$touched),

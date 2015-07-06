@@ -58,7 +58,6 @@ header {
   width: 100%;
   text-align: center;
   line-height: 50px;
-  height: 50px;
   font-weight: bold;
   color: #000;
   font-size: 30px;
@@ -145,7 +144,7 @@ header {
   padding: 10px;
   text-align: center;
   display: inline-block;
-  vertical-align: middle;
+  vertical-align: top;
   word-wrap: break-word;
 }
 
@@ -167,6 +166,12 @@ header {
   -ms-transform: scale(6); /* IE 9 */
   -webkit-transform: scale(6); /* Safari */
   transform: scale(6);
+}
+
+.more, .less {
+  color: #b54b3a;
+  font-size: 0.9em;
+  cursor: pointer;
 }
 
 .scrapping {
