@@ -27,6 +27,11 @@ var setup = function(app) {
       urlController.addUrl
     );
 
+  app.route('/api/users/removeUrl')
+  .post(authController.isAuth, function(req, res, next) {
+    urlController.removeUrl(req, res, next);
+  });
+
   app.route("/api/users/url/:idUrl")
     .get(authController.isAuth, urlController.getUrl);
 

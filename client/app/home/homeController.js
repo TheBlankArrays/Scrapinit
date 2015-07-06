@@ -39,10 +39,18 @@ angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router', '
      .success(function (data) {
       $scope.urlImagePreview = data;
       $state.go('home.urlImage');
-
      });
-
   };
+
+  $scope.removeUrl = function(url) {
+    for (var i = 0; i < $scope.urls.length; i++) {
+      if ($scope.urls[i].url === url) {
+        $scope.urls.splice(i, 1);
+        break;
+      }
+    }
+  }
+
   $state.go('home.list');
 
 })
@@ -57,8 +65,20 @@ angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router', '
       var urls = [];
       var urlArray = data.urls;
       console.log('data - ', data);
+
+      var frequencyTable = {
+          '* */1 * * * *': '1 min',
+          '* */5 * * * *': '5 min',
+          '* */30 * * * *': '30 min',
+          '* * */1 * * *': '1 hour',
+          '* * */4 * * *': '4 hours',
+          '* * * */1 * *': 'daily',
+          '* * * */7 * *': 'weekly'
+      };
+
       for (var i = 0; i < urlArray.length; i++) {
-        urls.push({url: urlArray[i].url, img: urlArray[i].UserUrl.cropImage, text: urlArray[i].UserUrl.ocrText});
+        var curFreq = (frequencyTable[ urlArray[i].UserUrl.frequency ]) ? frequencyTable[ urlArray[i].UserUrl.frequency ] : '' ;
+        urls.push({url: urlArray[i].url, img: urlArray[i].UserUrl.cropImage, text: urlArray[i].UserUrl.ocrText, comparison: urlArray[i].UserUrl.comparison, frequency: curFreq});
       }
       callback(false, urls);
     })
@@ -67,17 +87,29 @@ angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router', '
     });
   };
 
-  var postUrl = function (cropCoor, urlImg, url, userDecision, callback) {
+  var postUrl = function (cropCoor, urlImg, url, userDecision, freq, callback) {
     console.log(userDecision, 'userDecision');
-    $http.post('/api/users/url', {crop: cropCoor, urlImg: urlImg, url: url, userDecision: userDecision})
+    $http.post('/api/users/url', {crop: cropCoor, urlImg: urlImg, url: url, urlType: userDecision, freq: freq})
     .success(function (data) {
       callback(false, data);
     });
   };
 
+  var removeUrl = function(url, callback) {
+    $http.post('/api/users/removeUrl', {url: url})
+       .success(function (data) {
+         console.log('SUCCESS REMOVAL');
+         callback(true);
+       })
+       .error(function(err) {
+         callback(false);
+       });
+  }
+
   return {
     getUrls: getUrls,
-    postUrl: postUrl
+    postUrl: postUrl,
+    removeUrl, removeUrl
   }
 
 });

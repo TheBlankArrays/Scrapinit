@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS UserUrl;
 CREATE TABLE `UserUrl` (
     `userID` INT NOT NULL,
     `urlID` INT NOT NULL,
-    `frequency` INT NOT NULL DEFAULT '5',
+    `frequency` varchar NOT NULL,
     `webImage` varchar NOT NULL,
     `cropImage` varchar NOT NULL,
     'ocrText' varchar NOT NULL,

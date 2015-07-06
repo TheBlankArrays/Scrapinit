@@ -42,11 +42,12 @@
       </div>
     <div class="table__rows">
       <div class="table__row" ng-repeat="url in urls | filter:search">
+
         <div>
           <img src="{{url.img}}"/>
         </div>
         <div>
-          Image
+          {{url.comparison}}
         </div>
         <div>
           {{url.text | limitTo: 40}}
@@ -55,19 +56,22 @@
           </div>
         </div>
         <div>
-          <a href="{{ur.url}}">
+          <a href="{{url.url}}">
             <span class="icon-share"></span>
             Go to page
           </a>
         </div>
         <div>
-          5 minutes
+          {{url.frequency}}
         </div>
         <div>
-          <span class="remove__url">
+
+          <span class="remove__url" ng-click="remove(url.url)" >
             <span class="icon-bin"></span>
           </span>
         </div>
+
+        <i style='text-align: left; color: rgba(58,58,66,0.4);'>{{url.url}}</i><br>
       </div>
     </div>
   </div>

@@ -41,11 +41,15 @@ module.exports = {
     console.log('in addUrl ', Object.keys(req.body));
     var email = req.session.email;
     var url = {url: req.body.url};
+    var frequency = req.body.freq;
+    var urlType = req.body.urlType;
+
+
     console.log('req body', JSON.stringify(req.body));
     console.log('url up top ' + JSON.stringify(url));
+    console.log('frequency: ' + frequency + ' and type: ' + urlType);
     var that = this;
     var selector = 'body';
-    var comparison = req.body.userDecision;
     var path =  __dirname + '/../../client/';
 
     db.User.findOne({
@@ -82,7 +86,7 @@ module.exports = {
                     console.log('ocr ' + err);
                     res.status(400).json({message: err});
                   } else {
-                    console.log('ocr text ' + text);
+                    console.log('ocr text ' + text, ' and frequency ' + frequency + ' and comparison ' + urlType);
                            userFound.addUrl(urlFound, {
                               email: userFound.email,
                               cropImage: cropImg,
@@ -91,8 +95,9 @@ module.exports = {
                               cropOriginX: crop.x,
                               cropOriginY: crop.y,
                               status: true,
-                              comparison: comparison,
-                              ocrText: text
+                              comparison: urlType,
+                              ocrText: text,
+                              frequency: frequency
                            })
                            .then(function(associate) {
                             db.Url.findOne({
@@ -139,7 +144,7 @@ module.exports = {
                     console.log('ocr ' + err);
                     res.status(400).json({message: err});
                   } else {
-                    console.log('ocr text ' + text);
+                    console.log('ocr text ' + text, ' and frequency ' + frequency + ' and comparison ' + urlType);
                     userFound.addUrl(urlCreated, {
                        email: userFound.email,
                        cropImage: cropImg,
@@ -148,8 +153,9 @@ module.exports = {
                        cropOriginX: crop.x,
                        cropOriginY: crop.y,
                        status: true,
-                       comparison: comparison,
-                       ocrText: text
+                       comparison: urlType,
+                       ocrText: text,
+                       frequency: frequency
                     })
                     .then(function(associate) {
                       db.Url.findOne({
@@ -182,16 +188,6 @@ module.exports = {
                     }); // close catch of addurl db call
                   }
                 });
-
-
-
-
-
-
-
-
-
-
 
               })  // close then of create url db call
               .catch(function (err) {
@@ -236,7 +232,41 @@ module.exports = {
       }
     });
   },
+  removeUrl: function(req, res, next) {
+      var email = req.session.email;
+      var url = {url: req.body.url};
 
+      db.User.findOne({
+        where: {
+          email: email
+        }
+      })
+      .then(function (userFound) {
+
+        if (userFound) {
+
+          db.Url.findOne({
+            where: url
+          })
+          .then(function(urlFound) {
+            if (urlFound) {
+
+              console.log('del cron', cronjob.deleteCron);
+              cronjob.deleteCron(userFound.id, urlFound.id);
+              userFound.removeUrl(urlFound);
+              res.status(200).send(true);
+
+            } else {
+
+              res.status(403).json({});
+
+            } // end urlFound
+          }); // end url.findOne then
+
+        } // end if userFound
+      }); // end user.findOne then
+
+  },
   getListOfUrls: function(req, res, next){
     console.log('in getListOfUrls ', req.session.email)
      var email = req.session.email;
