@@ -49,8 +49,8 @@ module.exports = function(sequelize, tableConfig) {
       type: Sequelize.STRING
     },
     filter: {
-      type: Sequelize.STRING
-      defaultValue: null,
+      type: Sequelize.STRING,
+      defaultValue: null
     },
     frequency: {
       type: Sequelize.STRING,
