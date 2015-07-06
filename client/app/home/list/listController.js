@@ -3,6 +3,7 @@ angular.module('app.home.list', [])
   //angular-tour settings cookie
   $scope.currentStep = ipCookie('myBasicTour') || 0;
   // save cookie after each step
+  $scope.currentText = undefined;
   $scope.stepComplete = function() {
     ipCookie('myBasicTour', $scope.currentStep, { expires: 3000 });
   };

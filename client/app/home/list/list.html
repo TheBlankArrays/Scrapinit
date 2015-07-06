@@ -50,9 +50,15 @@
           {{url.comparison}}
         </div>
         <div>
-          {{url.text | limitTo: 40}}
-          <div ng-show="url.text.length > 40">
-            . . .
+          <div ng-show="currentText !== $index">
+            {{url.text | limitTo: 40}}
+            <div class="more" ng-click="currentText = $index" ng-show="url.text.length > 40">
+              . . .
+            </div>
+          </div>
+          <div ng-show="currentText == $index">
+            {{url.text}}
+            <div class="less" ng-click="currentText = undefined"> hide </div>
           </div>
         </div>
         <div>
