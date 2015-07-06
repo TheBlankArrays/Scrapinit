@@ -11,6 +11,7 @@ module.exports = function(sequelize, tableConfig) {
     },
     compareVal: {
       type: Sequelize.STRING,
+      defaultValue: null
     },
     comparison: {
       type: Sequelize.STRING,
@@ -22,6 +23,11 @@ module.exports = function(sequelize, tableConfig) {
     ocrText: {
       type: Sequelize.STRING,
       allowNull: false
+    },
+    continueAfterChange: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
     },
     cropHeight: {
       type: Sequelize.INTEGER,
@@ -38,6 +44,13 @@ module.exports = function(sequelize, tableConfig) {
     cropOriginY: {
       type: Sequelize.INTEGER,
       allowNull: false
+    },
+    lastScrape: {
+      type: Sequelize.STRING
+    },
+    filter: {
+      type: Sequelize.STRING,
+      defaultValue: null
     },
     frequency: {
       type: Sequelize.STRING,
