@@ -3,8 +3,6 @@ var cronjob = require('./cronController');
 var db = require("../db");
 var ocr = require('./ocr');
 
-
-
 module.exports = {
   getList: function (req, res, next) {
     var email = req.session.email;
@@ -50,7 +48,8 @@ module.exports = {
     console.log('frequency: ' + frequency + ' and type: ' + urlType);
     var that = this;
     var selector = 'body';
-    var path =  __dirname + '/../../client/';
+    var path =  __dirname + '../';
+    path = path.slice(0, -22) + '/client/';
 
     db.User.findOne({
       where: {
@@ -80,6 +79,7 @@ module.exports = {
                console.log('loggin it yo', JSON.stringify(crop));
                console.log('urlfound: '+ urlFound);
                console.log('crop path' + cropImg);
+               console.log('path', path);
 
                ocr.convertImageToText(path + cropImg, function(err, text){
                   if(err){
