@@ -75,6 +75,10 @@ module.exports = {
           y: UserUrl.cropOriginY
         };
 
+        UserUrl.lastScrape = compareUtils.getDate();
+
+        console.log(key, 'last checked at', UserUrl.lastScrape);
+        
         if (UserUrl.comparison === 'text') {
           compareUtils.compareOCR(UserUrl, url, email, params, oldImg, function(oldImg, newImg) {
             // if we enter the anonymous function, we can assume images are not equal

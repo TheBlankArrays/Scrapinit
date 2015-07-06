@@ -13,6 +13,16 @@ var transporter = nodemailer.createTransport({
 });
 
 module.exports = {
+
+  getDate: function() {
+    var date = new Date();
+    var options = {
+      year: "numeric", month: "2-digit",
+      day: "numeric", hour: "2-digit", minute: "2-digit", second: "2-digit"
+    };
+    return date.toLocaleTimeString("en-us", options);
+  },
+
   getNewCroppedImage: function(UserUrl, website, email, params, oldImg, cb) {
     basicScraper.getScreenshot(website, UserUrl.user_id, function(img1, email) {
       // crops new image so we can compare the the old cropped image
@@ -55,6 +65,8 @@ module.exports = {
   sendEmail: function(website, email, oldImg, newImg) {
     console.log('change detected on', website, 'sending email to ', email);
     // parameters for email
+
+    // TODO: Add different mail options for different comparison funcitons.
     var mailOptions = {
         from: "The Blank Arrays <postmaster@sandbox72a87403dd654630bfa3c4b021cda08d.mailgun.org>", // sender address
         to: email, // list of receivers
