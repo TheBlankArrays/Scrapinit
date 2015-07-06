@@ -1,5 +1,5 @@
 var basicScraper = require('./basicScraperController');
-var cronjob = require('./cronController');
+var cronjob = require('./CronController');
 var db = require("../db");
 var ocr = require('./ocr');
 
