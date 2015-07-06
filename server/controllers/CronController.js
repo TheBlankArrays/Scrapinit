@@ -42,8 +42,7 @@ module.exports = {
     UserUrl.status = true;
     var userUrl = UserUrl;
     var key = UserUrl.url_id.toString() + UserUrl.user_id.toString();
-    var freq = UserUrl.frequency;
-    console.log('Starting cronJob', key, 'for', UserUrl.url, ' with frequency ', freq);
+    // var freq = UserUrl.frequency;
     var action = UserUrl.compare || 'image';
 
     // hours
@@ -52,9 +51,11 @@ module.exports = {
     // minutes
     // var freq = '* */' + UserUrl.frequency + ' * * * *';
 
-    // var freq = '* * * 1 * *';
+    var freq = '*/5 * * * * *';
+    // var freq = '* */5 * * * *';
 
-    // FOR TEST PURPOSES ONLY seconds
+
+    console.log('Starting cronJob', key, 'for', UserUrl.url, ' with frequency ', freq);
 
 
     if (manager.exists(key)) {
@@ -62,6 +63,8 @@ module.exports = {
     };
     manager.add(key, freq, function() {
       if (UserUrl.status) {
+        // var currentDate = new Date(dateString);
+        // console.log('the date is', currentDate);
         console.log('checking', url, 'for', UserUrl.email);
          var oldImg = UserUrl.cropImage;
          var email = UserUrl.email;
@@ -72,37 +75,40 @@ module.exports = {
           y: UserUrl.cropOriginY
         };
 
-        // TODO:
-        // check userUrl if comparing screenshot or ocr values?
-        // if (UserUrl.) {
-          // compareUtils.compareOCR(value, value, value);
-        // }
-        // compares screenshot, sends email if there is a difference in image
         if (UserUrl.comparison === 'text') {
           compareUtils.compareOCR(UserUrl, url, email, params, oldImg, function(oldImg, newImg) {
-            // set status to false since we are stopping the cronjob
-            UserUrl.status = false;
-            // stop cronjob
-            module.exports.stopCron(UserUrl.user_id, UserUrl.url_id)
+            // if we enter the anonymous function, we can assume images are not equal
+            if (!UserUrl.continueAfterChange) {
+              // set status to false since we are stopping the cronjob
+              UserUrl.status = false;
+              // stop cronjob
+              module.exports.stopCron(UserUrl.user_id, UserUrl.url_id)
+            }
             // if images are not equal, send an email
             compareUtils.sendEmail(url, email, oldImg, newImg);
           });
         } else if (UserUrl.comparison === 'image') {
           compareUtils.compareScreenShot(UserUrl, url, email, params, oldImg, function(oldImg, newImg) {
-            // set status to false since we are stopping the cronjob
-            UserUrl.status = false;
-            // stop cronjob
-            module.exports.stopCron(UserUrl.user_id, UserUrl.url_id)
+            // if we enter the anonymous function, we can assume images are not equal
+            if (!UserUrl.continueAfterChange) {
+              // set status to false since we are stopping the cronjob
+              UserUrl.status = false;
+              // stop cronjob
+              module.exports.stopCron(UserUrl.user_id, UserUrl.url_id)
+            }
             // if images are not equal, send an email
             compareUtils.sendEmail(url, email, oldImg, newImg);
           });
 
         } else {
           compareUtils.compareScreenShot(UserUrl, url, email, params, oldImg, function(oldImg, newImg) {
-            // set status to false since we are stopping the cronjob
-            UserUrl.status = false;
-            // stop cronjob
-            module.exports.stopCron(UserUrl.user_id, UserUrl.url_id)
+            // if we enter the anonymous function, we can assume images are not equal
+            if (!UserUrl.continueAfterChange) {
+              // set status to false since we are stopping the cronjob
+              UserUrl.status = false;
+              // stop cronjob
+              module.exports.stopCron(UserUrl.user_id, UserUrl.url_id)
+            }
             // if images are not equal, send an email
             compareUtils.sendEmail(url, email, oldImg, newImg);
           });
