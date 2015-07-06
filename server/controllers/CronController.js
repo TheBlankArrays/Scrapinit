@@ -54,7 +54,7 @@ module.exports = {
     // var freq = '* * * 1 * *';
 
     // FOR TEST PURPOSES ONLY seconds
-    var freq = '*/' + UserUrl.frequency + ' * * * * *';
+    var freq = UserUrl.frequency;
 
     if (manager.exists(key)) {
       manager.deleteJob(key);
@@ -71,7 +71,7 @@ module.exports = {
           y: UserUrl.cropOriginY
         };
 
-        // TODO: 
+        // TODO:
         // check userUrl if comparing screenshot or ocr values?
         // if (UserUrl.) {
           // compareUtils.compareOCR(value, value, value);
@@ -130,4 +130,3 @@ module.exports = {
     manager.deleteJob(key);
   },
 };
-

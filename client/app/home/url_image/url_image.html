@@ -28,13 +28,10 @@
       </td>
       <td>Frequency:</td>
       <td>
-        <select>
-          <option value="">5 min</option>
-          <option value="">30 min</option>
-          <option value="">1 hour</option>
-          <option value="">4 hours</option>
-          <option value="">24 hours</option>
-          <option value="">week</option>
+
+        <select ng-model="freq"
+                ng-init="freq = freq || options[0].value"
+                ng-options="option.value as option.name for option in options">
         </select>
       </td>
     </tr>

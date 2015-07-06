@@ -75,9 +75,9 @@ angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router', '
     });
   };
 
-  var postUrl = function (cropCoor, urlImg, url, userDecision, callback) {
+  var postUrl = function (cropCoor, urlImg, url, userDecision, freq, callback) {
     console.log(userDecision, 'userDecision');
-    $http.post('/api/users/url', {crop: cropCoor, urlImg: urlImg, url: url, userDecision: userDecision})
+    $http.post('/api/users/url', {crop: cropCoor, urlImg: urlImg, url: url, urlType: userDecision, freq: freq})
     .success(function (data) {
       callback(false, data);
     });

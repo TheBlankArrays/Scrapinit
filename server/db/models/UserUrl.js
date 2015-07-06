@@ -40,8 +40,8 @@ module.exports = function(sequelize, tableConfig) {
       allowNull: false
     },
     frequency: {
-      type: Sequelize.INTEGER,
-      defaultValue: 5
+      type: Sequelize.STRING,
+      allowNull: false
     },
     sockedID: {
       type: Sequelize.STRING

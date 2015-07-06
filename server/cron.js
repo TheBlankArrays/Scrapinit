@@ -25,6 +25,7 @@ module.exports = {
 
   compareOCR: function(UserUrl, website, email, params, oldImg) {
     // TODO: take values that are input to it, pass it through compare ocr functions? Should be in basicScroperController?
+    var that = this;
     this.getNewCroppedImage(UserUrl, website, email, params, oldImg, function(oldImg, newImg) {
       console.log('inside ocrCompare, oldImg', oldImg, 'newImg', newImg);
         ocr.convertImageToText(newImg, function(err, text) {
@@ -34,7 +35,7 @@ module.exports = {
             console.log('comparing text values');
             if (UserUrl.cronVal !== text) {
               console.log("WE FOUND A DIFFERENCE IN TEXT!");
-              this.sendEmail(website, email, oldImg, newImg);
+              that.sendEmail(website, email, oldImg, newImg);
             } // if (UserUrl.cronVal !== text) {
           } // } else {
         }); // ocr.converImageToText(newImg, function(newImg) {
@@ -75,10 +76,8 @@ module.exports = {
     //     if(error){
     //       console.log(error);
     //     } else {
-    //       console.log('Message sent: ' + info.response);            
-    //     }; // else statemenet  
+    //       console.log('Message sent: ' + info.response);
+    //     }; // else statemenet
     // }); // transporter.sendMail(mailOptions, function(error, info){
   } // sendEmail: function(website, email) {
 }
-
-
