@@ -65,8 +65,20 @@ angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router', '
       var urls = [];
       var urlArray = data.urls;
       console.log('data - ', data);
+
+      var frequencyTable = {
+          '* */1 * * * *': '1 min',
+          '* */5 * * * *': '5 min',
+          '* */30 * * * *': '30 min',
+          '* * */1 * * *': '1 hour',
+          '* * */4 * * *': '4 hours',
+          '* * * */1 * *': 'daily',
+          '* * * */7 * *': 'weekly'
+      };
+
       for (var i = 0; i < urlArray.length; i++) {
-        urls.push({url: urlArray[i].url, img: urlArray[i].UserUrl.cropImage, text: urlArray[i].UserUrl.ocrText});
+        var curFreq = (frequencyTable[ urlArray[i].UserUrl.frequency ]) ? frequencyTable[ urlArray[i].UserUrl.frequency ] : '' ;
+        urls.push({url: urlArray[i].url, img: urlArray[i].UserUrl.cropImage, text: urlArray[i].UserUrl.ocrText, comparison: urlArray[i].UserUrl.comparison, frequency: curFreq});
       }
       callback(false, urls);
     })

@@ -42,7 +42,8 @@ module.exports = {
     UserUrl.status = true;
     var userUrl = UserUrl;
     var key = UserUrl.url_id.toString() + UserUrl.user_id.toString();
-    console.log('Starting cronJob', key, 'for', UserUrl.url);
+    var freq = UserUrl.frequency;
+    console.log('Starting cronJob', key, 'for', UserUrl.url, ' with frequency ', freq);
     var action = UserUrl.compare || 'image';
 
     // hours
@@ -54,7 +55,7 @@ module.exports = {
     // var freq = '* * * 1 * *';
 
     // FOR TEST PURPOSES ONLY seconds
-    var freq = UserUrl.frequency;
+
 
     if (manager.exists(key)) {
       manager.deleteJob(key);
