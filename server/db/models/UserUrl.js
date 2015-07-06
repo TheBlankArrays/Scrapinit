@@ -50,6 +50,7 @@ module.exports = function(sequelize, tableConfig) {
     },
     filter: {
       type: Sequelize.STRING
+      defaultValue: null,
     },
     frequency: {
       type: Sequelize.STRING,
