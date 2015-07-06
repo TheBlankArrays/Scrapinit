@@ -11,6 +11,7 @@ module.exports = function(sequelize, tableConfig) {
     },
     compareVal: {
       type: Sequelize.STRING,
+      defaultValue: null
     },
     comparison: {
       type: Sequelize.STRING,

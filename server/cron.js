@@ -42,10 +42,16 @@ module.exports = {
             console.log('ocr error' + err);
           } else {
             console.log('comparing text values');
-            if (UserUrl.cronVal !== text) {
-              console.log("WE FOUND A DIFFERENCE IN TEXT!");
-             cb(oldImg, newImg);
-            } // if (UserUrl.cronVal !== text) {
+            if (UserUrl.compareVal === null) {
+              if (UserUrl.cronVal !== text) {
+               cb(oldImg, newImg);
+              
+              } // if (UserUrl.cronVal !== text) {
+            }  else if (UserUrl.compareVal === 'greater') { // if (UserUrl.compareVal === null) {
+            } else if (UserUrl.compareVal == 'less') {
+
+            } else if (UserUrl.compareVal == 'contains') {
+            }
           } // } else {
         }); // ocr.converImageToText(newImg, function(newImg) {
     }); //this.getNewCroppedImage(UserUrl, website, email, params, oldImg, function(oldImg, newImg) {
