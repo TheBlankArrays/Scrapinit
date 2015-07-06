@@ -9,7 +9,7 @@ var obj = {
      if (err){
       console.log('image processing error', err)
       }
-      tesseract.process(filteredImage, function(err, text) {
+      tesseract.process(imgPath, function(err, text) {
         if(err) {
           cb(err);
         } else {
