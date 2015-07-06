@@ -78,8 +78,13 @@ module.exports = {
         // }
         // compares screenshot, sends email if there is a difference in image
         if (UserUrl.comparison === 'text') {
-          compareUtils.compareOCR(UserUrl, url, email, params, oldImg, function() {
-
+          compareUtils.compareOCR(UserUrl, url, email, params, oldImg, function(oldImg, newImg) {
+            // set status to false since we are stopping the cronjob
+            UserUrl.status = false;
+            // stop cronjob
+            module.exports.stopCron(UserUrl.user_id, UserUrl.url_id)
+            // if images are not equal, send an email
+            compareUtils.sendEmail(url, email, oldImg, newImg);
           });
         } else if (UserUrl.comparison === 'image') {
           compareUtils.compareScreenShot(UserUrl, url, email, params, oldImg, function(oldImg, newImg) {
