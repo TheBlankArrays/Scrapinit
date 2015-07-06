@@ -67,13 +67,12 @@ angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router', '
       console.log('data - ', data);
 
       var frequencyTable = {
-          '* */1 * * * *': '1 min',
-          '* */5 * * * *': '5 min',
-          '* */30 * * * *': '30 min',
-          '* * */1 * * *': '1 hour',
-          '* * */4 * * *': '4 hours',
-          '* * * */1 * *': 'daily',
-          '* * * */7 * *': 'weekly'
+          '1 */5 * * * *': '5 min',
+          '1 */30 * * * *': '30 min',
+          '1 1 */1 * * *': '1 hour',
+          '1 1 */4 * * *': '4 hours',
+          '1 1 1 */1 * *': 'daily',
+          '1 1 1 */7 * *': 'weekly'
       };
 
       for (var i = 0; i < urlArray.length; i++) {

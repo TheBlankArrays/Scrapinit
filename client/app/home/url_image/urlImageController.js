@@ -4,32 +4,28 @@ angular.module('app.home.urlImage', [ 'ui.router'])
   // frequency select options
   $scope.options = [
       {
-        name: '1 min',
-        value: '* */1 * * * *'
-      },
-      {
         name: '5 min',
-        value: '* */5 * * * *'
+        value: '1 */5 * * * *'
       },
       {
         name: '30 min',
-        value: '* */30 * * * *'
+        value: '1 */30 * * * *'
       },
       {
         name: '1 hour',
-        value: '* * */1 * * *'
+        value: '1 1 */1 * * *'
       },
       {
         name: '4 hours',
-        value: '* * */4 * * *'
+        value: '1 1 */4 * * *'
       },
       {
         name: 'daily',
-        value: '* * * */1 * *'
+        value: '1 1 1 */1 * *'
       },
       {
         name: 'weekly',
-        value: '* * * */7 * *'
+        value: '1 1 1 */7 * *'
       }
   ];
 
