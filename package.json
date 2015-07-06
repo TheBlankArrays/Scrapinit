@@ -57,6 +57,7 @@
     "karma-jasmine": "^0.3.5"
   }, 
   "engines": {
-    "node": "0.12.6"
+    "node": "0.12.6",
+    "npm": "2.7.x"
   }
 }
