@@ -42,7 +42,7 @@ module.exports = {
     UserUrl.status = true;
     var userUrl = UserUrl;
     var key = UserUrl.url_id.toString() + UserUrl.user_id.toString();
-    // var freq = UserUrl.frequency;
+    var freq = UserUrl.frequency;
     var action = UserUrl.compare || 'image';
 
     // hours
