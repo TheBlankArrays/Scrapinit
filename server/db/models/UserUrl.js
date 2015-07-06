@@ -39,6 +39,9 @@ module.exports = function(sequelize, tableConfig) {
       type: Sequelize.INTEGER,
       allowNull: false
     },
+    lastScrape: {
+      type: Sequelize.STRING
+    },
     frequency: {
       type: Sequelize.STRING,
       allowNull: false
