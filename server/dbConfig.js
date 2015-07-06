@@ -2,25 +2,36 @@ var Sequelize = require("sequelize");
 
 //no password
 var connect = function(dbPath) {
-	var sequelize = new Sequelize('database', 'root', '', {
-		host:'localhost',
-		dialect: 'sqlite',
+	if (process.env['giggling-fleetingly-1104']) {
+    // the application is executed on Heroku ... use the postgres database
+    sequelize = new Sequelize(process.env.HEROKU_POSTGRESQL_BRONZE_URL, {
+      dialect:  'postgres',
+      protocol: 'postgres',
+      port:     match[4],
+      host:     match[3],
+      logging:  true //false
+    })
+  } else {
+    // the application is executed on the local machine ... use mysql
+		var sequelize = new Sequelize('scrapinit', 'scrapinit', '123456', {
+			dialect: 'postgres',
+			port:    5432,
+			// use pooling in order to reduce db connection overload and to increase speed
+			// currently only for mysql and postgresql (since v1.5.0)
+			//not sure exactly what this does, copying config documentation
+			// pool: {
+			// 	max: 5,
+			// 	min: 0,
+			// 	idle: 10000
+			// },
 
-		// use pooling in order to reduce db connection overload and to increase speed
-		// currently only for mysql and postgresql (since v1.5.0)
-		//not sure exactly what this does, copying config documentation
-		// pool: {
-		// 	max: 5,
-		// 	min: 0,
-		// 	idle: 10000
-		// },
-
-		storage: dbPath,
-		logging: console.log,
-    logging: function (str) {
-      console.log('Query: ', str);
-    }
-	});
+			// storage: dbPath,
+			logging: console.log,
+	    logging: function (str) {
+	      console.log('Query: ', str);
+	    }
+		});
+  }
 
 	return sequelize;
 };

@@ -40,6 +40,7 @@
     "nodemailer": "^1.4.0",
     "passport": "^0.2.2",
     "passport-local": "^1.0.0",
+    "pg": "^4.4.0",
     "phantom": "^0.7.2",
     "request": "^2.58.0",
     "resemblejs": "^1.2.1",
@@ -55,7 +56,7 @@
     "karma": "^0.12.35",
     "karma-chrome-launcher": "^0.1.12",
     "karma-jasmine": "^0.3.5"
-  }, 
+  },
   "engines": {
     "node": "0.12.6",
     "npm": "2.7.x"
