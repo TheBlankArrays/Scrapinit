@@ -39,10 +39,18 @@ angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router', '
      .success(function (data) {
       $scope.urlImagePreview = data;
       $state.go('home.urlImage');
-
      });
-
   };
+
+  $scope.removeUrl = function(url) {
+    for (var i = 0; i < $scope.urls.length; i++) {
+      if ($scope.urls[i].url === url) {
+        $scope.urls.splice(i, 1);
+        break;
+      }
+    }
+  }
+
   $state.go('home.list');
 
 })
@@ -75,9 +83,21 @@ angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router', '
     });
   };
 
+  var removeUrl = function(url, callback) {
+    $http.post('/api/users/removeUrl', {url: url})
+       .success(function (data) {
+         console.log('SUCCESS REMOVAL');
+         callback(true);
+       })
+       .error(function(err) {
+         callback(false);
+       });
+  }
+
   return {
     getUrls: getUrls,
-    postUrl: postUrl
+    postUrl: postUrl,
+    removeUrl, removeUrl
   }
 
 });

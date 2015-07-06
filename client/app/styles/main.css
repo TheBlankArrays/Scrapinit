@@ -163,6 +163,10 @@ header {
 .table__row .remove__url {
   color: #b54b3a;
   cursor: pointer;
+  font-size: 36px;
+  -ms-transform: scale(6); /* IE 9 */
+  -webkit-transform: scale(6); /* Safari */
+  transform: scale(6);
 }
 
 .scrapping {

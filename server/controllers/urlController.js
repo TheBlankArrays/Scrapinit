@@ -183,16 +183,6 @@ module.exports = {
                   }
                 });
 
-
-
-
-
-
-
-
-
-
-
               })  // close then of create url db call
               .catch(function (err) {
                 res.status(400).json({message: err.message});
@@ -236,7 +226,41 @@ module.exports = {
       }
     });
   },
+  removeUrl: function(req, res, next) {
+      var email = req.session.email;
+      var url = {url: req.body.url};
 
+      db.User.findOne({
+        where: {
+          email: email
+        }
+      })
+      .then(function (userFound) {
+
+        if (userFound) {
+
+          db.Url.findOne({
+            where: url
+          })
+          .then(function(urlFound) {
+            if (urlFound) {
+
+              console.log('del cron', cronjob.deleteCron);
+              cronjob.deleteCron(userFound.id, urlFound.id);
+              userFound.removeUrl(urlFound);
+              res.status(200).send(true);
+
+            } else {
+
+              res.status(403).json({});
+
+            } // end urlFound
+          }); // end url.findOne then
+
+        } // end if userFound
+      }); // end user.findOne then
+
+  },
   getListOfUrls: function(req, res, next){
     console.log('in getListOfUrls ', req.session.email)
      var email = req.session.email;

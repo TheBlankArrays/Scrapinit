@@ -6,7 +6,7 @@ angular.module('app.home.list', [])
   $scope.stepComplete = function() {
     ipCookie('myBasicTour', $scope.currentStep, { expires: 3000 });
   };
-  
+
   $scope.getUrls = function () {
     console.log('in home results');
     Url.getUrls(function (err, urls) {
@@ -19,7 +19,16 @@ angular.module('app.home.list', [])
     });
   };
 
+  $scope.remove = function(url) {
+    console.log('remove url: ' + url);
+    Url.removeUrl(url, function(success) {
+      console.log('SUCCESS!' + success);
+      if (success) {
+        $scope.removeUrl(url);
+      }
+    });
+  }
+
   $scope.getUrls();
 
 });
-
