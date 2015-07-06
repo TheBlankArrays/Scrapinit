@@ -7,7 +7,6 @@ client/lib
 npm-debug.log
 server/test.js
 server/dist/*.js
-server/db/db.sqlite
 client/assets
 images/*
 server/difference.png
