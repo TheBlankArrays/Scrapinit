@@ -23,6 +23,11 @@ module.exports = function(sequelize, tableConfig) {
       type: Sequelize.STRING,
       allowNull: false
     },
+    continueAfterChange: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
+    },
     cropHeight: {
       type: Sequelize.INTEGER,
       allowNull: false
@@ -40,6 +45,9 @@ module.exports = function(sequelize, tableConfig) {
       allowNull: false
     },
     lastScrape: {
+      type: Sequelize.STRING
+    },
+    filter: {
       type: Sequelize.STRING
     },
     frequency: {
