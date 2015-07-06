@@ -41,6 +41,7 @@
     "nodemailer": "^1.4.0",
     "passport": "^0.2.2",
     "passport-local": "^1.0.0",
+    "pg": "^4.4.0",
     "phantom": "^0.7.2",
     "request": "^2.58.0",
     "resemblejs": "^1.2.1",
