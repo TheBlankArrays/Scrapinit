@@ -3,7 +3,7 @@ var app = express();
 //run the sqlite
 var db = require('./db');
 //middleware that automatically logs responses, requests, and associated data
-var logger = require('morgan');
+//var logger = require('morgan');
 var routes = require('./routes');
 var parser = require('body-parser');
 var session = require('express-session');
