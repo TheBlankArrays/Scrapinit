@@ -18,7 +18,7 @@ var connect = function(dbPath) {
 		storage: dbPath,
 		logging: console.log,
     logging: function (str) {
-      // console.log('Query: ', str);
+      console.log('Query: ', str);
     }
 	});
 
