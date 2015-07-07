@@ -15,7 +15,7 @@
   </span>
 </tour>
 <div id="options-panel">
-  <table>
+  <table border="0">
     <tr>
       <td colspan="4">Choose your URL scrape type and frequency and select your watch dimensions.</td>
     </tr>
@@ -33,6 +33,26 @@
                 ng-init="freq = freq || options[0].value"
                 ng-options="option.value as option.name for option in options">
         </select>
+
+
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4"><input type="checkbox">Stop checking when watch triggered.</td>
+    </tr>
+    <tr style='text-align: left'>
+      <td colspan="4">
+        <table>
+          <tr>
+            <td><input type="checkbox">Filter</td>
+            <td>
+              <input type="radio">greater than<br>
+              <input type="radio">less than<br>
+              <input type="radio">contains
+            </td>
+            <td><input type="input" style="width: 150px"></td>
+          </tr>
+        </table>
       </td>
     </tr>
   </table>
