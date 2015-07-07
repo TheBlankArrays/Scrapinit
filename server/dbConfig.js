@@ -4,7 +4,7 @@ var Sequelize = require("sequelize");
 var connect = function(dbPath) {
 	if (process.env['giggling-fleetingly-1104']) {
     // the application is executed on Heroku ... use the postgres database
-    sequelize = new Sequelize(process.env.HEROKU_POSTGRESQL_BRONZE_URL, {
+    sequelize = new Sequelize(process.env.['giggling-fleetingly-1104'], {
       dialect:  'postgres',
       protocol: 'postgres',
       port:     match[4],
