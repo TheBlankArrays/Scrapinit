@@ -24,10 +24,10 @@ module.exports = function(sequelize, tableConfig) {
       type: Sequelize.STRING,
       allowNull: false
     },
-    continueAfterChange: {
+    stopAfterChange: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
-      defaultValue: false
+      defaultValue: true
     },
     cropHeight: {
       type: Sequelize.INTEGER,
