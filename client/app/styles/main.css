@@ -62,6 +62,9 @@ header {
   color: #000;
   font-size: 30px;
 }
+header img {
+  margin: 25px auto -15px;
+}
 .table {
   width: 100%;
 }
@@ -162,7 +165,7 @@ header {
 .table__row .remove__url {
   color: #b54b3a;
   cursor: pointer;
-  font-size: 36px;
+  font-size: 27px;
   -ms-transform: scale(6); /* IE 9 */
   -webkit-transform: scale(6); /* Safari */
   transform: scale(6);
@@ -918,20 +921,26 @@ table.gradienttable td{
 
 #options-panel {
   text-align: center;
-  background-color: rgba(135,206,232,0.4);
-  border-radius: 30px;
+
   margin: 0 100px 20px;
 }
-#options-panel table {
+#options-panel > table {
+  background-color: rgba(135,206,232,0.4);
+  border-radius: 30px;
   margin: 0 auto;
 }
-#options-panel td {
+#options-panel table td {
+  vertical-align: middle;
+  text-align: left;
+  padding: 5px 10px;
+}
+#options-panel > table td {
   vertical-align: middle;
   text-align: center;
   padding: 5px 10px;
 }
 #options-panel select {
   line-height: 2;
-  font-size: 24px;
+  font-size: 22px;
   -webkit-appearance: menulist-button;
 }
