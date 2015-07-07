@@ -3,7 +3,7 @@ var Sequelize = require("sequelize");
 //no password
 var connect = function(dbPath) {
   console.log('//////',process.env)
-	if (process.env['giggling-fleetingly-1104']) {
+	if (process.env.NODE_ENV === 'production') {
     console.log('hiiiiiiiiiii')
     // the application is executed on Heroku ... use the postgres database
     sequelize = new Sequelize('postgres://qwdforbgbksucc:70XlVZpfBEr9tr3zVVrlUZpV1d@ec2-54-204-27-193.compute-1.amazonaws.com:5432/db08i080rbc4jn', {
