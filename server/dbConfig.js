@@ -3,8 +3,9 @@ var Sequelize = require("sequelize");
 //no password
 var connect = function(dbPath) {
 	if (process.env['giggling-fleetingly-1104']) {
+    console.log('hiiiiiiiiiii')
     // the application is executed on Heroku ... use the postgres database
-    sequelize = new Sequelize(process.env['giggling-fleetingly-1104'], {
+    sequelize = new Sequelize('postgres://qwdforbgbksucc:70XlVZpfBEr9tr3zVVrlUZpV1d@ec2-54-204-27-193.compute-1.amazonaws.com:5432/db08i080rbc4jn', {
       dialect:  'postgres',
       protocol: 'postgres',
       port:     match[4],
@@ -12,6 +13,7 @@ var connect = function(dbPath) {
       logging:  true //false
     })
   } else {
+    console.log('life succkkkkss')
     // the application is executed on the local machine ... use mysql
 		var sequelize = new Sequelize('scrapinit', 'scrapinit', '123456', {
 			dialect: 'postgres',
