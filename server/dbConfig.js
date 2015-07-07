@@ -64,9 +64,16 @@ var createSchemas = function(dbConnection, construct) {
 
 	//Basically check if tables exists, if not, creates it
 	if (construct) {
-		User.sync();
-    Url.sync();
-    UserUrl.sync();
+		// User.sync();
+  //   UserUrl.sync();
+  //   Url.sync();
+    User.sync()
+    .then(function () {
+      Url.sync()
+      .then(function () {
+        UserUrl.sync();
+      });
+    });  
 	}
 
 	return {
