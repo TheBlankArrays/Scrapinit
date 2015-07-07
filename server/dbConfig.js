@@ -9,7 +9,7 @@ var connect = function(dbPath) {
       dialect:  'postgres',
       protocol: 'postgres',
       port:     5432,
-      host:     'polar-escarpment-5752.herokuapp.com',
+      host:     'ec2-54-204-27-193.compute-1.amazonaws.com',
       logging:  true //false
     })
   } else {
