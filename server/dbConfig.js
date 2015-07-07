@@ -8,8 +8,8 @@ var connect = function(dbPath) {
     sequelize = new Sequelize('postgres://qwdforbgbksucc:70XlVZpfBEr9tr3zVVrlUZpV1d@ec2-54-204-27-193.compute-1.amazonaws.com:5432/db08i080rbc4jn', {
       dialect:  'postgres',
       protocol: 'postgres',
-      port:     match[4],
-      host:     match[3],
+      port:     5432,
+      host:     'polar-escarpment-5752.herokuapp.com',
       logging:  true //false
     })
   } else {
