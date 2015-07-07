@@ -37,22 +37,32 @@ module.exports = {
     // TODO: take values that are input to it, pass it through compare ocr functions? Should be in basicScroperController?
     this.getNewCroppedImage(UserUrl, website, email, params, oldImg, function(oldImg, newImg) {
       console.log('inside ocrCompare, oldImg', oldImg, 'newImg', newImg);
+      console.log('dirname is ', __dirname); // 
+      /*
+      have: /Users/banana/Projects/gitinit/loveBiscuits/server
+      want: /Users/banana/Projects/gitinit/loveBiscuits/client/
+      */
+
+      newImg = __dirname.substr(0, __dirname.length - 6) + 'client/' + newImg;
         ocr.convertImageToText(newImg, function(err, text) {
           if (err) {
             console.log('ocr error' + err);
           } else {
             console.log('comparing text values');
-            if (UserUrl.compareVal === null) {
-              if (UserUrl.cronVal !== text) {
-               cb(oldImg, newImg);
-              
-              } // if (UserUrl.cronVal !== text) {
-            }  else if (UserUrl.filter === 'greater') {
-              // TODO: pull numeric value from text
-              
+            if (UserUrl.filter === 'greater') {
+              // pulls first set of numbers from text
+              var compareVal = text.match(/\d+\.?\d*/gi)[0];
+              console.log('compareVal is', compareVal);
+              if (compareVal < UserUrl.compareVal) {
+                cb(oldImg, newImg);
+              }
             } else if (UserUrl.filter == 'less') {
               // TODO: pull numeric value from text
-
+              var compareVal = text.match(/\d+\.?\d*/gi)[0];
+              console.log('the compareVal is ', compareVal);
+              if (compareVal > UserUrl.compareVal) {
+                cb(oldImg, newImg);
+              }
             } else if (UserUrl.filter == 'contains') {
               // if a user wants to check for multiple words
               var contains = UserUrl.compareVal.split(',') || UserUrl.compareVal;
@@ -63,8 +73,12 @@ module.exports = {
                   cb(oldImg, newImg);
                 } // if (text.indexOf(contains[i])) {
               } // for (var i = 0; i < contains.length; i++) {
-            } // } else if (UserUrl.filter == 'contains') {
-          } // } else {
+            }  else {
+              if (UserUrl.cronVal !== text) {
+               cb(oldImg, newImg);
+              } // if (UserUrl.cronVal !== text) {
+            };
+          }; // } else {
         }); // ocr.converImageToText(newImg, function(newImg) {
     }); //this.getNewCroppedImage(UserUrl, website, email, params, oldImg, function(oldImg, newImg) {
   },
