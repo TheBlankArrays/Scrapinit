@@ -3,7 +3,6 @@ var getExternalUrl = require('../controllers/urlController').getExternalUrl;
 var compare = require('../imgCompare').compare;
 var CronJob = require('cron').CronJob;
 var CronJobManager = require('cron-job-manager');
-var logicUtils = require('./logic');
 var nodemailer = require('nodemailer');
 var ocr = require('../controllers/ocr');
 var secret = require('../../config.js');
@@ -35,18 +34,57 @@ module.exports = {
   },
 
   compareOCR: function(UserUrl, website, email, params, oldImg, cb) {
+    // TODO: take values that are input to it, pass it through compare ocr functions? Should be in basicScroperController?
     this.getNewCroppedImage(UserUrl, website, email, params, oldImg, function(oldImg, newImg) {
-      // console.log('inside ocrCompare, oldImg', oldImg, 'newImg', newImg);
+      console.log('inside ocrCompare, oldImg', oldImg, 'newImg', newImg);
+      console.log('dirname is ', __dirname); // 
+      /*
+      have: /Users/banana/Projects/gitinit/loveBiscuits/server
+      want: /Users/banana/Projects/gitinit/loveBiscuits/client/
+      */
 
-      newImg = __dirname.substr(0, __dirname.length - 12) + 'client/' + newImg;
+        newImg = __dirname.substr(0, __dirname.length - 12) + 'client/' + newImg;
         ocr.convertImageToText(newImg, function(err, text) {
           if (err) {
             console.log('ocr error' + err);
           } else {
-
-            logicUtils[UserUrl.filter](text, UserUrl, function() {
-              console.log('We made it!!')
-            });
+            console.log('comparing text values');
+            if (UserUrl.filter === 'greater') {
+              console.log('TESTING greater')
+              // pulls first set of numbers from text
+              if (text.match(/\d+\.?\d*/gi)) {
+                var compareVal = text.match(/\d+\.?\d*/gi)[0];
+              }
+              console.log('compareVal is', compareVal);
+              if (compareVal < UserUrl.compareVal) {
+                cb(oldImg, newImg);
+              }
+            } else if (UserUrl.filter == 'less') {
+              console.log('TESTING less')
+              // TODO: pull numeric value from text
+              if (text.match(/\d+\.?\d*/gi)) {
+                var compareVal = text.match(/\d+\.?\d*/gi)[0];
+              }
+              console.log('the compareVal is ', compareVal);
+              if (compareVal > UserUrl.compareVal) {
+                cb(oldImg, newImg);
+              }
+            } else if (UserUrl.filter == 'contains') {
+              console.log('TESTING contains')
+              // if a user wants to check for multiple words
+              var contains = UserUrl.compareVal.split(',') || UserUrl.compareVal;
+              // iterate through each word
+              for (var i = 0; i < contains.length; i++) {
+                // if text contains any of the values
+                if (text.indexOf(contains[i])) {
+                  cb(oldImg, newImg);
+                } // if (text.indexOf(contains[i])) {
+              } // for (var i = 0; i < contains.length; i++) {
+            }  else {
+              if (UserUrl.cronVal !== text) {
+               cb(oldImg, newImg);
+              } // if (UserUrl.cronVal !== text) {
+            };
           }; // } else {
         }); // ocr.converImageToText(newImg, function(newImg) {
     }); //this.getNewCroppedImage(UserUrl, website, email, params, oldImg, function(oldImg, newImg) {
@@ -84,8 +122,6 @@ module.exports = {
         ]
     };
     // Send email function
-
-    // Uncomment to send email
     // transporter.sendMail(mailOptions, function(error, info){
     //     if(error){
     //       console.log(error);
@@ -95,39 +131,3 @@ module.exports = {
     // }); // transporter.sendMail(mailOptions, function(error, info){
   } // sendEmail: function(website, email) {
 }
-
-
-
-
-
-    // OLD OCR LOGIC BEFORE EXPORTED FUNCTIONS
-            // console.log('comparing text values');
-            // if (UserUrl.filter === 'greater') {
-            //   // pulls first set of numbers from text
-            //   var compareVal = text.match(/\d+\.?\d*/gi)[0];
-            //   console.log('compareVal is', compareVal);
-            //   if (compareVal < UserUrl.compareVal) {
-            //     cb(oldImg, newImg);
-            //   }
-            // } else if (UserUrl.filter == 'less') {
-            //   // pulls first set of numbers from text
-            //   var compareVal = text.match(/\d+\.?\d*/gi)[0];
-            //   console.log('the compareVal is ', compareVal);
-            //   if (compareVal > UserUrl.compareVal) {
-            //     cb(oldImg, newImg);
-            //   }
-            // } else if (UserUrl.filter == 'contains') {
-            //   // if a user wants to check for multiple words
-            //   var contains = UserUrl.compareVal.split(',') || UserUrl.compareVal;
-            //   // iterate through each word
-            //   for (var i = 0; i < contains.length; i++) {
-            //     // if text contains any of the values
-            //     if (text.indexOf(contains[i])) {
-            //       cb(oldImg, newImg);
-            //     } // if (text.indexOf(contains[i])) {
-            //   } // for (var i = 0; i < contains.length; i++) {
-            // }  else {
-            //   if (UserUrl.cronVal !== text) {
-            //    cb(oldImg, newImg);
-            //   } // if (UserUrl.cronVal !== text) {
-            // };
