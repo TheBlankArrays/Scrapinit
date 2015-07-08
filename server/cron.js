@@ -45,7 +45,7 @@ module.exports = {
             if (UserUrl.compareVal === null) {
               if (UserUrl.cronVal !== text) {
                cb(oldImg, newImg);
-              
+
               } // if (UserUrl.cronVal !== text) {
             }  else if (UserUrl.compareVal === 'greater') { // if (UserUrl.compareVal === null) {
             } else if (UserUrl.compareVal == 'less') {
@@ -61,6 +61,7 @@ module.exports = {
     this.getNewCroppedImage(UserUrl, website, email, params, oldImg, function(oldImg, newImg) {
       // checks for difference in pictures
       compare(oldImg, newImg, function (equal, oldImg, newImg){
+        console.log('logic is reached');
         if (!equal){
           cb(oldImg, newImg);
         }; // if (!equal){

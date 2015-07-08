@@ -42,7 +42,8 @@ module.exports = {
     UserUrl.status = true;
     var userUrl = UserUrl;
     var key = UserUrl.url_id.toString() + UserUrl.user_id.toString();
-    var freq = UserUrl.frequency;
+    //var freq = UserUrl.frequency;
+
     var action = UserUrl.compare || 'image';
 
     // hours
@@ -51,7 +52,7 @@ module.exports = {
     // minutes
     // var freq = '* */' + UserUrl.frequency + ' * * * *';
 
-    // var freq = '*/5 * * * * *';
+    var freq = '*/5 * * * * *';
     // var freq = '* */5 * * * *';
 
 
@@ -78,7 +79,7 @@ module.exports = {
         UserUrl.lastScrape = compareUtils.getDate();
 
         console.log(key, 'last checked at', UserUrl.lastScrape);
-        
+
         if (UserUrl.comparison === 'text') {
           compareUtils.compareOCR(UserUrl, url, email, params, oldImg, function(oldImg, newImg) {
             // if we enter the anonymous function, we can assume images are not equal
