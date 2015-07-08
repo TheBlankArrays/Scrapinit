@@ -1,5 +1,5 @@
 angular.module('app.home.list', [])
-.controller('listController', function ($scope, Url, ipCookie) {
+.controller('listController', function ($scope, Url, ipCookie, ngDialog) {
   //angular-tour settings cookie
   $scope.currentStep = ipCookie('myBasicTour') || 0;
   // save cookie after each step
@@ -31,6 +31,18 @@ angular.module('app.home.list', [])
   }
 
   $scope.getUrls();
+
+  $scope.open = function (url) {
+    var str = '<img src="'+ url +'" </img>';
+    ngDialog.open({ 
+      template: str,
+      className: 'ngdialog-theme-plain',
+      plain: true
+    });
+  
+  };
+
+
 
 })
 .filter('domain', function ($document) {
