@@ -78,9 +78,12 @@ angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router', '
   };
 
   var postUrl = function (cropCoor, urlImg, url, userDecision, freq, trig, compareVal, stopOnTrig, callback) {
+<<<<<<< HEAD
     compareVal = compareVal || "null";
     stopOnTrig = stopOnTrig || "false";
 
+=======
+>>>>>>> 09ae3e0777f1d425934f4a41d7923c4c60b26aa5
     console.log(userDecision, 'userDecision');
     $http.post('/api/users/url', {
       crop: cropCoor,
