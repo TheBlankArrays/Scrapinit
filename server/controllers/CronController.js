@@ -42,7 +42,7 @@ module.exports = {
     UserUrl.status = true;
     var userUrl = UserUrl;
     var key = UserUrl.url_id.toString() + UserUrl.user_id.toString();
-    // var freq = UserUrl.frequency;
+    var freq = UserUrl.frequency;
     var action = UserUrl.compare || 'image';
 
     // hours
@@ -51,10 +51,8 @@ module.exports = {
     // minutes
     // var freq = '* */' + UserUrl.frequency + ' * * * *';
 
-    var freq = '*/10 * * * * *';
+    // var freq = '*/10 * * * * *';
     // var freq = '* */5 * * * *';
-
-    UserUrl.filter = 'greater'
 
     console.log('Starting cronJob', key, 'for', UserUrl.url, ' with frequency ', freq);
 
