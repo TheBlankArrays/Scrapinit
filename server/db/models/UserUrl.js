@@ -2,13 +2,6 @@ var Sequelize = require("sequelize");
 
 module.exports = function(sequelize, tableConfig) {
   return sequelize.define('UserUrl', {
-    email: {
-      type: Sequelize.STRING,
-      allowNull: false
-    },
-    cronVal: {
-      type: Sequelize.STRING
-    },
     compareVal: {
       type: Sequelize.STRING,
       defaultValue: null
@@ -16,24 +9,14 @@ module.exports = function(sequelize, tableConfig) {
     comparison: {
       type: Sequelize.STRING,
     },
+    cronVal: {
+      type: Sequelize.STRING
+    },
     cropImage: {
       type: Sequelize.STRING,
       allowNull: false
     },
-    ocrText: {
-      type: Sequelize.STRING,
-      allowNull: false
-    },
-    continueAfterChange: {
-      type: Sequelize.BOOLEAN,
-      allowNull: false,
-      defaultValue: false
-    },
     cropHeight: {
-      type: Sequelize.INTEGER,
-      allowNull: false
-    },
-    cropWidth: {
       type: Sequelize.INTEGER,
       allowNull: false
     },
@@ -45,8 +28,13 @@ module.exports = function(sequelize, tableConfig) {
       type: Sequelize.INTEGER,
       allowNull: false
     },
-    lastScrape: {
-      type: Sequelize.STRING
+    cropWidth: {
+      type: Sequelize.INTEGER,
+      allowNull: false
+    },
+    email: {
+      type: Sequelize.STRING,
+      allowNull: false
     },
     filter: {
       type: Sequelize.STRING,
@@ -56,10 +44,22 @@ module.exports = function(sequelize, tableConfig) {
       type: Sequelize.STRING,
       allowNull: false
     },
+    lastScrape: {
+      type: Sequelize.STRING
+    },
+    ocrText: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
     sockedID: {
       type: Sequelize.STRING
     },
     status: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+      defaultValue: true
+    },
+    stopAfterChange: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
       defaultValue: true
