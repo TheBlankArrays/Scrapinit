@@ -40,16 +40,14 @@ module.exports = function(grunt) {
 
     shell: {
       npmInstall: {
-      command: 'npm install' ,
-
+      command: 'npm install; brew install imagemagick; brew install graphicsmagick; brew install phantomjs; brew install tesseract',
       options: {
             stdout: true,
             stderr: true
         }
       },
       clientInstall : {
-        command: 'cd client; bower install; cd ..; brew install imagemagick; brew install graphicsmagick; brew install phantomjs; brew install tesseract',
-        
+        command: 'cd client; bower install; cd ..',
         options: {
             stdout: true,
             stderr: true
