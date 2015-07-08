@@ -49,7 +49,7 @@
           </a>
         </div>
         <div>
-          <img src="{{url.img}}"/>
+          <img src="{{url.img}}" ng-click="open(url.img)"/>
         </div>
         <div>
           {{url.comparison}}
@@ -89,3 +89,7 @@
     Your URLs history is empty!
   </div>
 </div>
+<script type="text/ng-template" id="templateId">
+    <h1>Template heading</h1>
+    <p>Content goes here</p>
+</script>
