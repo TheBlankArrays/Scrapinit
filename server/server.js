@@ -30,7 +30,7 @@ app.use(session({
 
 
 //serves the client
-app.use(express.static('../client/'));
+app.use(express.static(__dirname + '../client/'));
 // Initialize passport and passport session
 // passport session invocation must be after the express sessions declaration as it is going to piggyback on that
 // app.use(passport.initialize());
