@@ -8,7 +8,7 @@ var connect = function(dbPath) {
     sequelize = new Sequelize('postgres://qwdforbgbksucc:70XlVZpfBEr9tr3zVVrlUZpV1d@ec2-54-204-27-193.compute-1.amazonaws.com:5432/db08i080rbc4jn', {
       dialect:  'postgres',
       protocol: 'postgres',
-      port:     5432,
+      port:     process.env.PORT,
       host:     'ec2-54-204-27-193.compute-1.amazonaws.com',
       logging:  true //false
     })
