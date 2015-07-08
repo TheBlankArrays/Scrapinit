@@ -94,6 +94,7 @@ module.exports = {
     this.getNewCroppedImage(UserUrl, website, email, params, oldImg, function(oldImg, newImg) {
       // checks for difference in pictures
       compare(oldImg, newImg, function (equal, oldImg, newImg){
+        console.log('logic is reached');
         if (!equal){
           cb(oldImg, newImg);
         }; // if (!equal){
@@ -122,12 +123,12 @@ module.exports = {
         ]
     };
     // Send email function
-    // transporter.sendMail(mailOptions, function(error, info){
-    //     if(error){
-    //       console.log(error);
-    //     } else {
-    //       console.log('Message sent: ' + info.response);
-    //     }; // else statemenet
-    // }); // transporter.sendMail(mailOptions, function(error, info){
+    transporter.sendMail(mailOptions, function(error, info){
+        if(error){
+          console.log(error);
+        } else {
+          console.log('Message sent: ' + info.response);
+        }; // else statemenet
+    }); // transporter.sendMail(mailOptions, function(error, info){
   } // sendEmail: function(website, email) {
 }

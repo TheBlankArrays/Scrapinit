@@ -2,7 +2,7 @@ angular.module('app.home.urlImage', [ 'ui.router'])
 .controller('urlImageController', function ($scope, $state, Url, ipCookie) {
 
   // frequency select options
-  $scope.options = [
+  $scope.freq_options = [
       {
         name: '5 min',
         value: '1 */5 * * * *'
@@ -29,6 +29,24 @@ angular.module('app.home.urlImage', [ 'ui.router'])
       }
   ];
 
+  $scope.trig_options = [
+      {
+        name: 'change',
+        value: 'null'
+      },
+      {
+        name: 'greater than',
+        value: 'greater'
+      },
+      {
+        name: 'less than',
+        value: 'less'
+      },
+      {
+        name: 'contains',
+        value: 'contains'
+      }
+  ];
 
   //angular-tour settings cookie
   $scope.currentStep = ipCookie('myImageTour') || 0;
@@ -36,6 +54,16 @@ angular.module('app.home.urlImage', [ 'ui.router'])
   $scope.stepComplete = function() {
     ipCookie('myImageTour', $scope.currentStep, { expires: 3000 });
   };
+
+  // url scrape type select watcher
+  $scope.$watch('enabled', function (newVal) {
+   if (newVal) {
+     $("#extras").slideDown();
+   } else {
+     $("#extras").slideUp();
+   }
+  });
+
   //finish angular-tour settings cookie
   $scope.send = function (cropCoor) {
     var urlType = ($scope.enabled) ? "Image" : "Text";
