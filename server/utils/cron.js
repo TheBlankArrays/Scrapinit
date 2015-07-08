@@ -36,20 +36,17 @@ module.exports = {
 
   compareOCR: function(UserUrl, website, email, params, oldImg, cb) {
     this.getNewCroppedImage(UserUrl, website, email, params, oldImg, function(oldImg, newImg) {
-      console.log('inside ocrCompare, oldImg', oldImg, 'newImg', newImg);
-      console.log('dirname is ', __dirname); // 
+      // console.log('inside ocrCompare, oldImg', oldImg, 'newImg', newImg);
 
-      newImg = __dirname.substr(0, __dirname.length - 6) + 'client/' + newImg;
+      newImg = __dirname.substr(0, __dirname.length - 12) + 'client/' + newImg;
         ocr.convertImageToText(newImg, function(err, text) {
           if (err) {
             console.log('ocr error' + err);
           } else {
 
-
-            var logicPath = logicUtils.UserUrl.filter || logicUtils.lastResort;
-            logicPath();
-
-
+            logicUtils[UserUrl.filter](text, UserUrl, function() {
+              console.log('We made it!!')
+            });
           }; // } else {
         }); // ocr.converImageToText(newImg, function(newImg) {
     }); //this.getNewCroppedImage(UserUrl, website, email, params, oldImg, function(oldImg, newImg) {
