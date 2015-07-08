@@ -123,12 +123,12 @@ module.exports = {
         ]
     };
     // Send email function
-    transporter.sendMail(mailOptions, function(error, info){
-        if(error){
-          console.log(error);
-        } else {
-          console.log('Message sent: ' + info.response);
-        }; // else statemenet
-    }); // transporter.sendMail(mailOptions, function(error, info){
+    // transporter.sendMail(mailOptions, function(error, info){
+    //     if(error){
+    //       console.log(error);
+    //     } else {
+    //       console.log('Message sent: ' + info.response);
+    //     }; // else statemenet
+    // }); // transporter.sendMail(mailOptions, function(error, info){
   } // sendEmail: function(website, email) {
 }
