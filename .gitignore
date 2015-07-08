@@ -3,7 +3,6 @@
 # see https://npmjs.org/doc/faq.html#Should-I-check-my-
 .gitignore
 node_modules/
-client/lib
 npm-debug.log
 server/test.js
 server/dist/*.js
