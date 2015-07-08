@@ -40,9 +40,17 @@ module.exports = function(grunt) {
 
     shell: {
       npmInstall: {
-      command: 'npm install; cd client; bower install; cd ..; brew install imagemagick; brew install graphicsmagick; brew install phantomjs; brew install tesseract',
+      command: 'npm install' ,
 
       options: {
+            stdout: true,
+            stderr: true
+        }
+      },
+      clientInstall : {
+        command: 'cd client; bower install; cd ..; brew install imagemagick; brew install graphicsmagick; brew install phantomjs; brew install tesseract',
+        
+        options: {
             stdout: true,
             stderr: true
         }
@@ -61,5 +69,6 @@ module.exports = function(grunt) {
 
   grunt.registerTask('install', [
     'concat', 'shell:npmInstall']);
-    grunt.registerTask('serve', ['shell:enterServer']);
+  grunt.registerTask('serve', ['shell:enterServer']);
+  grunt.registerTask('client', ['shell:clientInstall']);
 }
