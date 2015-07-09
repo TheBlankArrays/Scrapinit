@@ -16,6 +16,11 @@ module.exports = function(sequelize, tableConfig) {
       type: Sequelize.STRING,
       allowNull: false
     },
+    numScrapes: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      defaultValue: 0
+    },
     cropHeight: {
       type: Sequelize.INTEGER,
       allowNull: false
