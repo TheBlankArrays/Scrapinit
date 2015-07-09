@@ -31,7 +31,7 @@ angular.module('app', [
   $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
     Auth.isLoggedIn(function(loggedIn) {
       if (toState.auth && !loggedIn) {
-        $state.go('comingSoon');
+        $state.go('login');
       }
     });
   });
