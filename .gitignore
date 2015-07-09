@@ -1,13 +1,12 @@
 # Dependency directorys
 # Deployed apps should consider commenting these lines out:
 # see https://npmjs.org/doc/faq.html#Should-I-check-my-
-.gitignore
 node_modules/
 npm-debug.log
 server/test.js
 server/dist/*.js
 client/assets
-images/*
+images/*.png
 server/difference.png
 sever/specs/*.png
 sever/specs/*.jpg
