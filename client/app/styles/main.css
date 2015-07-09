@@ -65,6 +65,15 @@ header {
 header img {
   margin: 25px auto -15px;
 }
+
+.scrape__animation {
+  width: 300px;
+  height: 700px;
+  background-image:  url('/app/images/scrape2.png');
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
 .table {
   width: 100%;
 }
@@ -183,12 +192,8 @@ header img {
 }
 
 .scrapping span {
-  font-size: 100px;
-  color: #333;
   animation: scrapping 3s infinite;
   display: block;
-  width: 120px;
-  height: 120px;
   margin: 20px auto;
 }
 
