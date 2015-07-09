@@ -37,7 +37,7 @@ module.exports = {
     // TODO: take values that are input to it, pass it through compare ocr functions? Should be in basicScroperController?
     this.getNewCroppedImage(UserUrl, website, email, params, oldImg, function(oldImg, newImg) {
       console.log('inside ocrCompare, oldImg', oldImg, 'newImg', newImg);
-      console.log('dirname is ', __dirname); // 
+      console.log('dirname is ', __dirname); //
       /*
       have: /Users/banana/Projects/gitinit/loveBiscuits/server
       want: /Users/banana/Projects/gitinit/loveBiscuits/client/
