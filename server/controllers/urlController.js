@@ -41,6 +41,10 @@ module.exports = {
     var url = {url: req.body.url};
     var frequency = req.body.freq;
     var urlType = req.body.urlType;
+    var filter = req.body.filter;
+    var compareVal = req.body.compareVal;
+    var stopontrig = req.body.stopOnTrig;
+    console.log('filter and compareVal', filter + ' ' + compareVal);
 
 
     console.log('req body', JSON.stringify(req.body));
@@ -97,7 +101,10 @@ module.exports = {
                               status: true,
                               comparison: urlType,
                               ocrText: text,
-                              frequency: frequency
+                              frequency: frequency,
+                              filter: filter,
+                              compareVal: compareVal,
+                              stopAfterChange: stopontrig
                            })
                            .then(function(associate) {
                             db.Url.findOne({
@@ -155,7 +162,9 @@ module.exports = {
                        status: true,
                        comparison: urlType,
                        ocrText: text,
-                       frequency: frequency
+                       frequency: frequency,
+                       filter: filter,
+                       stopAfterChange: stopontrig
                     })
                     .then(function(associate) {
                       db.Url.findOne({
