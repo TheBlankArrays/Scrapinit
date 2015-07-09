@@ -1,17 +1,9 @@
-var basicScraper = require('./basicScraperController');
-var getExternalUrl = require('./urlController').getExternalUrl;
 var compare = require('../imgCompare.js').compare;
 var CronJob = require('cron').CronJob;
 var CronJobManager = require('cron-job-manager');
 var compareUtils = require('../utils/cron');
-var nodemailer = require('nodemailer');
-var ocr = require('./ocr');
-var secret = require('../../config.js');
+var removeUrl = require('./urlController.js').removeUrl;
 var Sequelize = require('sequelize');
-var transporter = nodemailer.createTransport({
-    service: 'mailgun',
-    auth: secret.auth
-});
 
 
 var manager = new CronJobManager();
@@ -42,7 +34,7 @@ module.exports = {
     UserUrl.status = true;
     var userUrl = UserUrl;
     var key = UserUrl.url_id.toString() + UserUrl.user_id.toString();
-    var freq = UserUrl.frequency;
+    // var freq = UserUrl.frequency;
     var action = UserUrl.compare || 'image';
 
     // hours
@@ -51,10 +43,10 @@ module.exports = {
     // minutes
     // var freq = '* */' + UserUrl.frequency + ' * * * *';
 
-    //var freq = '*/10 * * * * *';
+    var freq = '*/1 * * * * *';
     console.log('filter ', UserUrl.filter);
     // var freq = '* */5 * * * *';
-    console.log('compareison ', UserUrl.comparison);
+    console.log('comparison ', UserUrl.comparison);
 
     console.log('Starting cronJob', key, 'for', UserUrl.url, ' with frequency ', freq);
 
@@ -121,11 +113,18 @@ module.exports = {
         }
 
         UserUrl.numScrapes++;
-        if (UserUrl.numScrapes > 100) {
-          // remove
+        console.log('numScrapes', UserUrl.numScrapes);
+        console.log('url controller', removeUrl);
 
-          this.deleteCron(UserUrl.user_id, UserUrl.url_id);
-        }
+        // if (UserUrl.numScrapes >= 100) {
+        //   // remove
+        //   removeUrl(UserUrl.email, UserUrl.url, function(status) {
+        //     if (status) {
+        //       console.log('UserUrl deleted!');
+        //     }
+        //   });
+        // }
+
       } else {
         manager.stop()
       }
