@@ -15,9 +15,11 @@ var connect = function(dbPath) {
 		// 	idle: 10000
 		// },
 
-		logging: false,
-
-		storage: dbPath
+		storage: dbPath,
+		logging: console.log,
+    logging: function (str) {
+      // console.log('Query: ', str);
+    }
 	});
 
 	return sequelize;
@@ -36,16 +38,22 @@ var createSchemas = function(dbConnection, construct) {
 	var Url = require('./db/models/Url')(dbConnection, tableConfig);
 	var UserUrl = require('./db/models/UserUrl')(dbConnection, tableConfig);
 
-      // relationship 
-      User.belongsToMany(Url, { through: UserUrl, foreignKey: 'urlID'});
-      Url.belongsToMany(User, { through: UserUrl, foreignKey: 'userID'});
+  // relationship 
+  User.belongsToMany(Url, { through: UserUrl });
+  Url.belongsToMany(User, { through: UserUrl });
+
+	User.hasMany(UserUrl);
+	UserUrl.belongsTo(User);
+
+	Url.hasMany(UserUrl);
+	UserUrl.belongsTo(Url);
 
 
 	//Basically check if tables exists, if not, creates it
 	if (construct) {
 		User.sync();
-            Url.sync();
-            UserUrl.sync();
+    Url.sync();
+    UserUrl.sync();
 	}
 
 	return {

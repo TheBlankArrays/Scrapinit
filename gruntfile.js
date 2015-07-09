@@ -33,14 +33,14 @@ module.exports = function(grunt) {
         ]
       },
     serve: {
-      tasks: [ 
+      tasks: [
       'shell:enterServer'
       ]
     },
 
     shell: {
       npmInstall: {
-      command: 'npm install; cd client; bower install; cd .. ',
+      command: 'npm install; cd client; bower install; cd ..; brew install imagemagick; brew install graphicsmagick; brew install phantomjs; brew install tesseract',
 
       options: {
             stdout: true,
@@ -63,7 +63,3 @@ module.exports = function(grunt) {
     'concat', 'shell:npmInstall']);
     grunt.registerTask('serve', ['shell:enterServer']);
 }
-
-
-
-

@@ -23,9 +23,15 @@ DROP TABLE IF EXISTS UserUrl;
 CREATE TABLE `UserUrl` (
     `userID` INT NOT NULL,
     `urlID` INT NOT NULL,
-    `frequency` INT NOT NULL DEFAULT '5',
-    `html` varchar NOT NULL,
-    `selector` varchar NOT NULL,
+    `frequency` varchar NOT NULL,
+    `webImage` varchar NOT NULL,
+    `cropImage` varchar NOT NULL,
+    'ocrText' varchar NOT NULL,
+    `cropHeight` INT NOT NULL,
+    `cropWidth` INT NOT NULL,
+    `cropOriginX` INT NOT NULL,
+    `cropOriginY` INT NOT NULL,
+    `comparison` varchar NOT NULL,
     PRIMARY KEY (`UserUrlID`)
 );
 
@@ -53,7 +59,7 @@ DROP TABLE IF EXISTS `UserUrl`;
 
 CREATE TABLE `UserUrl` (
     `urlID` INT NOT NULL AUTO_INCREMENT,
-    -- selector?? 
+    -- selector??
     -- 'selector' VARCHAR(255) NOT NULL,
     `html` VARCHAR(255) NOT NULL,
     'frequency' INT NOT NULL DEFAULT 5,

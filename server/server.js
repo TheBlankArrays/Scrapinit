@@ -3,7 +3,7 @@ var app = express();
 //run the sqlite
 var db = require('./db');
 //middleware that automatically logs responses, requests, and associated data
-var logger = require('morgan');
+//var logger = require('morgan');
 var routes = require('./routes');
 var parser = require('body-parser');
 var session = require('express-session');
@@ -21,12 +21,12 @@ app.use(session({
 	saveUninitialized: false
 }));
 
-app.use(function (req, res, next) {
-  // console.log('Time:', Date.now());
-  // console.log('request: method -' + req.method);
-  // console.log('request: url - ' + req.url);
-  next();
-});
+// app.use(function (req, res, next) {
+//   console.log('Time:', Date.now());
+//   console.log('request: method -' + req.method);
+//   console.log('request: url - ' + req.url);
+//   next();
+// });
 
 
 //serves the client
