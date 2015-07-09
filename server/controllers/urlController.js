@@ -241,9 +241,8 @@ module.exports = {
       }
     });
   },
-  removeUrl: function(req, res, next) {
-      var email = req.session.email;
-      var url = {url: req.body.url};
+  removeUrl: function(email, url, cb) {
+
 
       db.User.findOne({
         where: {
@@ -263,11 +262,11 @@ module.exports = {
               console.log('del cron', cronjob.deleteCron);
               cronjob.deleteCron(userFound.id, urlFound.id);
               userFound.removeUrl(urlFound);
-              res.status(200).send(true);
+              cb(true);
 
             } else {
 
-              res.status(403).json({});
+              cb(false);
 
             } // end urlFound
           }); // end url.findOne then
