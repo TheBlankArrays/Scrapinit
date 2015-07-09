@@ -29,7 +29,15 @@ var setup = function(app) {
 
   app.route('/api/users/removeUrl')
   .post(authController.isAuth, function(req, res, next) {
-    urlController.removeUrl(req, res, next);
+    var email = req.session.email;
+    var url = {url: req.body.url};
+    urlController.removeUrl(email, url, function(result) {
+      if (result) {
+        res.status(200).send(true);
+      } else {
+        res.status(403).json({});
+      }
+    });
   });
 
   app.route("/api/users/url/:idUrl")
