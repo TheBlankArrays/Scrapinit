@@ -13,15 +13,6 @@ angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router', '
     $scope.loading = false;
   });
 
-  $scope.$watch('enabled', function (userInput) {
-    if (!userInput)
-    {
-      $scope.userDecision = 'text';
-    } else {
-      $scope.userDecision = 'image';
-    }
-  });
-
   $scope.logout = function () {
    $http.get("/api/users/logout")
      .success(function (data) {
@@ -86,9 +77,24 @@ angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router', '
     });
   };
 
-  var postUrl = function (cropCoor, urlImg, url, userDecision, freq, callback) {
+  var postUrl = function (cropCoor, urlImg, url, userDecision, freq, trig, compareVal, stopOnTrig, callback) {
+<<<<<<< HEAD
+    compareVal = compareVal || "null";
+    stopOnTrig = stopOnTrig || "false";
+
+=======
+>>>>>>> 09ae3e0777f1d425934f4a41d7923c4c60b26aa5
     console.log(userDecision, 'userDecision');
-    $http.post('/api/users/url', {crop: cropCoor, urlImg: urlImg, url: url, urlType: userDecision, freq: freq})
+    $http.post('/api/users/url', {
+      crop: cropCoor,
+      urlImg: urlImg,
+      url: url,
+      urlType: userDecision,
+      freq: freq,
+      filter: trig,
+      compareVal: compareVal,
+      stopOnTrig: stopOnTrig
+    })
     .success(function (data) {
       callback(false, data);
     });
