@@ -66,7 +66,6 @@ angular.module('app.home.urlImage', [ 'ui.router'])
 
   //finish angular-tour settings cookie
   $scope.send = function (cropCoor) {
-
     var urlType = ($scope.enabled) ? "Image" : "Text";
     Url.postUrl(cropCoor, $scope.urlImagePreview, $scope.url, urlType, $scope.freq, $scope.compareValue, $scope.stopOnTrig, function (err, data) {
       if (err) {
