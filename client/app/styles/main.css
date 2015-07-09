@@ -949,3 +949,8 @@ table.gradienttable td{
   font-size: 22px;
   -webkit-appearance: menulist-button;
 }
+
+#comingSoon img {
+  
+  border: 2px solid black;
+}
