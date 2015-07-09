@@ -2,12 +2,12 @@ var Sequelize = require("sequelize");
 
 module.exports = function(sequelize, tableConfig) {
   return sequelize.define('UserUrl', {
+    comparison: {
+      type: Sequelize.STRING,
+    },
     compareVal: {
       type: Sequelize.STRING,
       defaultValue: null
-    },
-    comparison: {
-      type: Sequelize.STRING,
     },
     cronVal: {
       type: Sequelize.STRING
