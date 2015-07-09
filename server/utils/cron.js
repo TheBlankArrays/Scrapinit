@@ -131,6 +131,5 @@ module.exports = {
     //       console.log('Message sent: ' + info.response);
     //     }; // else statemenet
     // }); // transporter.sendMail(mailOptions, function(error, info){
-
   } // sendEmail: function(website, email) {
 }

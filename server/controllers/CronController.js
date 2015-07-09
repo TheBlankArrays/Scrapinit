@@ -1,17 +1,10 @@
-var basicScraper = require('./basicScraperController');
-var getExternalUrl = require('./urlController').getExternalUrl;
 var compare = require('../imgCompare.js').compare;
 var CronJob = require('cron').CronJob;
 var CronJobManager = require('cron-job-manager');
 var compareUtils = require('../utils/cron');
-var nodemailer = require('nodemailer');
-var ocr = require('./ocr');
-var secret = require('../../config.js');
+var removeUrl = require('./urlController');
+var db = require("../db");
 var Sequelize = require('sequelize');
-var transporter = nodemailer.createTransport({
-    service: 'mailgun',
-    auth: secret.auth
-});
 
 
 var manager = new CronJobManager();
@@ -51,10 +44,9 @@ module.exports = {
     // minutes
     // var freq = '* */' + UserUrl.frequency + ' * * * *';
 
-    //var freq = '*/10 * * * * *';
-    console.log('filter ', UserUrl.filter);
+    // Test values
+    // var freq = '*/1 * * * * *';
     // var freq = '* */5 * * * *';
-    console.log('compareison ', UserUrl.comparison);
 
     console.log('Starting cronJob', key, 'for', UserUrl.url, ' with frequency ', freq);
 
@@ -79,6 +71,7 @@ module.exports = {
         UserUrl.lastScrape = compareUtils.getDate();
 
         console.log(key, 'last checked at', UserUrl.lastScrape);
+
 
         if (UserUrl.comparison === 'Text') {
           compareUtils.compareOCR(UserUrl, url, email, params, oldImg, function(oldImg, newImg) {
@@ -118,6 +111,42 @@ module.exports = {
             compareUtils.sendEmail(url, email, oldImg, newImg);
           });
         }
+
+        UserUrl.numScrapes++;
+        console.log('numScrapes', UserUrl.numScrapes);
+
+        if (UserUrl.numScrapes >= 100) {
+          // remove
+          
+          db.User.findOne({
+            where: {
+              email: UserUrl.email
+            }
+          })
+          .then(function (userFound) {
+
+            if (userFound) {
+
+              db.Url.findOne({
+                where: UserUrl.url
+              })
+              .then(function(urlFound) {
+                if (urlFound) {
+                  var key = UserUrl.user_id.toString() + UserUrl.url_id.toString()
+                  userFound.removeUrl(urlFound);
+                  manager.deleteJob(key);
+                  console.log('cronJob stopped!')
+                } else {
+
+                  console.log('error. Url not found in cronController')
+
+                } // end urlFound
+              }); // end url.findOne then
+
+            } // end if userFound
+          }); // end user.findOne then
+        }
+
       } else {
         manager.stop()
       }
