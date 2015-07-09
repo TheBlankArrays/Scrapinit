@@ -191,12 +191,12 @@ module.exports = {
                         cronjob.addCron(userUrl.UserUrls[0], userUrl.url);
                         res.status(201).json(response);
                       });
-                    })
+                    })  // close addUrl then
                     .catch(function (err) {
                       res.status(400).json({message: err.message});
                     }); // close catch of addurl db call
-                  }
-                });
+                  } // close else err
+                }); // close ocr cropimagetotext
 
               })  // close then of create url db call
               .catch(function (err) {
@@ -204,9 +204,9 @@ module.exports = {
               }); // close catch of create url db call
 
 
-            }; // close image to text callback
+            }; // close else urlFound
 
-          }); // close cropImg callback
+          }); // close basicScaper dot cropImg
 
         }); // close urlFound then
 
