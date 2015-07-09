@@ -78,6 +78,7 @@ module.exports = {
 
         console.log(key, 'last checked at', UserUrl.lastScrape);
 
+
         if (UserUrl.comparison === 'Text') {
           compareUtils.compareOCR(UserUrl, url, email, params, oldImg, function(oldImg, newImg) {
             // if we enter the anonymous function, we can assume images are not equal
@@ -115,6 +116,13 @@ module.exports = {
             // if images are not equal, send an email
             compareUtils.sendEmail(url, email, oldImg, newImg);
           });
+        }
+
+        UserUrl.numScrapes++;
+        if (UserUrl.numScrapes > 100) {
+          // remove
+
+          this.deleteCron(UserUrl.user_id, UserUrl.url_id);
         }
       } else {
         manager.stop()
