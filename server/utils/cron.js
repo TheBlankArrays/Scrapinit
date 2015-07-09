@@ -122,6 +122,7 @@ module.exports = {
         }
         ]
     };
+
     // Send email function
     // transporter.sendMail(mailOptions, function(error, info){
     //     if(error){

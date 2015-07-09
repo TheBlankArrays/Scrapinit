@@ -51,8 +51,10 @@ module.exports = {
     // minutes
     // var freq = '* */' + UserUrl.frequency + ' * * * *';
 
-    // var freq = '*/10 * * * * *';
+    //var freq = '*/10 * * * * *';
+    console.log('filter ', UserUrl.filter);
     // var freq = '* */5 * * * *';
+    console.log('compareison ', UserUrl.comparison);
 
     console.log('Starting cronJob', key, 'for', UserUrl.url, ' with frequency ', freq);
 
