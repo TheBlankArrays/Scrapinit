@@ -7,6 +7,11 @@ angular.module('app.routes', ['ui.router'])
   function($stateProvider, $urlRouterProvider){
     $urlRouterProvider.otherwise("/login");
     $stateProvider
+      .state('comingSoon', {
+        url: '/comingSoon',
+        templateUrl: 'app/home/comingSoon.html',
+        controller: 'userController'
+      })
       .state('signup', {
         url: '/signup',
         templateUrl: 'app/user/signup.html',
