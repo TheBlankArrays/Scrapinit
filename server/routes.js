@@ -43,11 +43,8 @@ var setup = function(app) {
   app.route("/api/users/url/:idUrl")
     .get(authController.isAuth, urlController.getUrl);
 
-  app.get('/api/screenshot', authController.isAuth, function(req, res, next) {
-        var url_parts = url.parse(req.url, true);
-        var query = url_parts.query;
-
-        basicScraper.getScreenshot(query.url, req.session.user_id, function(path) {
+  app.post('/api/screenshot', authController.isAuth, function(req, res, next) {
+        basicScraper.getScreenshot(req.body.url, req.session.user_id, function(path) {
           console.log('RESULT IMAGE', path);
           res.send(path);
         });
