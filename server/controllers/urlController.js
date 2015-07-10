@@ -41,6 +41,10 @@ module.exports = {
     var url = {url: req.body.url};
     var frequency = req.body.freq;
     var urlType = req.body.urlType;
+    var filter = req.body.filter;
+    var compareVal = req.body.compareVal;
+    var stopontrig = req.body.stopOnTrig;
+    console.log('filter and compareVal', filter + ' ' + compareVal);
 
 
     console.log('req body', JSON.stringify(req.body));
@@ -97,7 +101,10 @@ module.exports = {
                               status: true,
                               comparison: urlType,
                               ocrText: text,
-                              frequency: frequency
+                              frequency: frequency,
+                              filter: filter,
+                              compareVal: compareVal,
+                              stopAfterChange: stopontrig
                            })
                            .then(function(associate) {
                             db.Url.findOne({
@@ -155,7 +162,9 @@ module.exports = {
                        status: true,
                        comparison: urlType,
                        ocrText: text,
-                       frequency: frequency
+                       frequency: frequency,
+                       filter: filter,
+                       stopAfterChange: stopontrig
                     })
                     .then(function(associate) {
                       db.Url.findOne({
@@ -182,12 +191,12 @@ module.exports = {
                         cronjob.addCron(userUrl.UserUrls[0], userUrl.url);
                         res.status(201).json(response);
                       });
-                    })
+                    })  // close addUrl then
                     .catch(function (err) {
                       res.status(400).json({message: err.message});
                     }); // close catch of addurl db call
-                  }
-                });
+                  } // close else err
+                }); // close ocr cropimagetotext
 
               })  // close then of create url db call
               .catch(function (err) {
@@ -195,9 +204,9 @@ module.exports = {
               }); // close catch of create url db call
 
 
-            }; // close image to text callback
+            }; // close else urlFound
 
-          }); // close cropImg callback
+          }); // close basicScaper dot cropImg
 
         }); // close urlFound then
 
@@ -232,9 +241,8 @@ module.exports = {
       }
     });
   },
-  removeUrl: function(req, res, next) {
-      var email = req.session.email;
-      var url = {url: req.body.url};
+  removeUrl: function(email, url, cb) {
+
 
       db.User.findOne({
         where: {
@@ -254,11 +262,11 @@ module.exports = {
               console.log('del cron', cronjob.deleteCron);
               cronjob.deleteCron(userFound.id, urlFound.id);
               userFound.removeUrl(urlFound);
-              res.status(200).send(true);
+              cb(true);
 
             } else {
 
-              res.status(403).json({});
+              cb(false);
 
             } // end urlFound
           }); // end url.findOne then

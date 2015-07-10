@@ -15,25 +15,49 @@
   </span>
 </tour>
 <div id="options-panel">
-  <table>
+  <table border="0">
     <tr>
-      <td colspan="4">Choose your URL scrape type and frequency and select your watch dimensions.</td>
+      <td colspan="4">Select your region of interest and click "Watch It".</td>
     </tr>
     <tr>
       <td>Type:</td>
       <td>
         <div id="switching">
-          <switch id="enabled" name="enabled" ng-model="enabled" class="purple" on="Image" off="Text">
+          <switch id="enabled" name="enabled" ng-model="enabled" class="purple" on="Text" off="Image">
         </div>
       </td>
       <td>Frequency:</td>
       <td>
 
         <select ng-model="freq"
-                ng-init="freq = freq || options[0].value"
-                ng-options="option.value as option.name for option in options">
+                ng-init="freq = freq || freq_options[0].value"
+                ng-options="option.value as option.name for option in freq_options">
         </select>
+
+
       </td>
+    </tr>
+
+    <tr style='text-align: left'>
+      <td colspan="4">
+        <div id="extras" style="display: none;">
+          <table>
+            <tr>
+              <td>Trigger on</td>
+              <td>
+                <select ng-model="trig"
+                        ng-init="trig = trig || trig_options[0].value"
+                        ng-options="option.value as option.name for option in trig_options">
+                </select>
+              </td>
+              <td><input type="input" style="width: 150px" ng-show="trig !== 'null'" ng-model="compareValue"></td>
+            </tr>
+          </table>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4"><input type="checkbox" ng-model='stopOnTrig'>Stop checking when watch triggered.</td>
     </tr>
   </table>
 </div>

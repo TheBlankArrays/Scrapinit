@@ -32,6 +32,7 @@ CREATE TABLE `UserUrl` (
     `cropOriginX` INT NOT NULL,
     `cropOriginY` INT NOT NULL,
     `comparison` varchar NOT NULL,
+    'compareVal' varchar NOT NULL,
     PRIMARY KEY (`UserUrlID`)
 );
 

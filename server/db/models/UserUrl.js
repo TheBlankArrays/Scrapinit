@@ -2,32 +2,26 @@ var Sequelize = require("sequelize");
 
 module.exports = function(sequelize, tableConfig) {
   return sequelize.define('UserUrl', {
-    email: {
+    comparison: {
       type: Sequelize.STRING,
-      allowNull: false
-    },
-    cronVal: {
-      type: Sequelize.STRING
     },
     compareVal: {
       type: Sequelize.STRING,
+      defaultValue: null
     },
-    comparison: {
-      type: Sequelize.STRING,
+    cronVal: {
+      type: Sequelize.STRING
     },
     cropImage: {
       type: Sequelize.STRING,
       allowNull: false
     },
-    ocrText: {
-      type: Sequelize.STRING,
-      allowNull: false
+    numScrapes: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      defaultValue: 0
     },
     cropHeight: {
-      type: Sequelize.INTEGER,
-      allowNull: false
-    },
-    cropWidth: {
       type: Sequelize.INTEGER,
       allowNull: false
     },
@@ -39,7 +33,26 @@ module.exports = function(sequelize, tableConfig) {
       type: Sequelize.INTEGER,
       allowNull: false
     },
+    cropWidth: {
+      type: Sequelize.INTEGER,
+      allowNull: false
+    },
+    email: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+    filter: {
+      type: Sequelize.STRING,
+      defaultValue: null
+    },
     frequency: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+    lastScrape: {
+      type: Sequelize.STRING
+    },
+    ocrText: {
       type: Sequelize.STRING,
       allowNull: false
     },
@@ -47,6 +60,11 @@ module.exports = function(sequelize, tableConfig) {
       type: Sequelize.STRING
     },
     status: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+      defaultValue: true
+    },
+    stopAfterChange: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
       defaultValue: true

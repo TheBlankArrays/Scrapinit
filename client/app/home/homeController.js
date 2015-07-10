@@ -13,15 +13,6 @@ angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router', '
     $scope.loading = false;
   });
 
-  $scope.$watch('enabled', function (userInput) {
-    if (!userInput)
-    {
-      $scope.userDecision = 'text';
-    } else {
-      $scope.userDecision = 'image';
-    }
-  });
-
   $scope.logout = function () {
    $http.get("/api/users/logout")
      .success(function (data) {
@@ -77,7 +68,7 @@ angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router', '
 
       for (var i = 0; i < urlArray.length; i++) {
         var curFreq = (frequencyTable[ urlArray[i].UserUrl.frequency ]) ? frequencyTable[ urlArray[i].UserUrl.frequency ] : '' ;
-        urls.push({url: urlArray[i].url, img: urlArray[i].UserUrl.cropImage, text: urlArray[i].UserUrl.ocrText, comparison: urlArray[i].UserUrl.comparison, frequency: curFreq});
+        urls.push({url: urlArray[i].url, img: urlArray[i].UserUrl.cropImage, text: urlArray[i].UserUrl.ocrText, comparison: urlArray[i].UserUrl.comparison, frequency: curFreq, latestScrape: urlArray[i].UserUrl.lastScrape});
       }
       callback(false, urls);
     })
@@ -86,9 +77,22 @@ angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router', '
     });
   };
 
-  var postUrl = function (cropCoor, urlImg, url, userDecision, freq, callback) {
+  var postUrl = function (cropCoor, urlImg, url, userDecision, freq, trig, compareVal, stopOnTrig, callback) {
+
+    compareVal = compareVal || "null";
+    stopOnTrig = stopOnTrig || "false";
+
     console.log(userDecision, 'userDecision');
-    $http.post('/api/users/url', {crop: cropCoor, urlImg: urlImg, url: url, urlType: userDecision, freq: freq})
+    $http.post('/api/users/url', {
+      crop: cropCoor,
+      urlImg: urlImg,
+      url: url,
+      urlType: userDecision,
+      freq: freq,
+      filter: trig,
+      compareVal: compareVal,
+      stopOnTrig: stopOnTrig
+    })
     .success(function (data) {
       callback(false, data);
     });
