@@ -37,7 +37,6 @@ module.exports = {
     // TODO: take values that are input to it, pass it through compare ocr functions? Should be in basicScroperController?
     this.getNewCroppedImage(UserUrl, website, email, params, oldImg, function(oldImg, newImg) {
       console.log('inside ocrCompare, oldImg', oldImg, 'newImg', newImg);
-      console.log('dirname is ', __dirname); //
       /*
       have: /Users/banana/Projects/gitinit/loveBiscuits/server
       want: /Users/banana/Projects/gitinit/loveBiscuits/client/
@@ -76,7 +75,7 @@ module.exports = {
               // iterate through each word
               for (var i = 0; i < contains.length; i++) {
                 // if text contains any of the values
-                if (text.indexOf(contains[i])) {
+                if (text.toLowerCase().indexOf(contains[i].toLowerCase()) > -1) {
                   cb(oldImg, newImg);
                 } // if (text.indexOf(contains[i])) {
               } // for (var i = 0; i < contains.length; i++) {
@@ -94,7 +93,6 @@ module.exports = {
     this.getNewCroppedImage(UserUrl, website, email, params, oldImg, function(oldImg, newImg) {
       // checks for difference in pictures
       compare(oldImg, newImg, function (equal, oldImg, newImg){
-        console.log('logic is reached');
         if (!equal){
           cb(oldImg, newImg);
         }; // if (!equal){
