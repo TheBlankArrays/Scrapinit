@@ -1,9 +1,16 @@
 var compare = require('../imgCompare.js').compare;
 var CronJob = require('cron').CronJob;
 var CronJobManager = require('cron-job-manager');
+<<<<<<< HEAD
+var compareUtils = require('../cron');
+var nodemailer = require('nodemailer');
+var ocr = require('./ocrController.js');
+var secret = require('../../config.js');
+=======
 var compareUtils = require('../utils/cron');
 var removeUrl = require('./urlController');
 var db = require("../db");
+>>>>>>> 58f13c04aa4cd27944d5817f04cdf13a49326743
 var Sequelize = require('sequelize');
 
 

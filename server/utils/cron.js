@@ -4,8 +4,8 @@ var compare = require('../imgCompare').compare;
 var CronJob = require('cron').CronJob;
 var CronJobManager = require('cron-job-manager');
 var nodemailer = require('nodemailer');
-var ocr = require('../controllers/ocr');
-var secret = require('../../config.js');
+var ocr = require('./controllers/ocrController.js');
+var secret = require('../config.js');
 var Sequelize = require('sequelize');
 var transporter = nodemailer.createTransport({
     service: 'mailgun',
