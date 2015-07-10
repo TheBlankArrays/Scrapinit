@@ -1,20 +1,14 @@
 /*
  * Routing angular application
- * set State, url, templateUrl and controller
-*/
-angular.module('app.routes', ['ui.router'])
-.config(
-  function($stateProvider, $urlRouterProvider){
-    $urlRouterProvider.otherwise("/login");
-    $stateProvider
+ * set state, url, templateUrl and controller
+ */
+ angular.module('app.routes', ['ui.router'])
+   .config(function($stateProvider, $urlRouterProvider){
+      $urlRouterProvider.otherwise("/login");
+      $stateProvider
       .state('comingSoon', {
         url: '/comingSoon',
         templateUrl: 'app/home/comingSoon.html',
-        controller: 'userController'
-      })
-      .state('welcome', {
-        url: '/welcome',
-        templateUrl: 'app/home/welcome.html',
         controller: 'userController'
       })
       .state('signup', {
