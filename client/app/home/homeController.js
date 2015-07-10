@@ -26,10 +26,15 @@ angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router', '
 
   $scope.add = function () {
     $scope.loading = true;
-    $http.get('/api/screenshot?url=' + $scope.url )
+    $http.post('/api/screenshot', {url: $scope.url })
      .success(function (data) {
       $scope.urlImagePreview = data;
       $state.go('home.urlImage');
+     })
+     .error(function(err) {
+       console.log('error fetching screenshot');
+       $scope.loading = false;
+       $state.go('home.list');
      });
   };
 
@@ -58,6 +63,7 @@ angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router', '
       console.log('data - ', data);
 
       var frequencyTable = {
+          '*/20 * * * * *': '20 sec',
           '1 */5 * * * *': '5 min',
           '1 */30 * * * *': '30 min',
           '1 1 */1 * * *': '1 hour',
