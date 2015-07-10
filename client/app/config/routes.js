@@ -1,5 +1,6 @@
 /*
  * Routing angular application
+
  * set State, url, templateUrl and controller
 */
 angular.module('app.routes', ['ui.router'])
@@ -10,11 +11,6 @@ angular.module('app.routes', ['ui.router'])
       .state('comingSoon', {
         url: '/comingSoon',
         templateUrl: 'app/home/comingSoon.html',
-        controller: 'userController'
-      })
-      .state('welcome', {
-        url: '/welcome',
-        templateUrl: 'app/home/welcome.html',
         controller: 'userController'
       })
       .state('signup', {
