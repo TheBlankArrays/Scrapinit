@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 //run the sqlite
-var db = require('./db');
+var db = require('./db.js');
 //middleware that automatically logs responses, requests, and associated data
 //var logger = require('morgan');
 var routes = require('./routes');
@@ -30,7 +30,7 @@ app.use(session({
 
 
 //serves the client
-app.use(express.static(__dirname + '/../client/'));
+app.use(express.static(__dirname + '../../client/'));
 // Initialize passport and passport session
 // passport session invocation must be after the express sessions declaration as it is going to piggyback on that
 // app.use(passport.initialize());
@@ -45,7 +45,7 @@ var initServer = function() {
 	//console.log(app);
 	routes.setup(app);
 	//if deployed to heroku will use heroku port, otherwise on local machine will use port 3000
-	var port = process.env.port || 3000;
+	var port = process.env.PORT || 3468;
 	var server = app.listen(port);
 	//layers socket.io ontop of the express server
 	console.log("Express server listening on %d in %s mode", port, app.settings.env)

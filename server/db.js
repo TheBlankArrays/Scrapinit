@@ -1,5 +1,5 @@
 var Sequelize = require("sequelize");
-var dbConfig = require("./dbConfig");
+var dbConfig = require("./dbConfig.js");
 
 var sequelize = dbConfig.connect('./db/db.sqlite');
 var schemas = dbConfig.createSchemas(sequelize, true);

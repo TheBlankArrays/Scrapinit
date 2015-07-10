@@ -21,6 +21,7 @@ $ cd ..
 ### Update dependencies by typing: 
 ```sh
 $ grunt install
+$ grunt client
 ``` 
 
 ### Start server by typing:
