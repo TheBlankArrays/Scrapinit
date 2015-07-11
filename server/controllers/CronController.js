@@ -117,7 +117,7 @@ module.exports = {
         console.log('numScrapes', UserUrl.numScrapes);
 
         if (UserUrl.numScrapes >= 100) {
-          // remove
+
           db.User.findOne({
             where: {
               email: UserUrl.email

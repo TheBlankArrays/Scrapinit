@@ -159,7 +159,8 @@ module.exports = {
                        ocrText: text,
                        frequency: frequency,
                        filter: filter,
-                       stopAfterChange: stopontrig
+                       stopAfterChange: stopontrig,
+                       compareVal: compareVal,
                     })
                     .then(function(associate) {
                       db.Url.findOne({
