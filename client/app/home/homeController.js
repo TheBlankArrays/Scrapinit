@@ -16,7 +16,7 @@ angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router', '
   $scope.logout = function () {
    $http.get("/api/users/logout")
      .success(function (data) {
-       $state.go('login');
+       $state.go('welcome');
      });
   };
 

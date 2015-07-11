@@ -964,6 +964,7 @@ h2 {
   background-color: rgba(255,255,255,0.4);
   padding: 8px auto 0;
   width: 98%;
+  box-shadow: 2px 3px 5px rgba(0,0,0,0.4);
 }
 #welcomeDirections table {
   width: 100%;
@@ -983,7 +984,7 @@ h2 {
 }
 #welcomeDirections a:link, #welcomeDirections a:visited {
   color: navy;
-  font-size: 20px;
+  font-size: 26px;
   line-height: 3;
 }
 #welcomeDirections a:hover {
