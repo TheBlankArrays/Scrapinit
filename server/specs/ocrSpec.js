@@ -9,6 +9,7 @@ describe('Image-to-text conversion', function(){
   it('should return error if invalid path is input', function(done){
     url = 'fakePath'; 
     ocr.convertImageToText(path + url, function(error, text){
+      console.log('errr', error, text);
       expect(!!error).to.equal(true);
       done();
     });
