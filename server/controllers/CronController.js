@@ -3,6 +3,7 @@ var CronJob = require('cron').CronJob;
 var CronJobManager = require('cron-job-manager');
 var compareUtils = require('../utils/cron');
 var nodemailer = require('nodemailer');
+var fs = require('fs');
 var ocr = require('./ocrController.js');
 var secret = require('../../config.js');
 var Sequelize = require('sequelize');
@@ -62,19 +63,30 @@ module.exports = {
           y: UserUrl.cropOriginY
         };
 
+         UserUrl.lastScrape = compareUtils.getDate();
+
         var sendOption = UserUrl.filter === 'null' ? UserUrl.comparison : UserUrl.filter;
 
         if (UserUrl.comparison === 'Text') {
-          compareUtils.compareOCR(UserUrl, url, email, params, oldImg, function(oldImg, newImg) {
+          compareUtils.compareOCR(UserUrl, url, email, params, oldImg, function(oldImg, newImg, newVal) {
+            // if images are not equal, send an email
+            
             // if we enter the anonymous function, we can assume images are not equal
             if (UserUrl.stopAfterChange) {
               // set status to false since we are stopping the cronjob
               UserUrl.status = false;
               // stop cronjob
               module.exports.stopCron(UserUrl.user_id, UserUrl.url_id)
+            } else {
+              // update image
+              UserUrl.ocrText = newVal;
+              fs.rename(newImg, oldImg, function(err) {
+                if (err) {
+                  console.log('ERROR:', err);
+                }
+              })
             }
-            // if images are not equal, send an email
-            compareUtils.sendEmail(url, email, oldImg, newImg, UserUrl.filter, UserUrl);
+            compareUtils.sendEmail(url, email, oldImg, newImg, sendOption, UserUrl);
           });
         } else if (UserUrl.comparison === 'Image') {
           compareUtils.compareScreenShot(UserUrl, url, email, params, oldImg, function(oldImg, newImg) {
@@ -84,9 +96,16 @@ module.exports = {
               UserUrl.status = false;
               // stop cronjob
               module.exports.stopCron(UserUrl.user_id, UserUrl.url_id)
+            } else {
+            compareUtils.sendEmail(url, email, oldImg, newImg, sendOption, UserUrl);
+              // update image
+              fs.rename(newImg, oldImg, function(err) {
+                if (err) {
+                  console.log('ERROR:', err);
+                }
+              })
             }
             // if images are not equal, send an email
-            compareUtils.sendEmail(url, email, oldImg, newImg, UserUrl.filter, UserUrl);
           });
 
         } else {
@@ -97,9 +116,16 @@ module.exports = {
               UserUrl.status = false;
               // stop cronjob
               module.exports.stopCron(UserUrl.user_id, UserUrl.url_id)
+            } else {
+            compareUtils.sendEmail(url, email, oldImg, newImg, sendOption, UserUrl);
+              // update image
+              fs.rename(oldImg, newImg, function(err) {
+                if (err) {
+                  console.log('ERROR:', err);
+                }
+              })
             }
             // if images are not equal, send an email
-            compareUtils.sendEmail(url, email, oldImg, newImg, UserUrl.filter, UserUrl);
           });
         }
 
