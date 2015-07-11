@@ -1,16 +1,10 @@
 var compare = require('../imgCompare.js').compare;
 var CronJob = require('cron').CronJob;
 var CronJobManager = require('cron-job-manager');
-<<<<<<< HEAD
 var compareUtils = require('../cron');
 var nodemailer = require('nodemailer');
 var ocr = require('./ocrController.js');
 var secret = require('../../config.js');
-=======
-var compareUtils = require('../utils/cron');
-var removeUrl = require('./urlController');
-var db = require("../db");
->>>>>>> 58f13c04aa4cd27944d5817f04cdf13a49326743
 var Sequelize = require('sequelize');
 
 
@@ -31,11 +25,11 @@ module.exports = {
              if (active) {
                console.log('watching ' + url + ' for ' + userUrl.email)
                module.exports.addCron(userUrl, url);
-             }; // if (active)
-          }; // for loop iterating over each url for a user
-        }); // .then(function(url){
-      }; // or (var i = 0; i < allUsers.length; i++){
-    }); // .then(function(allUsers) {
+             }; 
+          }; 
+        }); 
+      }; 
+    }); 
   },
 
   addCron: function(UserUrl, url) {
@@ -57,10 +51,10 @@ module.exports = {
 
     console.log('Starting cronJob', key, 'for', UserUrl.url, ' with frequency ', freq);
 
-
     if (manager.exists(key)) {
       manager.deleteJob(key);
     };
+
     manager.add(key, freq, function() {
       if (UserUrl.status) {
         // var currentDate = new Date(dateString);
@@ -124,7 +118,6 @@ module.exports = {
 
         if (UserUrl.numScrapes >= 100) {
           // remove
-          
           db.User.findOne({
             where: {
               email: UserUrl.email
@@ -146,12 +139,10 @@ module.exports = {
                 } else {
 
                   console.log('error. Url not found in cronController')
-
-                } // end urlFound
-              }); // end url.findOne then
-
-            } // end if userFound
-          }); // end user.findOne then
+                } 
+              }); 
+            } 
+          }); 
         }
 
       } else {
