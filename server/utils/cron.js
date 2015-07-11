@@ -68,10 +68,11 @@ module.exports = {
                   cb(oldImg, newImg);
                 } 
               } 
-            }  else {
-                  if (UserUrl.cronVal !== text) {
-                   cb(oldImg, newImg);
-                  } 
+            } else {
+              console.log('comparing', UserUrl.cronVal, 'to', text);
+              if (UserUrl.ocrText !== text) {
+               cb(oldImg, newImg);
+              }
             };
           }; 
         }); 
