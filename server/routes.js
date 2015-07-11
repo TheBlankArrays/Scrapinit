@@ -1,4 +1,4 @@
-//add Controllers to handle the routes
+// add controllers to handle the routes
 var authController = require('./controllers/authController');
 var urlController = require('./controllers/urlController');
 var basicScraper = require('./controllers/basicScraperController');
@@ -7,7 +7,7 @@ var url = require('url');
 
 var setup = function(app) {
 
-  // Unprotected Routes
+  // unprotected Routes
   app.route('/api/users/login')
     .post(authController.login);
 
@@ -17,8 +17,8 @@ var setup = function(app) {
   app.route('/api/users/check_User')
     .get(authController.checkUser);
 
-  // Protected Routes
-  app.route("/api/users/logout")
+  // protected Routes
+  app.route('/api/users/logout')
     .get(authController.isAuth, authController.logout);
 
   app.route('/api/users/url')
@@ -40,7 +40,7 @@ var setup = function(app) {
     });
   });
 
-  app.route("/api/users/url/:idUrl")
+  app.route('/api/users/url/:idUrl')
     .get(authController.isAuth, urlController.getUrl);
 
   app.post('/api/screenshot', authController.isAuth, function(req, res, next) {
@@ -59,4 +59,6 @@ var setup = function(app) {
 	});
 
 };
+
 module.exports.setup = setup;
+
