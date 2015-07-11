@@ -63,12 +63,13 @@ module.exports = {
           y: UserUrl.cropOriginY
         };
 
+         UserUrl.lastScrape = compareUtils.getDate();
+
         var sendOption = UserUrl.filter === 'null' ? UserUrl.comparison : UserUrl.filter;
 
         if (UserUrl.comparison === 'Text') {
           compareUtils.compareOCR(UserUrl, url, email, params, oldImg, function(oldImg, newImg, newVal) {
             // if images are not equal, send an email
-            compareUtils.sendEmail(url, email, oldImg, newImg, UserUrl.filter, UserUrl);
             
             // if we enter the anonymous function, we can assume images are not equal
             if (UserUrl.stopAfterChange) {
@@ -79,17 +80,13 @@ module.exports = {
             } else {
               // update image
               UserUrl.ocrText = newVal;
-              console.log('==========================================');
-              console.log('ocr text is', UserUrl.ocrText);
-              console.log('newVal is', newVal);
-              console.log('oldImg  ', oldImg);
-              console.log('newImg', newImg);
               fs.rename(newImg, oldImg, function(err) {
                 if (err) {
                   console.log('ERROR:', err);
                 }
               })
             }
+            compareUtils.sendEmail(url, email, oldImg, newImg, sendOption, UserUrl);
           });
         } else if (UserUrl.comparison === 'Image') {
           compareUtils.compareScreenShot(UserUrl, url, email, params, oldImg, function(oldImg, newImg) {
@@ -100,6 +97,7 @@ module.exports = {
               // stop cronjob
               module.exports.stopCron(UserUrl.user_id, UserUrl.url_id)
             } else {
+            compareUtils.sendEmail(url, email, oldImg, newImg, sendOption, UserUrl);
               // update image
               fs.rename(newImg, oldImg, function(err) {
                 if (err) {
@@ -108,7 +106,6 @@ module.exports = {
               })
             }
             // if images are not equal, send an email
-            compareUtils.sendEmail(url, email, oldImg, newImg, UserUrl.filter, UserUrl);
           });
 
         } else {
@@ -120,6 +117,7 @@ module.exports = {
               // stop cronjob
               module.exports.stopCron(UserUrl.user_id, UserUrl.url_id)
             } else {
+            compareUtils.sendEmail(url, email, oldImg, newImg, sendOption, UserUrl);
               // update image
               fs.rename(oldImg, newImg, function(err) {
                 if (err) {
@@ -128,7 +126,6 @@ module.exports = {
               })
             }
             // if images are not equal, send an email
-            compareUtils.sendEmail(url, email, oldImg, newImg, UserUrl.filter, UserUrl);
           });
         }
 
