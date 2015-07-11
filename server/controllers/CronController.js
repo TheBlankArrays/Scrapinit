@@ -35,14 +35,6 @@ module.exports = {
   },
 
   addCron: function(UserUrl, url) {
-    // Test Values
-    
-    UserUrl.frequency = '*/5 * * * * *';
-    UserUrl.compareVal = 1;
-    UserUrl.filter = 'greater';
-    UserUrl.comparison = 'Text';
-    
-
 
     UserUrl.status = true;
     var userUrl = UserUrl;
