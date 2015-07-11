@@ -1,41 +1,31 @@
+<tour step="currentStep" post-step="stepComplete()">
+  <span tourtip="Copy here the URL that you want"
+        tourtip-step="0"
+        tourtip-next-label="Next"
+        tourtip-placement="left"
+        scrollSpeed="500"
+        tourtip-offset="15">
+  </span>
+</tour>
+<div id="app">
+    <div id='page'>
+      <header>
+        <img src="/app/images/logo_alpha.png" />
+      </header>
 
-<button id='signout-button' type ='button' ng-click="logout()">Logout</button>
+      <div id="logout">
+        <button id='signout-button' type ='button' ng-click="logout()">
+          <span class="icon-exit"></span>
+          Logout
+        </button>
+      </div>
+      <form id="form__url" ng-submit='add()'>
+        <input type="text" name="url" ng-model="url" id="url">
+        <input type="submit" value="Scrape It"/>
+      </form>
 
-<form ng-submit='add()'>
-Insert a new URL to watch... <input type="text" name="url" ng-model="url" id="url" value="http://" onfocus="">
-<button id='submit-button' type="submit">SUBMIT</button>
-</form>
+      <hr>
+      <ui-view></ui-view>
+    </div>
 
-
-<div>{{html}}</div>
-
-
-<ui-view></ui-view>
-
-<hr>
-
-<table class="gradienttable">
-  <thead>
-    <tr>
-      <th>URL</th>
-      <th>whatToWatch</th>
-      <th>pingRate</th>
-      <th>active</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="watchurl in urls">
-      <td>{{ watchurl }}</td>
-      <td>PAGE</td>
-      <td>5 min</td>
-      <td>true</td>
-    </tr>
-  </tbody>
-</table>
-
-<hr>
-
-<div style="background-image: url('/theirSite.jpg'); background-size: cover; width: 614px; height: 461px; border: 1px solid black" id="siteimg"></div>
-
-
-<iframe src="" width="100%" height="500px" id="theframe"><h1>dsadsa</h1></iframe>
+</div>

@@ -1,4 +1,3 @@
-
 USE scraping;
 
 DROP TABLE IF EXISTS User;
@@ -23,51 +22,53 @@ DROP TABLE IF EXISTS UserUrl;
 CREATE TABLE `UserUrl` (
     `userID` INT NOT NULL,
     `urlID` INT NOT NULL,
-    `frequency` INT NOT NULL DEFAULT '5',
-    `html` varchar NOT NULL,
-    `selector` varchar NOT NULL,
+    `frequency` varchar NOT NULL,
+    `webImage` varchar NOT NULL,
+    `cropImage` varchar NOT NULL,
+    'ocrText' varchar NOT NULL,
+    `cropHeight` INT NOT NULL,
+    `cropWidth` INT NOT NULL,
+    `cropOriginX` INT NOT NULL,
+    `cropOriginY` INT NOT NULL,
+    `comparison` varchar NOT NULL,
+    `compareVal` varchar NOT NULL,
     PRIMARY KEY (`UserUrlID`)
 );
 
 ALTER TABLE `UserUrl` ADD CONSTRAINT `UserUrl_fk0` FOREIGN KEY (`userID`) REFERENCES `User`(`UserID`);
 ALTER TABLE `UserUrl` ADD CONSTRAINT `UserUrl_fk1` FOREIGN KEY (`urlID`) REFERENCES `Url`(`UrlID`);
 
-
-
--- better set up?
-
 /*
-
-DROP TABLE IF EXISTS `user`
-
-CREATE TABLE `user`(
-    `userId` INT NOT NULL AUTO_INCREMENT,
-    `email` VARCHAR(255) NOT NULL,
-    `password` VARCHAR(255) NOT NULL,
-    PRIMARY KEY (`userId`)
-);
-
-ALTER TABLE `User` ADD CONSTRAINT `User_fk0` FOREIGN KEY (`scrapes`) REFERENCES `scrape`(`url`);
-
-DROP TABLE IF EXISTS `UserUrl`;
-
-CREATE TABLE `UserUrl` (
-    `urlID` INT NOT NULL AUTO_INCREMENT,
-    -- selector?? 
-    -- 'selector' VARCHAR(255) NOT NULL,
-    `html` VARCHAR(255) NOT NULL,
-    'frequency' INT NOT NULL DEFAULT 5,
-    PRIMARY KEY (`urlID`)
-);
-
-DROP TABLE IF EXISTS `url`;
-
-CREATE TABLE `url` (
-    `URLID` INT NOT NULL AUTO_INCREMENT,
-    `UserID` INT NOT NULL,
-    'url' VARCHAR(255) NOT NULL,
-    `scrapesID` INT NOT NULL,
-    PRIMARY KEY (`URLID`)
-);
-
-*/
+ *
+ *DROP TABLE IF EXISTS `user`
+ *
+ * CREATE TABLE `user`(
+ * `userId` INT NOT NULL AUTO_INCREMENT,
+ *   `email` VARCHAR(255) NOT NULL,
+ *  `password` VARCHAR(255) NOT NULL,
+ *   PRIMARY KEY (`userId`)
+ *);
+ *
+ *ALTER TABLE `User` ADD CONSTRAINT `User_fk0` FOREIGN KEY (`scrapes`) REFERENCES `scrape`(`url`);
+ *
+ *DROP TABLE IF EXISTS `UserUrl`;
+ * 
+ *CREATE TABLE `UserUrl` (
+ *   `urlID` INT NOT NULL AUTO_INCREMENT,
+ *  -- selector??
+ *   -- 'selector' VARCHAR(255) NOT NULL,
+ *   `html` VARCHAR(255) NOT NULL,
+ *   'frequency' INT NOT NULL DEFAULT 5,
+ *   PRIMARY KEY (`urlID`)
+ * );
+ *
+ * DROP TABLE IF EXISTS `url`;
+ *
+ *CREATE TABLE `url` (
+ *  `URLID` INT NOT NULL AUTO_INCREMENT,
+ *  `UserID` INT NOT NULL,
+ *  'url' VARCHAR(255) NOT NULL,
+ *   `scrapesID` INT NOT NULL,
+ *   PRIMARY KEY (`URLID`)
+ * );
+ */

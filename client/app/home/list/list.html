@@ -1,0 +1,91 @@
+<tour step="currentStep" post-step="stepComplete()">
+  <span tourtip="Copy here the URL that you want"
+    tourtip-step="0"
+    tourtip-next-label="Next"
+    tourtip-placement="bottom"
+    scrollSpeed="500"
+    tourtip-offset="-10">
+  </span>
+  <span ng-click="closeTour()" tourtip="Here will appear all your URLs history"
+    tourtip-step="1"
+    tourtip-next-label="Close"
+    tourtip-placement="left"
+    scrollSpeed="500"
+    tourtip-offset="15">
+  </span>
+</tour>
+<div ng-show="urls.length > 0 && !loading">
+  <div class="table">
+    <div class="table__search">
+      <input class="table__input" type="text" ng-model="search" placeholder="Search"/>
+      <span class="icon-filter"></span>
+    </div>
+      <div class="table__header">
+        <div>
+          URL
+        </div>
+        <div>
+          IMAGE
+        </div>
+        <div>
+          TYPE
+        </div>
+        <div>
+          VALUE
+        </div>
+        <div>
+          FREQUENCY
+        </div>
+        <div>
+          OPTIONS
+        </div>
+      </div>
+    <div class="table__rows">
+      <div class="table__row" ng-repeat="url in urls | filter:search">
+        <div>
+          <a href="{{url.url}}">
+            <span class="icon-share"></span>
+            {{url.url | domain}}
+          </a>
+        </div>
+        <div>
+          <img src="{{url.img}}"/>
+        </div>
+        <div>
+          {{url.comparison}}
+        </div>
+        <div>
+          <div ng-show="currentText !== $index">
+            {{url.text | limitTo: 40}}
+            <div class="more" ng-click="currentText = $index" ng-show="url.text.length > 40">
+              . . .
+            </div>
+          </div>
+          <div ng-show="currentText == $index">
+            {{url.text}}
+            <div class="less" ng-click="currentText = undefined"> hide </div>
+          </div>
+        </div>
+        <div>
+          {{url.frequency}}
+        </div>
+        <div>
+
+          <span class="remove__url" ng-click="remove(url.url)" >
+            <span class="icon-bin"></span>
+          </span>
+        </div>
+
+        <!-- <i style='text-align: left; color: rgba(58,58,66,0.4);'>{{url.url | domain}}</i><br> -->
+      </div>
+    </div>
+  </div>
+</div>
+<div class="scrapping" ng-show="loading">
+  <span class="scrape__animation"></span>
+</div>
+<div ng-show="urls.length == 0 && !loading">
+  <div class="empty__urls">
+    Your URLs history is empty!
+  </div>
+</div>

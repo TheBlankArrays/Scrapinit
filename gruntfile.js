@@ -11,6 +11,7 @@ module.exports = function(grunt) {
            dest: './server/dist/<%= pkg.name %>.js'
        }
       },
+      
     jshint: {
       files: [
         'server/*',
@@ -32,15 +33,16 @@ module.exports = function(grunt) {
           'concat'
         ]
       },
+
     serve: {
-      tasks: [ 
-      'shell:enterServer'
-      ]
-    },
+        tasks: [
+        'shell:enterServer'
+        ]
+      },
 
     shell: {
       npmInstall: {
-      command: 'npm install; cd client; bower install; cd .. ',
+      command: 'npm install; cd client; bower install; cd ..; brew install imagemagick; brew install graphicsmagick; brew install phantomjs; brew install tesseract',
 
       options: {
             stdout: true,
@@ -49,21 +51,15 @@ module.exports = function(grunt) {
       },
       enterServer: {
         command: 'cd server; nodemon server.js'
-      },
+      }
     }
     });
-
 
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-nodemon');
   grunt.loadNpmTasks('grunt-shell');
 
-  grunt.registerTask('install', [
-    'concat', 'shell:npmInstall']);
-    grunt.registerTask('serve', ['shell:enterServer']);
+  grunt.registerTask('install', ['concat', 'shell:npmInstall']);
+  grunt.registerTask('serve', ['shell:enterServer']);
 }
-
-
-
-
