@@ -14,3 +14,4 @@ images/*
 server/difference.png
 sever/specs/*.png
 sever/specs/*.jpg
+server/client
