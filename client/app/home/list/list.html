@@ -1,12 +1,12 @@
 <tour step='currentStep' post-step='stepComplete()'>
-  <span tourtip='Copy here the URL that you want'
+  <span tourtip='URL goes here'
     tourtip-step='0'
     tourtip-next-label='Next'
     tourtip-placement='bottom'
     scrollSpeed='500'
     tourtip-offset='-10'>
   </span>
-  <span ng-click='closeTour()' tourtip='Here will appear all your URLs history'
+  <span ng-click='closeTour()' tourtip='A list of your monitored sites will appear here'
     tourtip-step='1'
     tourtip-next-label='Close'
     tourtip-placement='left'
@@ -58,7 +58,7 @@
           <div ng-show='currentText !== $index'>
             {{url.text | limitTo: 40}}
             <div class='more' ng-click='currentText = $index' ng-show='url.text.length > 40'>
-              . . .
+              show more
             </div>
           </div>
           <div ng-show='currentText == $index'>
@@ -75,8 +75,6 @@
             <span class='icon-bin'></span>
           </span>
         </div>
-
-        <!-- <i style='text-align: left; color: rgba(58,58,66,0.4);'>{{url.url | domain}}</i><br> -->
       </div>
     </div>
   </div>

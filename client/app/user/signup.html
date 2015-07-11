@@ -7,10 +7,10 @@
           <h2>Signup for an account...</h2>
           <form name='form'  ng-submit='signup()'>
             <div class='form-group'
-            ng-class='{ 'has-focus': form.email.hasFocus,
-            'has-success': form.email.$valid,
-            'has-error': form.email.$invalid && (form.$submitted || form.email.$touched),
-            'is-empty': !form.email.$viewValue }'>
+            ng-class='{ "has-focus": form.email.hasFocus,
+            "has-success": form.email.$valid,
+            "has-error": form.email.$invalid && (form.$submitted || form.email.$touched),
+            "is-empty": !form.email.$viewValue }'>
             <label for='email'>email</label>
               <input type='email' name='email' ng-model='user.email' required
               ng-focus='form.email.hasFocus=true', ng-blur='form.email.hasFocus=false'>
@@ -19,10 +19,10 @@
             </div>
 
             <div class='form-group'
-            ng-class='{ 'has-focus': form.password.hasFocus,
-            'has-success': form.password.$valid,
-            'has-error': form.password.$invalid && (form.$submitted || form.password.$touched),
-            'is-empty': !form.password.$viewValue }'>
+            ng-class='{ "has-focus": form.password.hasFocus,
+            "has-success": form.password.$valid,
+            "has-error": form.password.$invalid && (form.$submitted || form.password.$touched),
+            "is-empty": !form.password.$viewValue }'>
             <label for='password'>password</label>
               <input type='password' name='password' ng-model='user.password' required
                 ng-focus='form.password.hasFocus=true', ng-blur='form.password.hasFocus=false' autocomplete='off'>
