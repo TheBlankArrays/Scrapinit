@@ -35,7 +35,6 @@ module.exports = {
 
   compareOCR: function(UserUrl, website, email, params, oldImg, cb) {
     module.exports.getNewCroppedImage(UserUrl, website, email, params, oldImg, function(oldImg, newImg) {
-      console.log('inside ocrCompare, oldImg', oldImg, 'newImg', newImg);
 
         newImg = __dirname.substr(0, __dirname.length - 12) + 'client/' + newImg;
         oldImg = __dirname.substr(0, __dirname.length - 12) + 'client/' + oldImg;
@@ -70,7 +69,7 @@ module.exports = {
               } 
             } else {
               if (UserUrl.ocrText !== text) {
-               cb(oldImg, newImg);
+               cb(oldImg, newImg, text);
               }
             };
           }; 
@@ -171,13 +170,15 @@ module.exports = {
     };
 
     // send email function
-    transporter.sendMail(mailOptions[sendOption], function(error, info){mailOptions[sendOption]
-        if(error){
-          console.log(error);
-        } else {
-          console.log('Message sent: ' + info.response);
-        }; 
-    }); 
+
+    // transporter.sendMail(mailOptions[sendOption], function(error, info){mailOptions[sendOption]
+    //     if(error){
+    //       console.log(error);
+    //     } else {
+    //       console.log('Message sent: ' + info.response);
+    //     }; 
+    // }); 
+
   }
 }
 
