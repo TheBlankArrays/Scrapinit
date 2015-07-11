@@ -52,8 +52,6 @@ module.exports = {
       if (UserUrl.status) {
         UserUrl.lastScrape = compareUtils.getDate();
 
-        console.log('checking', url, 'for', UserUrl.email, 'at', UserUrl.lastScrape);
-
          var oldImg = UserUrl.cropImage;
          var email = UserUrl.email;
          var params = {
