@@ -1,7 +1,7 @@
 var compare = require('../imgCompare.js').compare;
 var CronJob = require('cron').CronJob;
 var CronJobManager = require('cron-job-manager');
-var compareUtils = require('../cron');
+var compareUtils = require('../utils/cron');
 var nodemailer = require('nodemailer');
 var ocr = require('./ocrController.js');
 var secret = require('../../config.js');
@@ -15,41 +15,41 @@ module.exports = {
     console.log('starting all cronjobs');
     db.User.findAll()
     .then(function(allUsers) {
-      for (var i = 0; i < allUsers.length; i++){
+      for (var i = 0; i < allUsers.length; i++) {
         allUsers[i].getUrls()
         .then(function(url) {
-          for (var j=0; j<url.length; j++){
+          for (var j=0; j<url.length; j++) {
              var userUrl = url[j].UserUrl;
-             var active = userUrl.status;
-             var url = url[j].url;
-             if (active) {
-               console.log('watching ' + url + ' for ' + userUrl.email)
-               module.exports.addCron(userUrl, url);
-             }; 
-          }; 
-        }); 
-      }; 
-    }); 
+
+             module.exports.startCron(userUrl.user_id, userUrl.url_id);
+             // var active = userUrl.status;
+             // var url = url[j].url;
+             // if (active) {
+             //   console.log('watching ' + url + ' for ' + userUrl.email)
+             //   module.exports.addCron(userUrl, url);
+             // }; // if (active)
+          }; // for loop iterating over each url for a user
+        }); // .then(function(url){
+      }; // or (var i = 0; i < allUsers.length; i++){
+    }); // .then(function(allUsers) {
   },
 
   addCron: function(UserUrl, url) {
+    // Test Values
+    // UserUrl.frequency = '*/5 * * * * *';
+    // UserUrl.compareVal = 1;
+    // UserUrl.filter = 'greater';
+    // UserUrl.comparison = 'Text';
+    
+
+
     UserUrl.status = true;
     var userUrl = UserUrl;
     var key = UserUrl.url_id.toString() + UserUrl.user_id.toString();
     var freq = UserUrl.frequency;
-    var action = UserUrl.compare || 'image';
+    var action = UserUrl.compare || 'Image';
 
-    // hours
-    // var freq = '* * */' + UserUrl.frequency + ' * * *';
-
-    // minutes
-    // var freq = '* */' + UserUrl.frequency + ' * * * *';
-
-    // Test values
-    // var freq = '*/1 * * * * *';
-    // var freq = '* */5 * * * *';
-
-    console.log('Starting cronJob', key, 'for', UserUrl.url, ' with frequency ', freq);
+    console.log('Starting cronJob', key, 'for', url, ' with frequency ', freq);
 
     if (manager.exists(key)) {
       manager.deleteJob(key);
@@ -57,9 +57,10 @@ module.exports = {
 
     manager.add(key, freq, function() {
       if (UserUrl.status) {
-        // var currentDate = new Date(dateString);
-        // console.log('the date is', currentDate);
-        console.log('checking', url, 'for', UserUrl.email);
+        UserUrl.lastScrape = compareUtils.getDate();
+
+        console.log('checking', url, 'for', UserUrl.email, 'at', UserUrl.lastScrape);
+
          var oldImg = UserUrl.cropImage;
          var email = UserUrl.email;
          var params = {
@@ -68,11 +69,7 @@ module.exports = {
           x: UserUrl.cropOriginX,
           y: UserUrl.cropOriginY
         };
-
-        UserUrl.lastScrape = compareUtils.getDate();
-
-        console.log(key, 'last checked at', UserUrl.lastScrape);
-
+        var sendOption = UserUrl.filter === 'null' ? UserUrl.comparison : UserUrl.filter;
 
         if (UserUrl.comparison === 'Text') {
           compareUtils.compareOCR(UserUrl, url, email, params, oldImg, function(oldImg, newImg) {
@@ -84,7 +81,7 @@ module.exports = {
               module.exports.stopCron(UserUrl.user_id, UserUrl.url_id)
             }
             // if images are not equal, send an email
-            compareUtils.sendEmail(url, email, oldImg, newImg);
+            compareUtils.sendEmail(url, email, oldImg, newImg, UserUrl.filter, UserUrl);
           });
         } else if (UserUrl.comparison === 'Image') {
           compareUtils.compareScreenShot(UserUrl, url, email, params, oldImg, function(oldImg, newImg) {
@@ -96,7 +93,7 @@ module.exports = {
               module.exports.stopCron(UserUrl.user_id, UserUrl.url_id)
             }
             // if images are not equal, send an email
-            compareUtils.sendEmail(url, email, oldImg, newImg);
+            compareUtils.sendEmail(url, email, oldImg, newImg, UserUrl.filter, UserUrl);
           });
 
         } else {
@@ -109,12 +106,11 @@ module.exports = {
               module.exports.stopCron(UserUrl.user_id, UserUrl.url_id)
             }
             // if images are not equal, send an email
-            compareUtils.sendEmail(url, email, oldImg, newImg);
+            compareUtils.sendEmail(url, email, oldImg, newImg, UserUrl.filter, UserUrl);
           });
         }
 
         UserUrl.numScrapes++;
-        console.log('numScrapes', UserUrl.numScrapes);
 
         if (UserUrl.numScrapes >= 100) {
 
@@ -135,7 +131,7 @@ module.exports = {
                   var key = UserUrl.user_id.toString() + UserUrl.url_id.toString()
                   userFound.removeUrl(urlFound);
                   manager.deleteJob(key);
-                  console.log('cronJob stopped!')
+                  console.log('cronJob', key, 'stopped!')
                 } else {
 
                   console.log('error. Url not found in cronController')
