@@ -3,7 +3,7 @@ var CronJob = require('cron').CronJob;
 var CronJobManager = require('cron-job-manager');
 var compareUtils = require('../utils/cron');
 var nodemailer = require('nodemailer');
-var ocr = require('./ocr.js');
+var ocr = require('./ocrController.js');
 var secret = require('../../config.js');
 var Sequelize = require('sequelize');
 
