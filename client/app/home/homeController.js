@@ -7,8 +7,9 @@ angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router', '
   $scope.urlImagePreview = '';
   $scope.userDecision = 'text';
   $scope.url = 'http://';
+
   $scope.$on('emptyUrls', function () {
-    $scope.url = '';
+    $scope.url = 'http://';
     $scope.urlImagePreview = '';
     $scope.loading = false;
   });
