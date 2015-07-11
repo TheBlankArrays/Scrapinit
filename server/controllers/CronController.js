@@ -6,11 +6,10 @@ var nodemailer = require('nodemailer');
 var ocr = require('./ocrController.js');
 var secret = require('../../config.js');
 var Sequelize = require('sequelize');
-
-
 var manager = new CronJobManager();
 
 module.exports = {
+
   startAllCron: function() {
     console.log('starting all cronjobs');
     db.User.findAll()
@@ -35,13 +34,6 @@ module.exports = {
   },
 
   addCron: function(UserUrl, url) {
-    // Test Values
-    // UserUrl.frequency = '*/5 * * * * *';
-    // UserUrl.compareVal = 1;
-    // UserUrl.filter = 'greater';
-    // UserUrl.comparison = 'Text';
-    
-
 
     UserUrl.status = true;
     var userUrl = UserUrl;
@@ -69,6 +61,7 @@ module.exports = {
           x: UserUrl.cropOriginX,
           y: UserUrl.cropOriginY
         };
+
         var sendOption = UserUrl.filter === 'null' ? UserUrl.comparison : UserUrl.filter;
 
         if (UserUrl.comparison === 'Text') {

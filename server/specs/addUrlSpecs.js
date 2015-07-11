@@ -14,13 +14,18 @@ var utils = {
 
   newUrl: {
     url: 'http://www.google.com', 
-    urlImg: '../client/assets/test/www.google.com.jpg',
+    urlImg: '../client/test_assets/test/google_com.png',
     crop: {
       x: 2,
       y: 2,
       w: 1,
       h: 1
-    }
+    },
+    urlType: 'text',
+    freq: '5 min',
+    filter: 'greate than',
+    compareVal: 'string',
+    stopOnTrig: false
   },
 
   createAgent: function(server) {
@@ -180,6 +185,34 @@ describe('API add url', function () {
         });
       });
     });
+
+    it('Return 400 if user is logged but the URL parameters without freq', function (done) {
+      var agent = utils.createAgent();
+      var badUrl = {
+        url: 'http://www.google.com', 
+        urlImg: '../client/test_assets/test/google_com.png',
+        crop: {
+          x: 2,
+          y: 2,
+          w: 1,
+          h: 1
+        },
+        urlType: 'string',
+        filter: 'greate than',
+        compareVal: 'string',
+        stopOnTrig: false
+      };
+
+      utils.logInAgent(agent, utils.testUser, function (user) {
+        agent.post('/api/users/url')
+        .send(badUrl)
+        .end(function (err, res) {
+          res.status.should.be.equal(400);
+          done();
+        });
+      });
+    });
+    
 
     it('Return 201 if user is logged and the parameters is good', function (done) {
       var agent = utils.createAgent();

@@ -1,6 +1,8 @@
 var db = require('../db');
 var bcrypt = require('bcrypt');
+
 module.exports = {
+
   login: function (req, res, next) {
     var user = req.body;
     db.User.findOne({
