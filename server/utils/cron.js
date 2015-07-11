@@ -95,28 +95,90 @@ module.exports = {
     });
   },
 
-  sendEmail: function(website, email, oldImg, newImg) {
+  sendEmail: function(website, email, oldImg, newImg, UserUrl) {
     console.log('change detected on', website, 'sending email to ', email);
     // parameters for email
 
     // TODO: Add different mail options for different comparison funcitons.
     var mailOptions = {
         // can have a null value.. Assign it in cronController?
-        // greater, less, contains, text, image
-        
-        from: "The Blank Arrays <postmaster@sandbox72a87403dd654630bfa3c4b021cda08d.mailgun.org>", // sender address
-        to: email, // list of receivers
-        subject: 'We found some tubular changes!', // Subject line
-        text: 'Hi there! It looks like we found a change on '+ website + '!', // plaintext body
-        html: "<span>The Scrapinit team found a change on " + website +"!</span>",
-        attachments: [
-        {
-          path: oldImg
+        // greater, less, contains, Text, Image
+        greater: {
+          from: "The Blank Arrays <postmaster@sandbox72a87403dd654630bfa3c4b021cda08d.mailgun.org>", // sender address
+          to: email, // list of receivers
+          subject: 'We found some tubular changes!', // Subject line
+          text: 'Hi there! It looks like we found a change on '+ website + '! Looks like the value you are watching went over ' + UserUrl.compareVal, // plaintext body
+          html: "<span>The Scrapinit team found a change on " + website +"!</span>",
+          attachments: [
+          {
+            path: oldImg
+          },
+          {
+            path: newImg
+          }
+          ]
         },
-        {
-          path: newImg
-        }
-        ]
+        less: {
+          from: "The Blank Arrays <postmaster@sandbox72a87403dd654630bfa3c4b021cda08d.mailgun.org>", // sender address
+          to: email, // list of receivers
+          subject: 'We found some tubular changes!', // Subject line
+          text: 'Hi there! It looks like we found a change on '+ website + '! Looks like the value you are watching went under ' + UserUrl.compareVal, // plaintext body
+          html: "<span>The Scrapinit team found a change on " + website +"!</span>",
+          attachments: [
+          {
+            path: oldImg
+          },
+          {
+            path: newImg
+          }
+          ]
+        },
+        contains: {
+          from: "The Blank Arrays <postmaster@sandbox72a87403dd654630bfa3c4b021cda08d.mailgun.org>", // sender address
+          to: email, // list of receivers
+          subject: 'We found some tubular changes!', // Subject line
+          text: 'Hi there! It looks like we found a change on '+ website + '! Looks like the value you are watching contains ' + UserUrl.compareVal, // plaintext body
+          html: "<span>The Scrapinit team found a change on " + website +"!</span>",
+          attachments: [
+          {
+            path: oldImg
+          },
+          {
+            path: newImg
+          }
+          ]
+        },
+        Text: {
+          from: "The Blank Arrays <postmaster@sandbox72a87403dd654630bfa3c4b021cda08d.mailgun.org>", // sender address
+          to: email, // list of receivers
+          subject: 'We found some tubular changes!', // Subject line
+          text: 'Hi there! It looks like we found a change on '+ website + '!', // plaintext body
+          html: "<span>The Scrapinit team found a change on " + website +"!</span>",
+          attachments: [
+          {
+            path: oldImg
+          },
+          {
+            path: newImg
+          }
+          ]
+
+        },
+        Image: {
+          from: "The Blank Arrays <postmaster@sandbox72a87403dd654630bfa3c4b021cda08d.mailgun.org>", // sender address
+          to: email, // list of receivers
+          subject: 'We found some tubular changes!', // Subject line
+          text: 'Hi there! It looks like we found a change on '+ website + '!', // plaintext body
+          html: "<span>The Scrapinit team found a change on " + website +"!</span>",
+          attachments: [
+          {
+            path: oldImg
+          },
+          {
+            path: newImg
+          }
+          ]
+        },
     };
 
     // Send email function

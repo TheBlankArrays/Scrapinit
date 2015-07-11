@@ -63,9 +63,7 @@ module.exports = {
           x: UserUrl.cropOriginX,
           y: UserUrl.cropOriginY
         };
-            var sendOption = UserUrl.filter === 'null' ? UserUrl.comparison : UserUrl.filter;
-            console.log('========================================');
-            console.log('send Option is', sendOption);
+        var sendOption = UserUrl.filter === 'null' ? UserUrl.comparison : UserUrl.filter;
 
         if (UserUrl.comparison === 'Text') {
           compareUtils.compareOCR(UserUrl, url, email, params, oldImg, function(oldImg, newImg) {
@@ -79,7 +77,7 @@ module.exports = {
             // if images are not equal, send an email
             var sendOption = UserUrl.filter
             console.log('send option is', sendOption);
-            compareUtils.sendEmail(url, email, oldImg, newImg);
+            compareUtils.sendEmail.sendOption(url, email, oldImg, newImg, UserUrl);
           });
         } else if (UserUrl.comparison === 'Image') {
           compareUtils.compareScreenShot(UserUrl, url, email, params, oldImg, function(oldImg, newImg) {
@@ -93,7 +91,7 @@ module.exports = {
             // if images are not equal, send an email
             var sendOption = UserUrl.filter
             console.log('send option is', sendOption);
-            compareUtils.sendEmail(url, email, oldImg, newImg);
+            compareUtils.sendEmail.sendOption(url, email, oldImg, newImg, UserUrl);
           });
 
         } else {
@@ -108,7 +106,7 @@ module.exports = {
             // if images are not equal, send an email
             var sendOption = UserUrl.filter
             console.log('send option is', sendOption);
-            compareUtils.sendEmail(url, email, oldImg, newImg);
+            compareUtils.sendEmail.sendOption(url, email, oldImg, newImg, UserUrl);
           });
         }
 
