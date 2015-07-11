@@ -50,14 +50,14 @@
                         ng-options="option.value as option.name for option in trig_options">
                 </select>
               </td>
-              <td><input type="input" style="width: 150px" ng-show="trig !== 'null'" ng-model="compareValue"></td>
+              <td><input type="input" style="width: 150px" ng-show="trig !== 'null'" ng-model="compareValue"> </td>
             </tr>
           </table>
         </div>
       </td>
     </tr>
     <tr>
-      <td colspan="4"><input type="checkbox" ng-model='stopOnTrig'>Stop checking when watch triggered.</td>
+      <td colspan="4"><input type="checkbox" ng-model='stopOnTrig' ng-init="stopOnTrig=true">Stop checking when watch triggered.</td>
     </tr>
   </table>
 </div>

@@ -53,7 +53,7 @@ var setup = function(app) {
   app.route('/api/users/list')
       .get(authController.isAuth, urlController.getList);
 
-  // All other routes not found, return 404
+  // all other routes not found, return 404
   app.get('*', function(req, res) {
 		res.send('what ? 404', 404);
 	});

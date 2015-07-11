@@ -54,6 +54,7 @@ module.exports = {
     if (manager.exists(key)) {
       manager.deleteJob(key);
     };
+
     manager.add(key, freq, function() {
       if (UserUrl.status) {
         UserUrl.lastScrape = compareUtils.getDate();
@@ -112,8 +113,7 @@ module.exports = {
         UserUrl.numScrapes++;
 
         if (UserUrl.numScrapes >= 100) {
-          // remove
-          
+
           db.User.findOne({
             where: {
               email: UserUrl.email
@@ -135,12 +135,10 @@ module.exports = {
                 } else {
 
                   console.log('error. Url not found in cronController')
-
-                } // end urlFound
-              }); // end url.findOne then
-
-            } // end if userFound
-          }); // end user.findOne then
+                } 
+              }); 
+            } 
+          }); 
         }
 
       } else {

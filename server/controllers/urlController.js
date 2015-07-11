@@ -1,7 +1,7 @@
 var basicScraper = require('./basicScraperController');
-var cronjob = require('./CronController');
-var db = require("../db");
-var ocr = require('./ocr.js');
+var cronjob = require('./cronController');
+var db = require('../db');
+var ocr = require('./ocrController.js');
 
 module.exports = {
   getList: function (req, res, next) {
@@ -64,8 +64,11 @@ module.exports = {
 
       if (userFound) {
 
-        // always will be true (hopefully) because they are logged in to access this route
-        // current user equals userFound
+     /** 
+      * always will be true (hopefully) because they are logged in to access this route
+      * current user equals userFound
+      */
+         
 
         console.log('url: ' + JSON.stringify(url));
 
@@ -79,11 +82,6 @@ module.exports = {
             // crop image whether or not the url has already been submitted
             console.log('***** urlImg',req.body.urlImg )
             if (urlFound) {
-
-               console.log('loggin it yo', JSON.stringify(crop));
-               console.log('urlfound: '+ urlFound);
-               console.log('crop path' + cropImg);
-               console.log('path', path);
 
                ocr.convertImageToText(path + cropImg, function(err, text){
                   if(err){
@@ -133,12 +131,9 @@ module.exports = {
                            .catch(function (err) {
                             res.status(400).json({message: err.message});
                           });
-
                   }
-
                });
-
-            } else {  // else !urlFound
+            } else {  
 
               console.log('url not found');
 
@@ -181,7 +176,6 @@ module.exports = {
                           }
                         ]
                       }).then(function (userUrl){
-                        console.log("we have access to the userUrl", userUrl.url)
                         var response = {
                           url: userUrl.url,
                           id: userUrl.id,
@@ -191,28 +185,21 @@ module.exports = {
                         cronjob.addCron(userUrl.UserUrls[0], userUrl.url);
                         res.status(201).json(response);
                       });
-                    })  // close addUrl then
+                    }) 
                     .catch(function (err) {
                       res.status(400).json({message: err.message});
-                    }); // close catch of addurl db call
-                  } // close else err
-                }); // close ocr cropimagetotext
-
-              })  // close then of create url db call
+                    });
+                  } 
+                }); 
+              }) 
               .catch(function (err) {
                 res.status(400).json({message: err.message});
-              }); // close catch of create url db call
-
-
-            }; // close else urlFound
-
-          }); // close basicScaper dot cropImg
-
-        }); // close urlFound then
-
-      } // close if userFound
-
-    });  // close userFound then
+              }); 
+            };
+          }); 
+        }); 
+      } 
+    }); 
   },
 
   getUrl: function (req, res) {
@@ -232,8 +219,8 @@ module.exports = {
       ]
     })
     .then(function (userFound) {
-      //object return {email: .., urls: []}
-      //return the first element in the userFound.urls
+      // object return {email: .., urls: []}
+      // return the first element in the userFound.urls
       if(userFound) {
         res.status(200).json(userFound.urls[0]);
       }else {
@@ -242,7 +229,6 @@ module.exports = {
     });
   },
   removeUrl: function(email, url, cb) {
-
 
       db.User.findOne({
         where: {
@@ -265,16 +251,13 @@ module.exports = {
               cb(true);
 
             } else {
-
               cb(false);
-
-            } // end urlFound
-          }); // end url.findOne then
-
-        } // end if userFound
-      }); // end user.findOne then
-
+            } 
+          }); 
+        } 
+      }); 
   },
+
   getListOfUrls: function(req, res, next){
     console.log('in getListOfUrls ', req.session.email)
      var email = req.session.email;
@@ -295,9 +278,6 @@ module.exports = {
              res.status(200).json({});
            }
          });
-
      });
-
  }
-
 };
