@@ -34,17 +34,16 @@ module.exports = {
   },
 
   compareOCR: function(UserUrl, website, email, params, oldImg, cb) {
-    // TODO: take values that are input to it, pass it through compare ocr functions? Should be in basicScroperController?
     module.exports.getNewCroppedImage(UserUrl, website, email, params, oldImg, function(oldImg, newImg) {
       console.log('inside ocrCompare, oldImg', oldImg, 'newImg', newImg);
 
         newImg = __dirname.substr(0, __dirname.length - 12) + 'client/' + newImg;
+        oldImg = __dirname.substr(0, __dirname.length - 12) + 'client/' + oldImg;
         ocr.convertImageToText(newImg, function(err, text) {
           if (err) {
             console.log('ocr error' + err);
           } else {
             if (UserUrl.filter === 'greater') {
-              console.log('in greater');
               // pulls first set of numbers from text
               if (text.match(/\d+\.?\d*/gi)) {
                 var compareVal = text.match(/\d+\.?\d*/gi)[0];
@@ -53,7 +52,6 @@ module.exports = {
                 cb(oldImg, newImg);
               }
             } else if (UserUrl.filter == 'less') {
-              // TODO: pull numeric value from text
               if (text.match(/\d+\.?\d*/gi)) {
                 var compareVal = text.match(/\d+\.?\d*/gi)[0];
               }
@@ -94,8 +92,6 @@ module.exports = {
   sendEmail: function(website, email, oldImg, newImg, sendOption, UserUrl) {
     console.log('change detected on', website, 'sending email to ', email);
     // parameters for email
-
-    // TODO: Add different mail options for different comparison funcitons.
     var mailOptions = {
         greater: {
           from: "The Blank Arrays <postmaster@sandbox72a87403dd654630bfa3c4b021cda08d.mailgun.org>", // sender address
@@ -175,7 +171,7 @@ module.exports = {
     };
 
     // send email function
-    transporter.sendMail(mailOptions[sendOption], function(error, info){
+    transporter.sendMail(mailOptions[sendOption], function(error, info){mailOptions[sendOption]
         if(error){
           console.log(error);
         } else {
