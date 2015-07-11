@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 var ocr = require('../controllers/ocrController.js');
+=======
+var ocr = require('../controllers/ocr.js');
+>>>>>>> c98a85fa043da6c8b348feb26a0c2155fc51a156
 var should = require('should');
 var assert = require('assert');
 var expect = require('expect.js');

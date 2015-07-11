@@ -159,8 +159,8 @@ module.exports = {
                        ocrText: text,
                        frequency: frequency,
                        filter: filter,
-                       stopAfterChange: stopontrig,
                        compareVal: compareVal,
+                       stopAfterChange: stopontrig
                     })
                     .then(function(associate) {
                       db.Url.findOne({
@@ -182,7 +182,6 @@ module.exports = {
                           UserUrl: userUrl.UserUrls[0]
                         }
                         console.log('sending ' + userUrl.url + ' to cronjob');
-                        console.log('with a status of', userUrl.status);
                         cronjob.addCron(userUrl.UserUrls[0], userUrl.url);
                         res.status(201).json(response);
                       });

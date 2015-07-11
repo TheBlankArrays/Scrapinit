@@ -7,67 +7,67 @@ module.exports = function(sequelize, tableConfig) {
     },
     compareVal: {
       type: Sequelize.STRING,
-      defaultValue: null
+      defaultValue: null,
     },
     cronVal: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
     },
     cropImage: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
     },
     numScrapes: {
       type: Sequelize.INTEGER,
       allowNull: false,
-      defaultValue: 0
+      defaultValue: 0,
     },
     cropHeight: {
       type: Sequelize.INTEGER,
-      allowNull: false
+      allowNull: false,
     },
     cropOriginX: {
       type: Sequelize.INTEGER,
-      allowNull: false
+      allowNull: false,
     },
     cropOriginY: {
       type: Sequelize.INTEGER,
-      allowNull: false
+      allowNull: false,
     },
     cropWidth: {
       type: Sequelize.INTEGER,
-      allowNull: false
+      allowNull: false,
     },
     email: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
     },
     filter: {
       type: Sequelize.STRING,
-      defaultValue: null
+      defaultValue: null,
     },
     frequency: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
     },
     lastScrape: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
     },
     ocrText: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
     },
     sockedID: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
     },
     status: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
-      defaultValue: true
+      defaultValue: true,
     },
     stopAfterChange: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
-      defaultValue: true
+      defaultValue: true,
     }
   }, tableConfig)
 };
