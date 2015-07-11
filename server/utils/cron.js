@@ -44,6 +44,7 @@ module.exports = {
             console.log('ocr error' + err);
           } else {
             if (UserUrl.filter === 'greater') {
+              console.log('in greater');
               // pulls first set of numbers from text
               if (text.match(/\d+\.?\d*/gi)) {
                 var compareVal = text.match(/\d+\.?\d*/gi)[0];
@@ -173,17 +174,14 @@ module.exports = {
         }
     };
 
-    // console.log('mail options', mailOptions.greater);
-    // console.log('sendOption is', sendOption)
-    // console.log('mailOptions.sendOption is', mailOptions.sendOption);
     // send email function
-    // transporter.sendMail(mailOptions.greater, function(error, info){
-    //     if(error){
-    //       console.log(error);
-    //     } else {
-    //       console.log('Message sent: ' + info.response);
-    //     }; 
-    // }); 
+    transporter.sendMail(mailOptions[sendOption], function(error, info){
+        if(error){
+          console.log(error);
+        } else {
+          console.log('Message sent: ' + info.response);
+        }; 
+    }); 
   }
 }
 
