@@ -30,11 +30,15 @@ angular.module('app.home.list', [])
   $scope.getUrls();
 
   $scope.open = function (url) {
-    var str = '<img src="'+ url +'"</img>';
+    console.log(url);
+
+    var str = '<img src="'+ url.img +'"</img>';
+    
     ngDialog.open({ 
       template: str,
       className: 'ngdialog-theme-plain',
-      plain: true
+      plain: true,
+
     });
   };
 })

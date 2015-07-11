@@ -20,7 +20,7 @@
       <input class='table__input' type='text' ng-model='search' placeholder='Search'/>
       <span class='icon-filter'></span>
     </div>
-      <div class='table__header'>
+      <div class='table__header' id="append" >
         <div>
           URL
         </div>
@@ -49,7 +49,7 @@
           </a>
         </div>
         <div>
-          <img src='{{url.img}}' ng-click='open(url.img)'/>
+          <img src='{{url.img}}' ng-click='open(url)'/>
         </div>
         <div>
           {{url.comparison}}
