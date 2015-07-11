@@ -93,77 +93,87 @@ module.exports = {
     // parameters for email
     var mailOptions = {
         greater: {
-          from: "The Blank Arrays <postmaster@sandbox72a87403dd654630bfa3c4b021cda08d.mailgun.org>", // sender address
+          from: 'The Blank Arrays <postmaster@sandbox72a87403dd654630bfa3c4b021cda08d.mailgun.org>', // sender address
           to: email, // list of receivers
           subject: 'We found some tubular changes!', // Subject line
           text: 'Hi there! It looks like we found a change on '+ website + '! Looks like the value you are watching went over ' + UserUrl.compareVal, // plaintext body
-          html: "<span>The Scrapinit team found a change on " + website +"!</span>",
+          html: '<span>The Scrapin\'it team found a change on ' + website +'! Looks like the value you are watching went over ' + UserUrl.compareVal + '<br> Here is what we were looking at before: <img src="oldImg"/> <br> Here is what it looks like now: <img src="newImg"/> </span>',
           attachments: [
           {
-            path: oldImg
+            path: oldImg,
+            cid: 'oldImg',
           },
           {
-            path: newImg
+            path: newImg,
+            cid: 'newImg',
           }
           ]
         },
         less: {
-          from: "The Blank Arrays <postmaster@sandbox72a87403dd654630bfa3c4b021cda08d.mailgun.org>", // sender address
+          from: 'The Blank Arrays <postmaster@sandbox72a87403dd654630bfa3c4b021cda08d.mailgun.org>', // sender address
           to: email, // list of receivers
           subject: 'We found some tubular changes!', // Subject line
           text: 'Hi there! It looks like we found a change on '+ website + '! Looks like the value you are watching went under ' + UserUrl.compareVal, // plaintext body
-          html: "<span>The Scrapinit team found a change on " + website +"!</span>",
+          html: '<span>The Scrapin\'it team found a change on ' + website +'! Looks like the value you are watching went under ' + UserUrl.compareVal + '<br> Here is what we were looking at before: <img src="oldImg"/> <br> Here is what it looks like now: <img src="newImg"/> </span>',
           attachments: [
           {
-            path: oldImg
+            path: oldImg,
+            cid: 'oldImg',
           },
           {
-            path: newImg
+            path: newImg,
+            cid: 'newImg',
           }
           ]
         },
         contains: {
-          from: "The Blank Arrays <postmaster@sandbox72a87403dd654630bfa3c4b021cda08d.mailgun.org>", // sender address
+          from: 'The Blank Arrays <postmaster@sandbox72a87403dd654630bfa3c4b021cda08d.mailgun.org>', // sender address
           to: email, // list of receivers
           subject: 'We found some tubular changes!', // Subject line
           text: 'Hi there! It looks like we found a change on '+ website + '! Looks like the value you are watching contains ' + UserUrl.compareVal, // plaintext body
-          html: "<span>The Scrapinit team found a change on " + website +"!</span>",
+          html: '<span>The Scrapin\'it team found a change on ' + website +'! Looks like the value you are watching contains ' + UserUrl.compareVal + '<br> Here is what we were looking at before: <img src="oldImg"/> <br> Here is what it looks like now: <img src="newImg"/> </span>',
           attachments: [
           {
-            path: oldImg
+            path: oldImg,
+            cid: 'oldImg',
           },
           {
-            path: newImg
+            path: newImg,
+            cid: 'newImg',
           }
           ]
         },
         Text: {
-          from: "The Blank Arrays <postmaster@sandbox72a87403dd654630bfa3c4b021cda08d.mailgun.org>", // sender address
+          from: 'The Blank Arrays <postmaster@sandbox72a87403dd654630bfa3c4b021cda08d.mailgun.org>', // sender address
           to: email, // list of receivers
           subject: 'We found some tubular changes!', // Subject line
           text: 'Hi there! It looks like we found a change on '+ website + '!', // plaintext body
-          html: "<span>The Scrapinit team found a change on " + website +"!</span>",
+          html: '<span>The Scrapin\'it team found a change on ' + website +'!<br> Here is what we were looking at before: <img src="oldImg"/> <br> Here is what it looks like now: <img src="newImg"/> </span>',
           attachments: [
           {
-            path: oldImg
+            path: oldImg,
+            cid: 'oldImg',
           },
           {
-            path: newImg
+            path: newImg,
+            cid: 'newImg',
           }
           ]
         },
         Image: {
-          from: "The Blank Arrays <postmaster@sandbox72a87403dd654630bfa3c4b021cda08d.mailgun.org>", // sender address
+          from: 'The Blank Arrays <postmaster@sandbox72a87403dd654630bfa3c4b021cda08d.mailgun.org>', // sender address
           to: email, // list of receivers
           subject: 'We found some tubular changes!', // Subject line
           text: 'Hi there! It looks like we found a change on '+ website + '!', // plaintext body
-          html: "<span>The Scrapinit team found a change on " + website +"!</span>",
+          html: '<span>The Scrapin\'it team found a change on ' + website +'!<br> Here is what we were looking at before: <img src="oldImg"/> <br> Here is what it looks like now: <img src="newImg"/> </span>',
           attachments: [
           {
-            path: oldImg
+            path: oldImg,
+            cid: 'oldImg',
           },
           {
-            path: newImg
+            path: newImg,
+            cid: 'newImg',
           }
           ]
         }
