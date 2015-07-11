@@ -14,7 +14,6 @@ var utils = {
   },
   url : {
     url: "http://www.google.com"
-    // syntacticallyIncorrectUrl : "www.google.com"
   },
   urlSpecifics :{
     url: 'string', 
@@ -28,10 +27,12 @@ var utils = {
       cropOriginY: 4
     }
   },
+  
   createAgent: function(server) {
     var server = server || serverHost
     return supertest.agent(server);
   },
+
   signUpUser: function (credentials, callback) {
     request.post('/api/users/signup')
     .send(credentials)
@@ -46,6 +47,7 @@ var utils = {
       }
     });
   },
+
   destroyUser: function (schema, credentials, callback) {
     schema.find({where: {email: this.testUser.email}})
     .then(function(foundUser) {
@@ -59,6 +61,7 @@ var utils = {
       }
     });
   },
+
   logInAgent: function (agent, credentials, callback) {
     agent.post('/api/users/login')
     .send(credentials)
@@ -74,6 +77,7 @@ var utils = {
       }
     });
   },
+
   logOutAgent: function (agent, callback) {
     agent.get('/api/users/logout')
     .end(function(err, res) {

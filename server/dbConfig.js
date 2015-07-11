@@ -25,6 +25,7 @@ var connect = function(dbPath) {
 	});
 
 	return sequelize;
+
 };
 
 // construct is just a boolean input - allows same function to be used for testing and the actual server
@@ -51,7 +52,7 @@ var createSchemas = function(dbConnection, construct) {
 	UserUrl.belongsTo(Url);
 
 
-	//Basically check if tables exists, if not, creates it
+	// basically check if tables exists, if not, creates it
 	if (construct) {
 		User.sync();
     Url.sync();

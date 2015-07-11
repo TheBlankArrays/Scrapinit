@@ -32,7 +32,6 @@ module.exports = {
   },
 
   cropImg: function(url, crop, compare, cb, email) {
-
     console.log('url corpimg', url);
     var filepath = url.substr(0, url.length - 12) + ((compare) ? '-compare.png' : '.png');
     console.log('cropimg ', filepath)

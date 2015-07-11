@@ -7,4 +7,5 @@ module.exports = function(sequelize, tableConfig) {
       allowNull: false
     }
   }, tableConfig)
-}
+};
+
