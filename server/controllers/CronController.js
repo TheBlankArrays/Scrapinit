@@ -36,10 +36,10 @@ module.exports = {
 
   addCron: function(UserUrl, url) {
     // Test Values
-    // UserUrl.frequency = '*/10 * * * * *';
+    // UserUrl.frequency = '*/5 * * * * *';
     // UserUrl.compareVal = 1;
     // UserUrl.filter = 'greater';
-    // UserUrl.compare = 'Text';
+    // UserUrl.comparison = 'Text';
     
 
 
