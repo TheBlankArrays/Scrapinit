@@ -16,16 +16,19 @@ var utils = {
     url: "http://www.google.com"
   },
   urlSpecifics :{
-    url: 'string', 
-    userUrl: {
-      frequency: 5, 
-      webImage: 'string', 
-      cropImage: '', 
-      cropHeight: 1, 
-      cropWidth: 2, 
-      cropOriginX: 3, 
-      cropOriginY: 4
-    }
+    url: 'http://www.google.com', 
+    urlImg: '../client/test_assets/test/google_com.png',
+    crop: {
+      x: 2,
+      y: 2,
+      w: 1,
+      h: 1
+    },
+    urlType: 'text',
+    freq: '5 min',
+    filter: 'greate than',
+    compareVal: 'string',
+    stopOnTrig: false
   },
   
   createAgent: function(server) {
@@ -314,8 +317,8 @@ describe('Protected Routes', function() {
       });
     });
 
-    it(' - should not access a GET route "/api/screenshot"', function(done){
-      request.get('/api/screenshot')
+    it(' - should not access a POST route "/api/screenshot"', function(done){
+      request.post('/api/screenshot')
       .send()
       .end(function (err, res) {
         expect(res.status).to.equal(401);
@@ -364,58 +367,37 @@ describe(' - User is logged in', function(){
     var agent = utils.createAgent();
     utils.logInAgent(agent, utils.testUser, function(user){
       agent.post('/api/users/url')
-      .send(utils)
+      .send({})
       .end(function (err, res) {
-        expect(res.status).to.be.equal.to(500);
+        expect(res.status).to.be(400);
         done();
       });
     });
   });
 
 
-  xit(' - should access a GET route "/api/users/url/:idUrl" - given a valid input', function(done){
+  it(' - should access a GET route "/api/users/url/:idUrl" - given a valid input', function(done){
     var agent = utils.createAgent();
     utils.logInAgent(agent, utils.testUser, function(user){
       agent.post('/api/users/url')
       .send(utils.urlSpecifics)
       .end(function (err, res) {
         expect(res.status).to.be.within(200, 299);
-        var urlID = res.body.urlID;
         //concatenate to /api/users/url/ - route
-        agent.get('/api/users/url/' + urlID)
-        .send()
+        agent.get('/api/users/url/' + res.body.id)
         .end(function (err, res) {
-          expect(res.status).to.be.within(200, 299);
-          done();
-        });
-      });
-    });
-  });
-  
-  xit(' - should fail at accessing a POST route "/api/users/url/:idUrl" - given an invalid input', function(done){
-    var agent = utils.createAgent();
-    utils.logInAgent(agent, utils.testUser, function(user){
-      agent.post('/api/users/url')
-      .send(utils.urlSpecifics)
-      .end(function (err, res) {
-        expect(res.status).to.be.within(200, 299);
-        var urlID = res.body.urlID;
-        //concatenate to /api/users/url/ - route
-        agent.get('/api/users/url/' + urlID)
-        .send()
-        .end(function (err, res) {
-          expect(res.status).to.be.within(200, 299);
+          expect(res.status).to.be(200);
           done();
         });
       });
     });
   });
 
-  it('should access a GET route "/api/screenshot" - given a valid input', function(done){
+  it('should access a POST route "/api/screenshot" - given a valid input', function(done){
     var agent = utils.createAgent();
     utils.logInAgent(agent, utils.testUser, function(user){
-      agent.get('/api/screenshot')
-      .send(utils.url)
+      agent.post('/api/screenshot')
+      .send({url: 'http://www.google.com'})
       .end(function (err, res) {
         expect(res.status).to.be.within(200, 299);
         done();
@@ -423,13 +405,13 @@ describe(' - User is logged in', function(){
     });
   });
 
-  it('should fail at accessing a GET route "/api/screenshot" - given an invalid input', function(done){
+  it('should fail at accessing a POST route "/api/screenshot" - given an invalid input', function(done){
     var agent = utils.createAgent();
     utils.logInAgent(agent, utils.testUser, function(user){
-      agent.get('/api/screenshot')
-      .send(utils)
+      agent.post('/api/screenshot')
+      .send({})
       .end(function (err, res) {
-        expect(res.status).to.be.within(200, 299);
+        expect(res.status).to.be(500);
         done();
       });
     });
