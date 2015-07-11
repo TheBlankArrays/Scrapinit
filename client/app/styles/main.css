@@ -347,7 +347,6 @@ h1 {
   margin: 0;
   text-align: center;
    color:black;
-   letter-spacing: 2px;
   -moz-transition-property: color;  /* FF4+ */
   -moz-transition-duration: 2s;
   -webkit-transition-property: color;  /* Saf3.2+, Chrome */
@@ -955,8 +954,46 @@ table.gradienttable td{
   border: 2px solid black;
 }
 h3 {
-  font-style: italic;
+  font-style: ;
 }
 h2 {
   text-decoration: underline;
+}
+
+#welcomeDirections div {
+  background-color: rgba(255,255,255,0.4);
+  padding: 8px auto 0;
+  width: 98%;
+}
+#welcomeDirections table {
+  width: 100%;
+  border: 1
+}
+#welcomeDirections * {
+  border: 0px solid black;
+}
+#welcomeDirections td {
+  text-align: center;
+}
+#welcomeDirections h1 {
+  font-size: 22px;
+}
+#welcomeDirections h2 {
+  text-decoration: none;
+}
+#welcomeDirections a:link, #welcomeDirections a:visited {
+  color: navy;
+  font-size: 20px;
+  line-height: 3;
+}
+#welcomeDirections a:hover {
+  color: blue;
+}
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 4px dotted DarkRed;
+  margin: 1em 0;
+  padding: 0;
 }

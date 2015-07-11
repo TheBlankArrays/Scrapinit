@@ -35,10 +35,10 @@ module.exports = function(grunt) {
       },
 
     serve: {
-      tasks: [
-      'shell:enterServer'
-      ]
-    },
+        tasks: [
+        'shell:enterServer'
+        ]
+      },
 
     shell: {
       npmInstall: {
@@ -55,12 +55,11 @@ module.exports = function(grunt) {
     }
     });
 
-
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-nodemon');
   grunt.loadNpmTasks('grunt-shell');
 
   grunt.registerTask('install', ['concat', 'shell:npmInstall']);
-    grunt.registerTask('serve', ['shell:enterServer']);
+  grunt.registerTask('serve', ['shell:enterServer']);
 }

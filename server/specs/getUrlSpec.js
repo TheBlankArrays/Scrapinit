@@ -19,13 +19,18 @@ var utils = {
 
   newUrl: {
     url: 'http://www.google.com', 
-    urlImg: '../client/assets/test/www.google.com.jpg',
+    urlImg: '../client/test_assets/test/google_com.png',
     crop: {
       x: 2,
       y: 2,
       w: 1,
       h: 1
-    }
+    },
+    urlType: 'text',
+    freq: '5 min',
+    filter: 'greate than',
+    compareVal: 'string',
+    stopOnTrig: false
   },
 
   createAgent: function(server) {
@@ -159,7 +164,7 @@ describe('API', function () {
           .expect(201)
           .end(function (err, res) {
             var newUrl = res.body;
-            agent.get('/api/users/url/' + newUrl.url_id)
+            agent.get('/api/users/url/' + newUrl.id)
             .expect(200)
             .end(function (err, res) {
               var url = res.body;

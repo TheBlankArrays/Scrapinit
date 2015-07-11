@@ -1,7 +1,6 @@
 var Sequelize = require("sequelize");
 var bcrypt = require("bcrypt");
 
-
 module.exports = function(sequelize, tableConfig) {
   tableConfig.instanceMethods = {
     comparePasswords: function (password, callback) {
@@ -15,6 +14,7 @@ module.exports = function(sequelize, tableConfig) {
       });
     }
   };
+
   return sequelize.define('user', {
     email: {
       type: Sequelize.STRING,
@@ -39,3 +39,5 @@ module.exports = function(sequelize, tableConfig) {
     }
   }, tableConfig); 
 };
+
+

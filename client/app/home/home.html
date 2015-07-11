@@ -20,8 +20,10 @@
         </button>
       </div>
       <form id="form__url" ng-submit='add()'>
-        <input type="text" name="url" ng-model="url" id="url">
+        <input type="url" name="url" ng-model="url" id="url">
         <input type="submit" value="Scrape It"/>
+        <span style="color:red" ng-show="url.$error.url">
+        Sorry Not a Valid URL, Don't Forget to Use http://</span>
       </form>
 
       <hr>

@@ -1,4 +1,4 @@
-var ocr = require('../controllers/ocr.js');
+var ocr = require('../controllers/ocrController.js');
 var should = require('should');
 var assert = require('assert');
 var expect = require('expect.js');
@@ -52,3 +52,4 @@ describe('Image-to-text conversion', function(){
   });
 
 });
+
