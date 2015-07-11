@@ -17,8 +17,8 @@ module.exports = {
   getDate: function() {
     var date = new Date();
     var options = {
-      year: "numeric", month: "2-digit",
-      day: "numeric", hour: "2-digit", minute: "2-digit", second: "2-digit"
+      year: 'numeric', month: '2-digit',
+      day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit'
     };
     return date.toLocaleTimeString("en-us", options);
   },
@@ -29,19 +29,20 @@ module.exports = {
       basicScraper.cropImg(img1, params, true, function(newImg) {
         // checks for difference in pictures
         cb(oldImg, newImg)
-      }); // basicScraper.cropImg(img1, params, true, function(img2) {
-    }, email); // basicScraper.getScreenshot()
+      }); 
+    }, email); 
   },
 
   compareOCR: function(UserUrl, website, email, params, oldImg, cb) {
     // TODO: take values that are input to it, pass it through compare ocr functions? Should be in basicScroperController?
     this.getNewCroppedImage(UserUrl, website, email, params, oldImg, function(oldImg, newImg) {
       console.log('inside ocrCompare, oldImg', oldImg, 'newImg', newImg);
-      console.log('dirname is ', __dirname); //
-      /*
-      have: /Users/banana/Projects/gitinit/loveBiscuits/server
-      want: /Users/banana/Projects/gitinit/loveBiscuits/client/
-      */
+      console.log('dirname is ', __dirname); 
+
+      /**
+       * have: /Users/banana/Projects/gitinit/loveBiscuits/server
+       * want: /Users/banana/Projects/gitinit/loveBiscuits/client/
+       */
 
         newImg = __dirname.substr(0, __dirname.length - 12) + 'client/' + newImg;
         ocr.convertImageToText(newImg, function(err, text) {
@@ -78,16 +79,16 @@ module.exports = {
                 // if text contains any of the values
                 if (text.indexOf(contains[i])) {
                   cb(oldImg, newImg);
-                } // if (text.indexOf(contains[i])) {
-              } // for (var i = 0; i < contains.length; i++) {
+                } 
+              } 
             }  else {
-              if (UserUrl.cronVal !== text) {
-               cb(oldImg, newImg);
-              } // if (UserUrl.cronVal !== text) {
+                  if (UserUrl.cronVal !== text) {
+                   cb(oldImg, newImg);
+                  } 
             };
-          }; // } else {
-        }); // ocr.converImageToText(newImg, function(newImg) {
-    }); //this.getNewCroppedImage(UserUrl, website, email, params, oldImg, function(oldImg, newImg) {
+          }; 
+        }); 
+    }); 
   },
 
   compareScreenShot: function(UserUrl, website, email, params, oldImg, cb) {
@@ -97,8 +98,8 @@ module.exports = {
         console.log('logic is reached');
         if (!equal){
           cb(oldImg, newImg);
-        }; // if (!equal){
-      }); // compare(img1, img2, function (equal){
+        }; 
+      }); 
     });
   },
 
@@ -114,22 +115,24 @@ module.exports = {
         text: 'Hi there! It looks like we found a change on '+ website + '!', // plaintext body
         html: "<span>The Scrapinit team found a change on " + website +"!</span>",
         attachments: [
-        {
-          path: oldImg
-        },
-        {
-          path: newImg
-        }
+          {
+            path: oldImg
+          },
+          {
+            path: newImg
+          }
         ]
     };
 
-    // Send email function
+    // send email function
     transporter.sendMail(mailOptions, function(error, info){
         if(error){
           console.log(error);
         } else {
           console.log('Message sent: ' + info.response);
-        }; // else statemenet
-    }); // transporter.sendMail(mailOptions, function(error, info){
-  } // sendEmail: function(website, email) {
+        }; 
+    }); 
+  }
 }
+
+
