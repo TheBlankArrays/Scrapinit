@@ -12,6 +12,11 @@ angular.module('app.routes', ['ui.router'])
         templateUrl: 'app/home/comingSoon.html',
         controller: 'userController'
       })
+      .state('welcome', {
+        url: '/welcome',
+        templateUrl: 'app/home/welcome.html',
+        controller: 'userController'
+      })
       .state('signup', {
         url: '/signup',
         templateUrl: 'app/user/signup.html',
