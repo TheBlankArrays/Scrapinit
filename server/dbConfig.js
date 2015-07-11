@@ -1,31 +1,33 @@
 var Sequelize = require("sequelize");
 
-//no password
+// no password
 var connect = function(dbPath) {
 	var sequelize = new Sequelize('database', 'root', '', {
 		host:'localhost',
 		dialect: 'sqlite',
 
-		// use pooling in order to reduce db connection overload and to increase speed
-		// currently only for mysql and postgresql (since v1.5.0)
-		//not sure exactly what this does, copying config documentation
-		// pool: {
-		// 	max: 5,
-		// 	min: 0,
-		// 	idle: 10000
-		// },
+	 /** 
+	 	*	use pooling in order to reduce db connection overload and to increase speed
+		* currently only for mysql and postgresql (since v1.5.0)
+		* not sure exactly what this does, copying config documentation
+		* pool: {
+		* 	max: 5,
+		* 	min: 0,
+		* 	idle: 10000
+		* },
+		*/
 
 		storage: dbPath,
 		logging: console.log,
     logging: function (str) {
-      // console.log('Query: ', str);
+    // console.log('Query: ', str);
     }
 	});
 
 	return sequelize;
 };
 
-//construct is just a boolean input - allows same function to be used for testing and the actual server
+// construct is just a boolean input - allows same function to be used for testing and the actual server
 var createSchemas = function(dbConnection, construct) {
 	var tableConfig = {
 		underscored: true,
