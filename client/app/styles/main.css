@@ -342,7 +342,7 @@ header img {
 
 
 h1 {
-  font-size: 450%;
+  font-size: 250%;
   font-family: 'Archivo Narrow';
   margin: 0;
   text-align: center;
@@ -358,7 +358,7 @@ h1 {
   -ms-transition-duration: 2s;
   transition-property: color;  /* Standard */
   transition-duration: 2s;
-
+  line-height: 1;
 }
 h1:hover {
  color:  #b34332;
@@ -951,6 +951,12 @@ table.gradienttable td{
 }
 
 #comingSoon img {
-  
+
   border: 2px solid black;
+}
+h3 {
+  font-style: italic;
+}
+h2 {
+  text-decoration: underline;
 }
