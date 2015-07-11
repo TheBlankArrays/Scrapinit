@@ -39,12 +39,13 @@ module.exports = {
       console.log('inside ocrCompare, oldImg', oldImg, 'newImg', newImg);
 
         newImg = __dirname.substr(0, __dirname.length - 12) + 'client/' + newImg;
+        oldImg = __dirname.substr(0, __dirname.length - 12) + 'client/' + oldImg;
         ocr.convertImageToText(newImg, function(err, text) {
           if (err) {
             console.log('ocr error' + err);
           } else {
             if (UserUrl.filter === 'greater') {
-              console.log('in greater');
+              console.log('in greater', compareVal, UserUrl.compareVal);
               // pulls first set of numbers from text
               if (text.match(/\d+\.?\d*/gi)) {
                 var compareVal = text.match(/\d+\.?\d*/gi)[0];
@@ -175,7 +176,7 @@ module.exports = {
     };
 
     // send email function
-    transporter.sendMail(mailOptions[sendOption], function(error, info){
+    transporter.sendMail(mailOptions[sendOption], function(error, info){mailOptions[sendOption]
         if(error){
           console.log(error);
         } else {
