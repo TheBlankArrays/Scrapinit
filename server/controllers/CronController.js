@@ -2,8 +2,9 @@ var compare = require('../imgCompare.js').compare;
 var CronJob = require('cron').CronJob;
 var CronJobManager = require('cron-job-manager');
 var compareUtils = require('../utils/cron');
-var removeUrl = require('./urlController');
-var db = require("../db");
+var nodemailer = require('nodemailer');
+var ocr = require('./ocr.js');
+var secret = require('../../config.js');
 var Sequelize = require('sequelize');
 
 
@@ -20,7 +21,7 @@ module.exports = {
           for (var j=0; j<url.length; j++) {
              var userUrl = url[j].UserUrl;
 
-             this.startCron(userUrl.user_id, userUrl.url_id);
+             module.exports.startCron(userUrl.user_id, userUrl.url_id);
              // var active = userUrl.status;
              // var url = url[j].url;
              // if (active) {
@@ -34,17 +35,21 @@ module.exports = {
   },
 
   addCron: function(UserUrl, url) {
+    // Test Values
+    // UserUrl.frequency = '*/10 * * * * *';
+    // UserUrl.compareVal = 1;
+    // UserUrl.filter = 'greater';
+    // UserUrl.compare = 'Text';
+    
+
+
     UserUrl.status = true;
     var userUrl = UserUrl;
     var key = UserUrl.url_id.toString() + UserUrl.user_id.toString();
     var freq = UserUrl.frequency;
-    var action = UserUrl.compare || 'image';
-
-    // Test values
-    // var freq = '*/10 * * * * *';
+    var action = UserUrl.compare || 'Image';
 
     console.log('Starting cronJob', key, 'for', url, ' with frequency ', freq);
-
 
     if (manager.exists(key)) {
       manager.deleteJob(key);
@@ -75,9 +80,7 @@ module.exports = {
               module.exports.stopCron(UserUrl.user_id, UserUrl.url_id)
             }
             // if images are not equal, send an email
-            var sendOption = UserUrl.filter
-            console.log('send option is', sendOption);
-            compareUtils.sendEmail.sendOption(url, email, oldImg, newImg, UserUrl);
+            compareUtils.sendEmail(url, email, oldImg, newImg, UserUrl.filter, UserUrl);
           });
         } else if (UserUrl.comparison === 'Image') {
           compareUtils.compareScreenShot(UserUrl, url, email, params, oldImg, function(oldImg, newImg) {
@@ -89,9 +92,7 @@ module.exports = {
               module.exports.stopCron(UserUrl.user_id, UserUrl.url_id)
             }
             // if images are not equal, send an email
-            var sendOption = UserUrl.filter
-            console.log('send option is', sendOption);
-            compareUtils.sendEmail.sendOption(url, email, oldImg, newImg, UserUrl);
+            compareUtils.sendEmail(url, email, oldImg, newImg, UserUrl.filter, UserUrl);
           });
 
         } else {
@@ -104,9 +105,7 @@ module.exports = {
               module.exports.stopCron(UserUrl.user_id, UserUrl.url_id)
             }
             // if images are not equal, send an email
-            var sendOption = UserUrl.filter
-            console.log('send option is', sendOption);
-            compareUtils.sendEmail.sendOption(url, email, oldImg, newImg, UserUrl);
+            compareUtils.sendEmail(url, email, oldImg, newImg, UserUrl.filter, UserUrl);
           });
         }
 

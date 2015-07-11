@@ -1,7 +1,7 @@
 var basicScraper = require('./basicScraperController');
 var cronjob = require('./CronController');
 var db = require("../db");
-var ocr = require('./ocr');
+var ocr = require('./ocr.js');
 
 module.exports = {
   getList: function (req, res, next) {

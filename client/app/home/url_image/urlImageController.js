@@ -4,6 +4,10 @@ angular.module('app.home.urlImage', [ 'ui.router'])
   // frequency select options
   $scope.freq_options = [
       {
+        name: '20 seconds',
+        value: '*/20 * * * * *'
+      },
+      {
         name: '5 min',
         value: '1 */5 * * * *'
       },

@@ -11,6 +11,7 @@ module.exports = function(grunt) {
            dest: './server/dist/<%= pkg.name %>.js'
        }
       },
+      
     jshint: {
       files: [
         'server/*',
@@ -32,6 +33,7 @@ module.exports = function(grunt) {
           'concat'
         ]
       },
+
     serve: {
       tasks: [
       'shell:enterServer'
@@ -49,7 +51,7 @@ module.exports = function(grunt) {
       },
       enterServer: {
         command: 'cd server; nodemon server.js'
-      },
+      }
     }
     });
 
@@ -59,7 +61,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-nodemon');
   grunt.loadNpmTasks('grunt-shell');
 
-  grunt.registerTask('install', [
-    'concat', 'shell:npmInstall']);
+  grunt.registerTask('install', ['concat', 'shell:npmInstall']);
     grunt.registerTask('serve', ['shell:enterServer']);
 }
