@@ -62,16 +62,16 @@ angular.module('app.home.urlImage', [ 'ui.router'])
   // url scrape type select watcher
   $scope.$watch('enabled', function (newVal) {
    if (newVal) {
-     $("#extras").slideDown();
+     $('#extras').slideDown();
    } else {
-     $("#extras").slideUp();
+     $('#extras').slideUp();
    }
   });
 
   //finish angular-tour settings cookie
+<<<<<<< HEAD
   $scope.send = function () {
-    console.log('crop parameter send controller addImage', $scope.cropCoords);
-    var urlType = ($scope.enabled) ? "Text" : "Image";
+    var urlType = ($scope.enabled) ? 'Text' : 'Image';
     Url.postUrl($scope.cropCoords, $scope.urlImagePreview, $scope.url, urlType, $scope.freq, $scope.trig, $scope.compareValue, $scope.stopOnTrig, function (err, data) {
       if (err) {
         $scope.error = 'UPS! We are in troubles.';
