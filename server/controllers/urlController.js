@@ -164,6 +164,7 @@ module.exports = {
                        ocrText: text,
                        frequency: frequency,
                        filter: filter,
+                       compareVal: compareVal,
                        stopAfterChange: stopontrig
                     })
                     .then(function(associate) {
