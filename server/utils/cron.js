@@ -69,7 +69,6 @@ module.exports = {
                 } 
               } 
             } else {
-              console.log('comparing', UserUrl.cronVal, 'to', text);
               if (UserUrl.ocrText !== text) {
                cb(oldImg, newImg);
               }
