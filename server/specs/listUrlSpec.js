@@ -12,6 +12,22 @@ var utils = {
     password: '123qwe'
   },
 
+  newUrl: {
+    url: 'http://www.google.com', 
+    urlImg: '../client/test_assets/test/google_com.png',
+    crop: {
+      x: 2,
+      y: 2,
+      w: 1,
+      h: 1
+    },
+    urlType: 'text',
+    freq: '5 min',
+    filter: 'greate than',
+    compareVal: 'string',
+    stopOnTrig: false
+  },
+
   createAgent: function(server) {
     var server = server || serverHost
     return supertest.agent(server);
@@ -126,37 +142,18 @@ describe('URL LIST', function () {
       it('should return 200 when there are a user logged and try request', function (done) {
         var agent = utils.createAgent();
         utils.logInAgent(agent, utils.testUser, function (user) {
-          Url.create({url: 'http://www.google.com'})
-          .then(function (newUrl){
-            UserUrl.create({
-              user_id: user.id,
-              url_id: newUrl.id,
-              selector: 'Selector',
-              webImage: 'path to image',
-              cropHeight: 10,
-              cropWidth: 10,
-              cropOriginX: 10,
-              cropOriginY: 10
-            })
-            .then(function (ok) {
+          agent.post('/api/users/url')
+            .send(utils.newUrl)
+            .end(function (err, res) {
+              res.status.should.be.equal(201);
               agent.get('/api/users/list')
-              .end(function (err, res) {
-                res.status.should.be.equal(200);
-                var result = res.body;
-                result.should.have.property('urls');
-                Array.isArray(result.urls).should.equal(true);
-                result.urls[0].should.have.property('UserUrl');
-                result.urls[0].url.should.be.a.String();
-                result.urls[0].UserUrl.webImage.should.be.a.String;
-                result.urls[0].UserUrl.cropHeight.should.be.a.Number;
-                result.urls[0].UserUrl.cropWidth.should.be.a.Number;
-                result.urls[0].UserUrl.cropOriginX.should.be.a.Number;
-                result.urls[0].UserUrl.cropOriginY.should.be.a.Number;
-                done();
-              });
+                .end(function (err, res) {
+                  var list = res.body;
+                  list.urls.length.should.be.equal(1);
+                  done();
+                });
             });
-          })
-        });
+          });
       });
 
       
