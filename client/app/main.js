@@ -30,8 +30,8 @@ angular.module('app', [
 .run(function ($rootScope, $state, Auth) {
   $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
     Auth.isLoggedIn(function(loggedIn) {
-      if (toState.auth && !loggedIn) {
-        $state.go('welcome');
+      if (toState.auth && !loggedIn && toState.name !== "welcome") {
+        $state.go('login');
       }
     });
   });
