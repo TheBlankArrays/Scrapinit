@@ -5,7 +5,7 @@
 angular.module('app.routes', ['ui.router'])
 .config(
   function($stateProvider, $urlRouterProvider){
-    $urlRouterProvider.otherwise("/login");
+    $urlRouterProvider.otherwise("/welcome");
     $stateProvider
       .state('comingSoon', {
         url: '/comingSoon',
