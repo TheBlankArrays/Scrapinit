@@ -49,27 +49,22 @@ module.exports = {
           } else {
             console.log('comparing text values');
             if (UserUrl.filter === 'greater') {
-              console.log('TESTING greater')
               // pulls first set of numbers from text
               if (text.match(/\d+\.?\d*/gi)) {
                 var compareVal = text.match(/\d+\.?\d*/gi)[0];
               }
-              console.log('compareVal is', compareVal);
               if (compareVal < UserUrl.compareVal) {
                 cb(oldImg, newImg);
               }
             } else if (UserUrl.filter == 'less') {
-              console.log('TESTING less')
               // TODO: pull numeric value from text
               if (text.match(/\d+\.?\d*/gi)) {
                 var compareVal = text.match(/\d+\.?\d*/gi)[0];
               }
-              console.log('the compareVal is ', compareVal);
               if (compareVal > UserUrl.compareVal) {
                 cb(oldImg, newImg);
               }
             } else if (UserUrl.filter == 'contains') {
-              console.log('TESTING contains')
               // if a user wants to check for multiple words
               var contains = UserUrl.compareVal.split(',') || UserUrl.compareVal;
               // iterate through each word
@@ -106,6 +101,9 @@ module.exports = {
 
     // TODO: Add different mail options for different comparison funcitons.
     var mailOptions = {
+        // can have a null value.. Assign it in cronController?
+        // greater, less, contains, text, image
+        
         from: "The Blank Arrays <postmaster@sandbox72a87403dd654630bfa3c4b021cda08d.mailgun.org>", // sender address
         to: email, // list of receivers
         subject: 'We found some tubular changes!', // Subject line
