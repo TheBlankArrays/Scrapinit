@@ -1,5 +1,5 @@
 var basicScraper = require('./basicScraperController');
-var cronjob = require('./CronController');
+var cronjob = require('./cronController');
 var db = require('../db');
 var ocr = require('./ocrController.js');
 
@@ -253,7 +253,7 @@ module.exports = {
             } else {
               cb(false);
             } 
-          }); /
+          }); 
         } 
       }); 
   },
