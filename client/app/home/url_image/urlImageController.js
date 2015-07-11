@@ -69,9 +69,10 @@ angular.module('app.home.urlImage', [ 'ui.router'])
   });
 
   //finish angular-tour settings cookie
-  $scope.send = function (cropCoor) {
+  $scope.send = function () {
+    console.log('crop parameter send controller addImage', $scope.cropCoords);
     var urlType = ($scope.enabled) ? "Text" : "Image";
-    Url.postUrl(cropCoor, $scope.urlImagePreview, $scope.url, urlType, $scope.freq, $scope.trig, $scope.compareValue, $scope.stopOnTrig, function (err, data) {
+    Url.postUrl($scope.cropCoords, $scope.urlImagePreview, $scope.url, urlType, $scope.freq, $scope.trig, $scope.compareValue, $scope.stopOnTrig, function (err, data) {
       if (err) {
         $scope.error = 'UPS! We are in troubles.';
       }else {
@@ -81,17 +82,30 @@ angular.module('app.home.urlImage', [ 'ui.router'])
     });
   };
 
+  $scope.setCrop = function(cropCoor) {
+    $scope.cropCoords = cropCoor;
+  }
+
 })
-.directive('crop', function () {
+.directive('setCrop', function () {
 
   var linker = function(scope, element, attrs){
     element.Jcrop({
       onSelect: function (c) {
-        $(element).fadeOut(800);
+        //$(element).fadeOut(800);
+        $("#infoText").fadeOut(800, function() {
+          $(this).remove();
+        });
+        $('#options-panel').slideDown();
+        $('html, body').animate({
+            scrollTop: $("#options-panel").offset().top - 100
+        }, 2000);
+
         for (key in c) {
           c[key] = c[key] * 2.56;
         }
-        scope.crop({cropCoor: c});
+        console.log('crop directive cropcoor', c);
+        scope.setCrop({cropCoor: c});
       }
     });
   };
@@ -99,7 +113,7 @@ angular.module('app.home.urlImage', [ 'ui.router'])
   return {
     restrict: 'A',
     scope: {
-      crop: '&',
+      setCrop: '&',
     },
     link: linker
   }

@@ -14,10 +14,10 @@
     tourtip-offset="-82">
   </span>
 </tour>
-<div id="options-panel">
+<div id="options-panel" style="display: none">
   <table border="0">
     <tr>
-      <td colspan="4">Select your region of interest and click "Watch It".</td>
+      <td colspan="4">We are going to need a bit more information about your scrape.</td>
     </tr>
     <tr>
       <td>Type:</td>
@@ -57,8 +57,10 @@
       </td>
     </tr>
     <tr>
-      <td colspan="4"><input type="checkbox" ng-model='stopOnTrig' ng-init="stopOnTrig=true">Stop checking when watch triggered.</td>
+      <td colspan="3"><input type="checkbox" ng-model='stopOnTrig' ng-init="stopOnTrig=true">Stop checking when watch triggered.</td>
+      <td><input type="button" ng-click="send()" value="Submit"/></td>
     </tr>
   </table>
 </div>
-<div id="urlimage"><img ng-src='{{urlImagePreview}}' crop='send(cropCoor)' width='800px'/></div>
+<div id="infoText">Now please select your region of interest</div>
+<div id="urlimage"><img ng-src='{{urlImagePreview}}' width='800px' set-crop="setCrop(cropCoor)" /></div>
