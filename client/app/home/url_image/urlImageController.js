@@ -69,7 +69,7 @@ angular.module('app.home.urlImage', [ 'ui.router'])
   });
 
   //finish angular-tour settings cookie
-<<<<<<< HEAD
+
   $scope.send = function () {
     var urlType = ($scope.enabled) ? 'Text' : 'Image';
     Url.postUrl($scope.cropCoords, $scope.urlImagePreview, $scope.url, urlType, $scope.freq, $scope.trig, $scope.compareValue, $scope.stopOnTrig, function (err, data) {
