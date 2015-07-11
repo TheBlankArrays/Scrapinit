@@ -224,7 +224,7 @@ module.exports = {
       // return the first element in the userFound.urls
       if(userFound) {
         res.status(200).json(userFound.urls[0]);
-      }else {
+      } else {
         res.status(403).json({error: 'You dont have permissions in this URL'});
       }
     });
@@ -280,5 +280,6 @@ module.exports = {
            }
          });
      });
- }
+  }
 };
+

@@ -6,11 +6,10 @@ var nodemailer = require('nodemailer');
 var ocr = require('./ocrController.js');
 var secret = require('../../config.js');
 var Sequelize = require('sequelize');
-
-
 var manager = new CronJobManager();
 
 module.exports = {
+
   startAllCron: function() {
     console.log('starting all cronjobs');
     db.User.findAll()
@@ -70,9 +69,7 @@ module.exports = {
         };
 
         UserUrl.lastScrape = compareUtils.getDate();
-
         console.log(key, 'last checked at', UserUrl.lastScrape);
-
 
         if (UserUrl.comparison === 'Text') {
           compareUtils.compareOCR(UserUrl, url, email, params, oldImg, function(oldImg, newImg) {

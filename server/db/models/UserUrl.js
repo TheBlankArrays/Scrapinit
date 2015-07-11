@@ -70,4 +70,6 @@ module.exports = function(sequelize, tableConfig) {
       defaultValue: true
     }
   }, tableConfig)
-}
+};
+
+
