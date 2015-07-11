@@ -958,6 +958,8 @@ h3 {
 }
 h2 {
   text-decoration: underline;
+    color: #b34332;
+    margin-bottom: 0;
 }
 
 #welcomeDirections div {
@@ -985,13 +987,10 @@ h2 {
   text-decoration: none;
 }
 #welcomeDirections a:link, #welcomeDirections a:visited {
-  color: navy;
   font-size: 26px;
   line-height: 3;
 }
-#welcomeDirections a:hover {
-  color: blue;
-}
+
 hr {
   display: block;
   height: 1px;
@@ -999,4 +998,10 @@ hr {
   border-top: 4px dotted DarkRed;
   margin: 1em 0;
   padding: 0;
+}
+a:link, a:visited {
+    color: navy;
+}
+a:hover {
+  color: blue;
 }
