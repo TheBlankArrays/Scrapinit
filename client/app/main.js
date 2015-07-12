@@ -7,7 +7,8 @@ angular.module('app', [
   'app.routes',
   'app.user',
   'app.home',
-  'ui.router'
+  'ui.router',
+  'ngDialog'
 ])
 .controller('appController', function($scope) {
 })
