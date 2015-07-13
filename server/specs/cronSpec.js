@@ -10,41 +10,41 @@ var cronUtils = require('../utils/cron')
 
 var utils = {
   url: 'http://google.com',
-  ImgUserUrl = {
+  ImgUserUrl: {
     user_id: 'te',
     user_url: 'st',
-    email: 'test@test.com'
-    cropImage:
-    cropHeight:
-    cropWidth:
-    cropOriginX:
-    cropOriginY:
+    email: 'test@test.com',
+    cropImage: 'assets/test/google_com-filter.png',
+    cropHeight: 50,
+    cropWidth: 50,
+    cropOriginX: 50,
+    cropOriginY: 50,
     status: true,
     comparison: 'Image',
-    ocrText: 'testing'
+    ocrText: 'testing',
     frequency: '*/1 * * * * *',
     filter: '',
     compareVal: '5',
     stopAfterChange: true,
   },
-  TextUserUrl = {
+  TextUserUrl: {
     user_id: 'te',
     user_url: 'st',
-    email: 'test@test.com'
-    cropImage:
-    cropHeight:
-    cropWidth:
-    cropOriginX:
-    cropOriginY:
+    email: 'test@test.com',
+    cropImage: 'assets/test/google_com-filter.png',
+    cropHeight: 50,
+    cropWidth: 50,
+    cropOriginX: 50,
+    cropOriginY: 50,
     status: true,
     comparison: 'text',
-    ocrText: 'testing'
+    ocrText: 'testing',
     frequency: '*/1 * * * * *',
     filter: 'greater',
     compareVal: '1',
     stopAfterChange: true,
   },
-  deleteCron: funciton() {
+  deleteCron: function() {
     
   }
   

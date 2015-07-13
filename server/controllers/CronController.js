@@ -37,7 +37,7 @@ module.exports = {
   addCron: function(UserUrl, url) {
 
     UserUrl.status = true;
-    var userUrl = UserUrl;
+
     var key = UserUrl.url_id.toString() + UserUrl.user_id.toString();
     var freq = UserUrl.frequency;
     var action = UserUrl.compare || 'Image';
@@ -78,8 +78,10 @@ module.exports = {
               // stop cronjob
               module.exports.stopCron(UserUrl.user_id, UserUrl.url_id)
             } else {
-              // update image
-              UserUrl.ocrText = newVal;
+              // update image and value
+              UserUrl.updateAttributes({
+                ocrText: newVal
+              })
               fs.rename(newImg, oldImg, function(err) {
                 if (err) {
                   console.log('ERROR:', err);

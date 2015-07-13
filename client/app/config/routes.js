@@ -1,6 +1,6 @@
 /*
- * Routing angular application
- * set State, url, templateUrl and controller
+* Routing angular application
+* set State, url, templateUrl and controller
 */
 angular.module('app.routes', ['ui.router'])
 .config(
