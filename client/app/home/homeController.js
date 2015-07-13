@@ -119,7 +119,7 @@ angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router', '
   return {
     getUrls: getUrls,
     postUrl: postUrl,
-    removeUrl, removeUrl
+    removeUrl: removeUrl
   }
 
 });
