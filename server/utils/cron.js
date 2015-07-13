@@ -97,7 +97,7 @@ module.exports = {
           to: email, // list of receivers
           subject: 'We found some tubular changes!', // Subject line
           text: 'Hi there! It looks like we found a change on '+ website + '! Looks like the value you are watching went over ' + UserUrl.compareVal, // plaintext body
-          html: '<span>The Scrapin\'it team found a change on ' + website +'! Looks like the value you are watching went over ' + UserUrl.compareVal + '<br> Here is what we were looking at before: <img src="oldImg"/> <br> Here is what it looks like now: <img src="newImg"/> </span>',
+          html: '<span>The Scrapin\'it team found a change on ' + website +'! Looks like the value you are watching went over ' + UserUrl.compareVal + '<br> Here is what we were looking at before: <img src="cid:oldImg"/> <br> Here is what it looks like now: <img src="cid:newImg"/> </span>',
           attachments: [
           {
             path: oldImg,
@@ -114,7 +114,7 @@ module.exports = {
           to: email, // list of receivers
           subject: 'We found some tubular changes!', // Subject line
           text: 'Hi there! It looks like we found a change on '+ website + '! Looks like the value you are watching went under ' + UserUrl.compareVal, // plaintext body
-          html: '<span>The Scrapin\'it team found a change on ' + website +'! Looks like the value you are watching went under ' + UserUrl.compareVal + '<br> Here is what we were looking at before: <img src="oldImg"/> <br> Here is what it looks like now: <img src="newImg"/> </span>',
+          html: '<span>The Scrapin\'it team found a change on ' + website +'! Looks like the value you are watching went under ' + UserUrl.compareVal + '<br> Here is what we were looking at before: <img src="cid:oldImg"/> <br> Here is what it looks like now: <img src="cid:newImg"/> </span>',
           attachments: [
           {
             path: oldImg,
@@ -131,7 +131,7 @@ module.exports = {
           to: email, // list of receivers
           subject: 'We found some tubular changes!', // Subject line
           text: 'Hi there! It looks like we found a change on '+ website + '! Looks like the value you are watching contains ' + UserUrl.compareVal, // plaintext body
-          html: '<span>The Scrapin\'it team found a change on ' + website +'! Looks like the value you are watching contains ' + UserUrl.compareVal + '<br> Here is what we were looking at before: <img src="oldImg"/> <br> Here is what it looks like now: <img src="newImg"/> </span>',
+          html: '<span>The Scrapin\'it team found a change on ' + website +'! Looks like the value you are watching contains ' + UserUrl.compareVal + '<br> Here is what we were looking at before: <img src="cid:oldImg"/> <br> Here is what it looks like now: <img src="cid:newImg"/> </span>',
           attachments: [
           {
             path: oldImg,
@@ -148,7 +148,7 @@ module.exports = {
           to: email, // list of receivers
           subject: 'We found some tubular changes!', // Subject line
           text: 'Hi there! It looks like we found a change on '+ website + '!', // plaintext body
-          html: '<span>The Scrapin\'it team found a change on ' + website +'!<br> Here is what we were looking at before: <img src="oldImg"/> <br> Here is what it looks like now: <img src="newImg"/> </span>',
+          html: '<span>The Scrapin\'it team found a change on ' + website +'!<br> Here is what we were looking at before: <img src="cid:oldImg"/> <br> Here is what it looks like now: <img src="cid:newImg"/> </span>',
           attachments: [
           {
             path: oldImg,
@@ -165,7 +165,7 @@ module.exports = {
           to: email, // list of receivers
           subject: 'We found some tubular changes!', // Subject line
           text: 'Hi there! It looks like we found a change on '+ website + '!', // plaintext body
-          html: '<span>The Scrapin\'it team found a change on ' + website +'!<br> Here is what we were looking at before: <img src="oldImg"/> <br> Here is what it looks like now: <img src="newImg"/> </span>',
+          html: '<span>The Scrapin\'it team found a change on ' + website +'!<br> Here is what we were looking at before: <img src="cid:oldImg"/> <br> Here is what it looks like now: <img src="cid:newImg"/> </span>',
           attachments: [
           {
             path: oldImg,
