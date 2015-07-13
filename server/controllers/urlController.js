@@ -1,5 +1,5 @@
 var basicScraper = require('./basicScraperController');
-var cronjob = require('./cronController');
+var cronjob = require('./CronController');
 var db = require('../db');
 var ocr = require('./ocrController.js');
 
@@ -64,11 +64,11 @@ module.exports = {
 
       if (userFound) {
 
-     /** 
+     /**
       * always will be true (hopefully) because they are logged in to access this route
       * current user equals userFound
       */
-         
+
 
         console.log('url: ' + JSON.stringify(url));
 
@@ -133,7 +133,7 @@ module.exports = {
                           });
                   }
                });
-            } else {  
+            } else {
 
               console.log('url not found');
 
@@ -185,21 +185,21 @@ module.exports = {
                         cronjob.addCron(userUrl.UserUrls[0], userUrl.url);
                         res.status(201).json(response);
                       });
-                    }) 
+                    })
                     .catch(function (err) {
                       res.status(400).json({message: err.message});
                     });
-                  } 
-                }); 
-              }) 
+                  }
+                });
+              })
               .catch(function (err) {
                 res.status(400).json({message: err.message});
-              }); 
+              });
             };
-          }); 
-        }); 
-      } 
-    }); 
+          });
+        });
+      }
+    });
   },
 
   getUrl: function (req, res) {
@@ -252,10 +252,10 @@ module.exports = {
 
             } else {
               cb(false);
-            } 
-          }); 
-        } 
-      }); 
+            }
+          });
+        }
+      });
   },
 
   getListOfUrls: function(req, res, next){
@@ -281,4 +281,3 @@ module.exports = {
      });
   }
 };
-
