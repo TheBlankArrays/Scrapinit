@@ -1,6 +1,7 @@
 var compare = require('../imgCompare.js').compare;
 var CronJob = require('cron').CronJob;
 var CronJobManager = require('cron-job-manager');
+var db = require('../db');
 var compareUtils = require('../utils/cron');
 var nodemailer = require('nodemailer');
 var fs = require('fs');
@@ -51,8 +52,6 @@ module.exports = {
     manager.add(key, freq, function() {
       if (UserUrl.status) {
         UserUrl.lastScrape = compareUtils.getDate();
-
-        console.log('checking', url, 'for', UserUrl.email, 'at', UserUrl.lastScrape);
 
          var oldImg = UserUrl.cropImage;
          var email = UserUrl.email;
