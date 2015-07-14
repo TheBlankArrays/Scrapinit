@@ -1,6 +1,7 @@
 var compare = require('../imgCompare.js').compare;
 var CronJob = require('cron').CronJob;
 var CronJobManager = require('cron-job-manager');
+var db = require('../db');
 var compareUtils = require('../utils/cron');
 var nodemailer = require('nodemailer');
 var fs = require('fs');
