@@ -125,6 +125,7 @@ angular.module('app.home.urlImage', [ 'ui.router'])
     restrict: 'A',
     link: function(scope, element) {
       element.on('load', function() {
+        $('#infoText').show();
         $('#loadingpage').hide();
         //$(element).slideDown();
       });
