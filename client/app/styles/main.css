@@ -1036,3 +1036,10 @@ hr {
 #infoText {
   margin-bottom: 10px;
 }
+
+#screenimg {
+  display: none;
+}
+#loadingpage {
+  margin-top: 15px;
+}

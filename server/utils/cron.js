@@ -29,8 +29,8 @@ module.exports = {
       basicScraper.cropImg(img1, params, true, function(newImg) {
         // checks for difference in pictures
         cb(oldImg, newImg)
-      }); 
-    }, email); 
+      });
+    }, email);
   },
 
   compareOCR: function(UserUrl, website, email, params, oldImg, cb) {
@@ -65,16 +65,16 @@ module.exports = {
                 // if text contains any of the values
                 if (text.toLowerCase().indexOf(contains[i].toLowerCase()) > -1) {
                   cb(oldImg, newImg);
-                } 
-              } 
+                }
+              }
             } else {
               if (UserUrl.ocrText !== text) {
                cb(oldImg, newImg, text);
               }
             };
-          }; 
-        }); 
-    }); 
+          };
+        });
+    });
   },
 
   compareScreenShot: function(UserUrl, website, email, params, oldImg, cb) {
@@ -83,8 +83,8 @@ module.exports = {
       compare(oldImg, newImg, function (equal, oldImg, newImg){
         if (!equal){
           cb(oldImg, newImg);
-        }; 
-      }); 
+        };
+      });
     });
   },
 
@@ -180,16 +180,14 @@ module.exports = {
     };
 
     // send email function
-
+    console.log("mail options senoptions ", mailOptions[sendOption]);
     transporter.sendMail(mailOptions[sendOption], function(error, info){
         if(error){
           console.log(error);
         } else {
           console.log('Message sent: ' + info.response);
-        }; 
-    }); 
+        };
+    });
 
   }
 }
-
-

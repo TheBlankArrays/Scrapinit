@@ -7,6 +7,7 @@ angular.module('app.home', ['app.home.urlImage', 'app.home.list', 'ui.router', '
   $scope.urlImagePreview = '';
   $scope.userDecision = 'text';
   $scope.urlBot = 'http://';
+  $scope.url = 'http://';
 
   $scope.$on('emptyUrls', function () {
     $scope.url = 'http://';

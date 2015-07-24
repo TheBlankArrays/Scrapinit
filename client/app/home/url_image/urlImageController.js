@@ -94,7 +94,9 @@ angular.module('app.home.urlImage', [ 'ui.router'])
       onSelect: function (c) {
         //$(element).fadeOut(800);
         $("#infoText").fadeOut(800, function() {
-          $(this).remove();
+          $(this).slideUp('slow', function() {
+            $(this).remove();
+          });
         });
         $('#options-panel').slideDown();
         $('html, body').animate({
@@ -116,5 +118,18 @@ angular.module('app.home.urlImage', [ 'ui.router'])
       setCrop: '&',
     },
     link: linker
+  }
+})
+.directive('imageonload', function() {
+  return {
+    restrict: 'A',
+    link: function(scope, element) {
+      element.on('load', function() {
+        $('#loadingpage').hide();
+        //$(element).slideDown();
+      });
+      // scope.$watch('ngSrc', function() {
+      // });
+    }
   }
 });
