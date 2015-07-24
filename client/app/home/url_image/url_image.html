@@ -65,5 +65,6 @@
   </table>
 </div>
 <div id="infoText">Now please select your region of interest</div>
-<div id="urlimage"><img ng-src='{{urlImagePreview}}' width='800px' set-crop="setCrop(cropCoor)" /></div>
+<div id="urlimage"><img ng-src='{{urlImagePreview}}' width='800px' id="screenimg" set-crop="setCrop(cropCoor)" imageonload /></div>
+<div id="loadingpage"><img src="/app/images/ajax-loader.gif"><br>Loading web page now...</div>
 </div>
