@@ -1037,7 +1037,7 @@ hr {
   margin-bottom: 10px;
 }
 
-#screenimg {
+#screenimg, #infoText {
   display: none;
 }
 #loadingpage {
