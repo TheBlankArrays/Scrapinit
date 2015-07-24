@@ -8,6 +8,7 @@ var routes = require('./routes');
 var parser = require('body-parser');
 var session = require('express-session');
 var cors = require('cors');
+var startCron = require('./controllers/CronController').startAllCron;
 
 /** 
  * allows the server to automatically process urlencoded stuff into a javscript object
@@ -41,4 +42,5 @@ var initServer = function() {
 }
 
 initServer();
+startCron();
 exports.app = app;

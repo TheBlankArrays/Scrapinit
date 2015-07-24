@@ -22,7 +22,9 @@ module.exports = {
           for (var j=0; j<url.length; j++) {
              var userUrl = url[j].UserUrl;
 
-             module.exports.startCron(userUrl.user_id, userUrl.url_id);
+             // module.exports.startCron(userUrl.user_id, userUrl.url_id);
+             module.exports.addCron(userUrl, url[j].url);
+
              // var active = userUrl.status;
              // var url = url[j].url;
              // if (active) {
