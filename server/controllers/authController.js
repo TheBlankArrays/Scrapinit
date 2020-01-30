@@ -1,11 +1,10 @@
 var db = require('../db');
 var bcrypt = require('bcrypt');
+
 module.exports = {
+
   login: function (req, res, next) {
-
     var user = req.body;
-
-    //console.log("logging in as " + user);
     db.User.findOne({
       where: {
         email: user.email
@@ -16,13 +15,14 @@ module.exports = {
         userFound.comparePasswords(user.password, function (result) {
           if (result) {
             req.session.email = userFound.email;
+            req.session.user_id = userFound.id;
             res.status(200).json(userFound);
           }else{
-            res.status(401).json({error: 'User or Password invalid'});
+            res.status(400).json({error: 'User or Password invalid'});
           }
         });
       } else {
-        res.status(401).json({error: 'User or Password invalid'});
+        res.status(400).json({error: 'User or Password invalid'});
       }
     });
   },
@@ -32,10 +32,11 @@ module.exports = {
     db.User.create(user)
     .then(function (newUser){
       req.session.email = newUser.email;
+      req.session.user_id = newUser.id;
       res.status(201).json(newUser);
     })
     .catch(function (err) {
-      res.status(403).json({message: err.message});
+      res.status(400).json({message: err.message});
     });
   },
 
@@ -44,9 +45,18 @@ module.exports = {
     res.send(isLoggedIn);
   },
 
+  isAuth: function (req, res, next) {
+    if (req.session.email) {
+      next();
+    }else {
+      res.status(401).json({error: 'Not allowed'});
+    }
+  },
+
   logout: function(req, res, next) {
     req.session.email = null;
     res.send('Logout successful');
   }
-
 };
+
+

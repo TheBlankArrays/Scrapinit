@@ -1,0 +1,70 @@
+<tour step='currentStep' post-step='stepComplete()'>
+   <span tourtip='You can detect change in text or change in image and frequency'
+    tourtip-step='0'
+    tourtip-next-label='next'
+    tourtip-placement='left'
+    scrollSpeed='500'
+    tourtip-offset='15'>
+  </span>
+  <span ng-click='closeTour()' tourtip='Crop the image and enjoy!'
+    tourtip-step='1'
+    tourtip-next-label='Close'
+    tourtip-placement='top'
+    scrollSpeed='500'
+    tourtip-offset='-82'>
+  </span>
+</tour>
+
+<div id="options-panel" style="display: none">
+  <table border="0">
+    <tr>
+      <td colspan="4">We are going to need a bit more information about your scrape.</td>
+    </tr>
+    <tr>
+      <td>Type:</td>
+      <td>
+        <div id='switching'>
+          <switch id='enabled' name='enabled' ng-model='enabled' class='purple' on='Text' off='Image'>
+        </div>
+      </td>
+      <td>Frequency:</td>
+      <td>
+
+        <select ng-model='freq'
+                ng-init='freq = freq || freq_options[1].value'
+                ng-options='option.value as option.name for option in freq_options'>
+        </select>
+
+
+      </td>
+    </tr>
+
+    <tr style='text-align: left'>
+      <td colspan='4'>
+        <div id='extras' style='display: none;'>
+          <table>
+            <tr>
+              <td>Trigger on</td>
+              <td>
+                <select ng-model='trig'
+                        ng-init='trig = trig || trig_options[0].value'
+                        ng-options='option.value as option.name for option in trig_options'>
+                </select>
+              </td>
+              <td><input type='input' style='width: 150px' ng-show='trig !== "null"' ng-model='compareValue'> </td>
+            </tr>
+          </table>
+        </div>
+      </td>
+    </tr>
+    <tr>
+
+      <td colspan="3"><input type="checkbox" ng-model='stopOnTrig' ng-init="stopOnTrig=true">Stop checking when watch triggered.</td>
+      <td><input type="button" ng-click="send()" value="Submit"/></td>
+    </tr>
+  </table>
+</div>
+<div id="infoText">Now please select your region of interest</div>
+<div id="urlimage"><img ng-src='{{urlImagePreview}}' width='800px' id="screenimg" set-crop="setCrop(cropCoor)" imageonload /></div>
+<div id="loadingpage"><img src="/app/images/ajax-loader.gif"><br>Downloading web page to your computer now...</div>
+</div>

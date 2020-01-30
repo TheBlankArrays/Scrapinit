@@ -34,5 +34,3 @@ In your browser of choice navigate to http://localhost:3000/
 ```sh 
 $ ctrl-c
 ```
-
-

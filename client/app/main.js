@@ -7,7 +7,8 @@ angular.module('app', [
   'app.routes',
   'app.user',
   'app.home',
-  'ui.router'
+  'ui.router',
+  'ngDialog'
 ])
 .controller('appController', function($scope) {
 })
@@ -19,7 +20,7 @@ angular.module('app', [
         user = aUser;
     },
     isLoggedIn : function(callback){
-      $http.get('/api/users/checkUser')
+      $http.get('/api/users/check_User')
         .success(function (data) {
           console.log('checkuser ' + data);
           callback(data);
@@ -27,23 +28,12 @@ angular.module('app', [
     }
   }
 })
-
-.config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
-    $urlRouterProvider
-    //any url that doesn't exist in routes redirect to '/'
-      .otherwise('/');
-
-     //Do other stuff here
- })
-.run(function ($rootScope, $location, Auth) {
-// Redirect to login if route requires auth and you're not logged in
-    $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
-      Auth.isLoggedIn(function(loggedIn) {
-        if (!loggedIn) {
-              $rootScope.returnToState = toState.url;
-              $rootScope.returnToStateParams = toParams.Id;
-              $location.path('/login');
-          }
-      });
+.run(function ($rootScope, $state, Auth) {
+  $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
+    Auth.isLoggedIn(function(loggedIn) {
+      if (toState.auth && !loggedIn && toState.name !== "login" && toState.name !== "signup" ) {
+        $state.go('welcome');
+      }
     });
+  });
 });
