@@ -43,7 +43,7 @@
     "phantom": "^0.7.2",
     "request": "^2.58.0",
     "resemblejs": "^1.2.1",
-    "sequelize": "^3.1.1",
+    "sequelize": "^6.3.5",
     "should": "^7.0.1",
     "sqlite3": "^3.0.8",
     "supertest": "^1.0.1",
